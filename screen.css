@@ -1,0 +1,106 @@
+* { padding: 0; margin: 0; }
+body { font-size: 14px; font-family: Arial Black;}
+
+
+/*   HEADER   */
+header {
+	width: 100%;
+	height: 600px;
+	background: url('graphics/top.jpg') center center no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	color: #fff;
+}
+header h1 {
+	float: left;
+	margin-left: 74%;
+	margin-top: 25px;
+	font-size: 4em;
+	text-align: right;
+	line-height: 1em;
+}
+header h1 em { display: block; font-style: normal; font-size: 0.75em; }
+header p {
+	float: left;
+	margin-left: 74%;
+	margin-top: 25px;
+	font-family: Arial;
+}
+header nav {
+	float: left;
+	margin-left: 74%;
+	height: 440px;
+	background: url('graphics/sunflower.png') 70px 140px no-repeat;
+}
+header nav ul {
+	margin: 25px 0 0 100px;
+	text-align: right;
+	list-style: none;
+	width: 147px;
+}
+header nav a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	padding-right: 50px;
+	background-position: center right;
+	background-repeat: no-repeat;
+}
+header nav #nav-informations a {
+	background-image: url('graphics/icon_info.jpg');
+}
+header nav #nav-informations a:hover {
+	color: #ff4d1e;
+	background-image: url('graphics/icon_info_h.jpg');
+}
+header nav #nav-photo a {
+	background-image: url('graphics/icon_photo.jpg');
+}
+header nav #nav-photo a:hover {
+	color: #0091f7;
+	background-image: url('graphics/icon_photo_h.jpg');
+}
+header nav #nav-occupancy a {
+	background-image: url('graphics/icon_occupancy.jpg');
+}
+header nav #nav-occupancy a:hover {
+	color: #f9f703;
+	background-image: url('graphics/icon_occupancy_h.jpg');
+}
+header nav #nav-reservation a {
+	background-image: url('graphics/icon_reservation.jpg');
+}
+header nav #nav-reservation a:hover {
+	color: #26f217;
+	background-image: url('graphics/icon_reservation_h.jpg');
+}
+header nav #nav-contact a {
+	background-image: url('graphics/icon_contact.jpg');
+}
+header nav #nav-contact a:hover {
+	color: #ae00ff;
+	background-image: url('graphics/icon_contact_h.jpg');
+}
+
+
+article h1 strong { color: #fff; }
+article h1 a { text-decoration: none; }
+
+
+/*   ARTICLE INFO   */
+#info {
+	width: 100%;
+	background: url('graphics/meadow.png') repeat-x;
+	position: relative;
+	top: -115px;
+	padding-top: 140px;
+}
+#info h1 a {
+	color: #ffc5b5;
+}
+#info .content {
+	width: 100%;
+	background: #ffdbd2 url('graphics/meadow_bg.jpg') repeat-x;
+}
