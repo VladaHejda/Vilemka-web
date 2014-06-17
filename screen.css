@@ -16,7 +16,7 @@ header {
 header h1 {
 	float: left;
 	margin-left: 74%;
-	margin-top: 25px;
+	margin-top: 17px;
 	font-size: 4em;
 	text-align: right;
 	line-height: 1em;
@@ -32,7 +32,6 @@ header nav {
 	float: left;
 	margin-left: 74%;
 	height: 440px;
-	background: url('graphics/sunflower.png') 70px 140px no-repeat;
 }
 header nav ul {
 	margin: 25px 0 0 100px;
@@ -97,15 +96,19 @@ article h1 a { text-decoration: none; }
 /*   ARTICLE INFO   */
 #info {
 	width: 100%;
-	background: url('graphics/meadow.png') repeat-x;
+	background: url('graphics/sunflower.png') 90% top no-repeat;
 	position: relative;
-	top: -115px;
-	padding-top: 140px;
+	top: -290px;
 }
-#info h1 a {
-	color: #ffc5b5;
+#info .cover {
+	width: 100%;
+	background: url('graphics/meadow.png') left 175px repeat-x;
+	padding-top: 310px;
 }
 #info .content {
 	width: 100%;
 	background: #ffdbd2 url('graphics/meadow_bg.jpg') repeat-x;
+}
+#info h1 a {
+	color: #ffc5b5;
 }
