@@ -102,13 +102,36 @@ article h1 a { text-decoration: none; }
 }
 #info .cover {
 	width: 100%;
-	background: url('graphics/meadow.png') left 175px repeat-x;
-	padding-top: 310px;
+	background: url('graphics/meadow.png') left 174px repeat-x;
+	padding-top: 309px;
 }
 #info .content {
 	width: 100%;
 	background: #ffdbd2 url('graphics/meadow_bg.jpg') repeat-x;
+	height: 515px;
 }
 #info h1 a {
 	color: #ffc5b5;
+}
+
+
+/*   ARTICLE PHOTO   */
+#photo {
+	width: 100%;
+	background: url('graphics/reed.png') 5% top no-repeat;
+	position: relative;
+	top: -658px;
+}
+#photo .cover {
+	width: 100%;
+	background: url('graphics/wave.png') left 319px repeat-x;
+	padding-top: 405px;
+}
+#photo .content {
+	width: 100%;
+	background: #c7e7fd url('graphics/wave_bg.jpg') repeat-x;
+	height: 515px;
+}
+#photo h1 a {
+	color: #d1ecff;
 }
