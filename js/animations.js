@@ -1,32 +1,24 @@
 $(function() {
 
+	var slowdown = 1.5;
+
 	var win = $(window);
-	return;
-
-	var blocks = {
-		info: 290,
-		photo: 658,
-		occupancy: 1520
-	};
-	var top, limit, move;
-
-	var placeBlock = function(block, basePosition) {
-		top = win.scrollTop();
-		limit = basePosition + 10;
-		if (top <= limit) {
-			move = basePosition + top;
-		} else {
-			move = basePosition + limit;
-		}
-		block.css('top', '-' + move + 'px');
-	};
-
-	$.each(blocks, function(id, basePosition) {
-		placeBlock($('#' + id), basePosition);
-	});
-
+	var scroll, move, distance, source;
+	++slowdown;
+	var blocks = [
+		$('header'), $('#info'), $('#photo'), $('#occupancy'), $('#reservation'), $('#contact')
+	];
 	win.on('scroll', function(event){
-		placeBlock($('#info'), 290);
-		placeBlock($('#photo'), 658);
+		scroll = win.scrollTop();
+		distance = 0;
+
+		for (var i = 0; i < blocks.length; ++i) {
+			if (i) {
+				source = i == 1 ? blocks[i-1] : $('.content', blocks[i-1]);
+				distance += parseInt(source.css('height'));
+			}
+			move = scroll > distance ? (scroll - distance) /slowdown : 0;
+			blocks[i].css('top', move);
+		}
 	});
 });

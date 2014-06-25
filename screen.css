@@ -12,6 +12,8 @@ header {
 	-o-background-size: cover;
 	background-size: cover;
 	color: #fff;
+	position: relative;
+	z-index: 0;
 }
 header h1 {
 	float: left;
@@ -98,6 +100,8 @@ article h1 a { text-decoration: none; }
 	width: 100%;
 	background: url('graphics/sunflower.png') 90% top no-repeat;
 	margin-top: -290px;
+	position: relative;
+	z-index: 10;
 }
 #info .cover {
 	width: 100%;
@@ -119,6 +123,8 @@ article h1 a { text-decoration: none; }
 	width: 100%;
 	background: url('graphics/reed.png') 5% top no-repeat;
 	margin-top: -368px;
+	position: relative;
+	z-index: 20;
 }
 #photo .cover {
 	width: 100%;
@@ -139,6 +145,8 @@ article h1 a { text-decoration: none; }
 #occupancy {
 	width: 100%;
 	margin-top: -143px;
+	position: relative;
+	z-index: 30;
 }
 #occupancy .cover {
 	width: 100%;
@@ -160,6 +168,8 @@ article h1 a { text-decoration: none; }
 	width: 100%;
 	background: url('graphics/mushroom.png') 92% top no-repeat;
 	margin-top: -286px;
+	position: relative;
+	z-index: 40;
 }
 #reservation .cover {
 	width: 100%;
@@ -182,6 +192,8 @@ article h1 a { text-decoration: none; }
 	background: url('graphics/grass.png') repeat-x;
 	margin-top: -188px;
 	padding-top: 229px;
+	position: relative;
+	z-index: 50;
 }
 #contact .content {
 	width: 100%;
