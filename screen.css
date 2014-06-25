@@ -97,8 +97,7 @@ article h1 a { text-decoration: none; }
 #info {
 	width: 100%;
 	background: url('graphics/sunflower.png') 90% top no-repeat;
-	position: relative;
-	top: -290px;
+	margin-top: -290px;
 }
 #info .cover {
 	width: 100%;
@@ -119,8 +118,7 @@ article h1 a { text-decoration: none; }
 #photo {
 	width: 100%;
 	background: url('graphics/reed.png') 5% top no-repeat;
-	position: relative;
-	top: -658px;
+	margin-top: -368px;
 }
 #photo .cover {
 	width: 100%;
@@ -129,9 +127,64 @@ article h1 a { text-decoration: none; }
 }
 #photo .content {
 	width: 100%;
-	background: #c7e7fd url('graphics/wave_bg.jpg') repeat-x;
-	height: 515px;
+	background: #ceeaff url('graphics/wave_bg.jpg') repeat-x;
+	height: 550px;
 }
 #photo h1 a {
 	color: #d1ecff;
+}
+
+
+/*   ARTICLE OCCUPANCY   */
+#occupancy {
+	width: 100%;
+	margin-top: -143px;
+}
+#occupancy .cover {
+	width: 100%;
+	background: url('graphics/corn.png') repeat-x;
+	padding-top: 165px;
+}
+#occupancy .content {
+	width: 100%;
+	background: #fefdc2 url('graphics/corn_bg.jpg') repeat-x;
+	height: 600px;
+}
+#occupancy h1 a {
+	color: #ffffd6;
+}
+
+
+/*   ARTICLE RESERVATION   */
+#reservation {
+	width: 100%;
+	background: url('graphics/mushroom.png') 92% top no-repeat;
+	margin-top: -286px;
+}
+#reservation .cover {
+	width: 100%;
+	background: url('graphics/moss.png') left 239px repeat-x;
+	padding-top: 302px;
+}
+#reservation .content {
+	width: 100%;
+	background: #b7fbb2 url('graphics/moss_bg.jpg') repeat-x;
+	height: 600px;
+}
+#reservation h1 a {
+	color: #dbffd8;
+}
+
+
+/*   ARTICLE CONTACT   */
+#contact {
+	width: 100%;
+	background: url('graphics/grass.png') repeat-x;
+	margin-top: -188px;
+	padding-top: 229px;
+}
+#contact .content {
+	width: 100%;
+	background: #000;
+	height: 600px;
 }

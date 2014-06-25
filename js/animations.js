@@ -1,10 +1,12 @@
 $(function() {
 
 	var win = $(window);
+	return;
 
 	var blocks = {
 		info: 290,
-		photo: 658
+		photo: 658,
+		occupancy: 1520
 	};
 	var top, limit, move;
 
