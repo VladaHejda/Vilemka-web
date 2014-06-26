@@ -91,8 +91,11 @@ header nav #nav-contact a:hover {
 }
 
 
+article h1 { float: left; font-size: 1.5em; margin: 10px 0 0 20px; }
 article h1 strong { color: #fff; }
 article h1 a { text-decoration: none; }
+article h2 { margin-bottom: 10px; }
+article section p { text-align: justify; font-family: Arial; }
 
 
 /*   ARTICLE INFO   */
@@ -116,6 +119,8 @@ article h1 a { text-decoration: none; }
 #info h1 a {
 	color: #ffc5b5;
 }
+#info section { float: right; margin: 10px 70px 0 0; width: 63%; }
+#info nav { float: left; clear: both; text-align: center; width: 100%; margin-top: 20px; }
 
 
 /*   ARTICLE PHOTO   */
