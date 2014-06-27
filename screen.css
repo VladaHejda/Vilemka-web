@@ -105,6 +105,7 @@ article section p { text-align: justify; font-family: Arial; }
 	margin-top: -290px;
 	position: relative;
 	z-index: 10;
+	pointer-events: none;
 }
 #info .cover {
 	width: 100%;
@@ -115,6 +116,7 @@ article section p { text-align: justify; font-family: Arial; }
 	width: 100%;
 	background: #ffdbd2 url('graphics/meadow_bg.jpg') repeat-x;
 	height: 515px;
+	pointer-events: auto;
 }
 #info h1 a {
 	color: #ffc5b5;
@@ -130,6 +132,7 @@ article section p { text-align: justify; font-family: Arial; }
 	margin-top: -368px;
 	position: relative;
 	z-index: 20;
+	pointer-events: none;
 }
 #photo .cover {
 	width: 100%;
@@ -140,6 +143,7 @@ article section p { text-align: justify; font-family: Arial; }
 	width: 100%;
 	background: #ceeaff url('graphics/wave_bg.jpg') repeat-x;
 	height: 550px;
+	pointer-events: auto;
 }
 #photo h1 a {
 	color: #d1ecff;
