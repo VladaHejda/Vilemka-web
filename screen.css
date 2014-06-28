@@ -165,18 +165,19 @@ article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 4
 /*   ARTICLE OCCUPANCY   */
 #occupancy {
 	width: 100%;
-	margin-top: -143px;
+	background: url('graphics/rock.png') left top no-repeat;
+	margin-top: -367px;
 	position: relative;
 	z-index: 30;
 }
 #occupancy .cover {
 	width: 100%;
-	background: url('graphics/corn.png') repeat-x;
-	padding-top: 165px;
+	background: url('graphics/stones.png') left 325px repeat-x;
+	padding-top: 385px;
 }
 #occupancy .content {
 	width: 100%;
-	background: #fefdc2 url('graphics/corn_bg.jpg') repeat-x;
+	background: #fefdc2 url('graphics/stones_bg.jpg') repeat-x;
 	height: 600px;
 }
 #occupancy h1 a {
