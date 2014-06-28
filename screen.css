@@ -96,6 +96,15 @@ article h1 strong { color: #fff; }
 article h1 a { text-decoration: none; }
 article h2 { margin-bottom: 10px; }
 article section p { text-align: justify; font-family: Arial; }
+article nav { float: left; clear: both; margin-top: 20px; width: 100%; }
+article nav div { margin: 0 auto; width: 100px; }
+article nav a span, article nav a em, article nav a strong { display: block; float: left;
+	background-repeat: no-repeat; }
+article nav a span { width: 29px; height: 29px; }
+article nav a em { width: 16px; height: 11px; margin-top: 10px; }
+article nav a:hover span { background-position: -29px 0; }
+article nav a:hover em { background-position: -16px 0; }
+article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 40px 5px; }
 
 
 /*   ARTICLE INFO   */
@@ -122,7 +131,10 @@ article section p { text-align: justify; font-family: Arial; }
 	color: #ffc5b5;
 }
 #info section { float: right; margin: 10px 70px 0 0; width: 63%; }
-#info nav { float: left; clear: both; text-align: center; width: 100%; margin-top: 20px; }
+#info nav a span { background-image:  url('graphics/arrow-down-blue.png'); }
+#info nav a em { background-image:  url('graphics/icon_photo_t.png'); }
+#info nav a strong { color: #0392f7; }
+#info nav a:hover strong { color: #0b03f7; }
 
 
 /*   ARTICLE PHOTO   */
