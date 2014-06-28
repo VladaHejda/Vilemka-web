@@ -97,14 +97,14 @@ article h1 a { text-decoration: none; }
 article h2 { margin-bottom: 10px; }
 article section p { text-align: justify; font-family: Arial; }
 article nav { float: left; clear: both; margin-top: 20px; width: 100%; }
-article nav div { margin: 0 auto; width: 100px; }
+article nav div { margin: 0 auto; }
 article nav a span, article nav a em, article nav a strong { display: block; float: left;
 	background-repeat: no-repeat; }
 article nav a span { width: 29px; height: 29px; }
 article nav a em { width: 16px; height: 11px; margin-top: 10px; }
 article nav a:hover span { background-position: -29px 0; }
 article nav a:hover em { background-position: -16px 0; }
-article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 40px 5px; }
+article nav a strong { margin: 5px 0 0 10px; background-position: 40px 5px; }
 
 
 /*   ARTICLE INFO   */
@@ -131,10 +131,13 @@ article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 4
 	color: #ffc5b5;
 }
 #info section { float: right; margin: 10px 70px 0 0; width: 63%; }
+/* navigation to next block */
+#info nav div { width: 100px; }
 #info nav a span { background-image:  url('graphics/arrow-down-blue.png'); }
 #info nav a em { background-image:  url('graphics/icon_photo_t.png'); }
 #info nav a strong { color: #0392f7; }
 #info nav a:hover strong { color: #0b03f7; }
+#info nav a strong { width: 40px; }
 
 
 /*   ARTICLE PHOTO   */
@@ -160,6 +163,24 @@ article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 4
 #photo h1 a {
 	color: #d1ecff;
 }
+#photo section { width: 100%; float: left; margin-top: 40px; }
+#photo section #photo-slider { width: 998px; margin: 0 auto;}
+#photo section li { list-style: none; margin-right: 15px; }
+#photo section li { width: 287px; height: 216px; background: url('graphics/frame.png') no-repeat; float: left; }
+#photo section li img { width: 250px; margin: 12px 0 0 16px; }
+#photo section .arrow { float: left; margin: 88px 17px 0 0;}
+#photo section .arrow a { display: block; width: 29px; height: 29px; background-repeat: no-repeat;
+	text-decoration: none; }
+#photo section .arrow a:hover { background-position: -29px 0; }
+#photo section .arrow-left a { background-image: url('graphics/arrow-left-blue.png'); }
+#photo section .arrow-right a { background-image: url('graphics/arrow-right-blue.png'); }
+/* navigation to next block */
+#photo nav div { width: 150px; }
+#photo nav a span { background-image:  url('graphics/arrow-down-orange.png'); }
+#photo nav a em { background-image:  url('graphics/icon_occupancy_t.png'); }
+#photo nav a strong { color: #ff9908; }
+#photo nav a:hover strong { color: #f75f03; }
+#photo nav a strong { width: 95px; }
 
 
 /*   ARTICLE OCCUPANCY   */
@@ -169,6 +190,7 @@ article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 4
 	margin-top: -367px;
 	position: relative;
 	z-index: 30;
+	pointer-events: none;
 }
 #occupancy .cover {
 	width: 100%;
@@ -179,6 +201,7 @@ article nav a strong { margin: 5px 0 0 10px; width: 40px; background-position: 4
 	width: 100%;
 	background: #fefdc2 url('graphics/stones_bg.jpg') repeat-x;
 	height: 600px;
+	pointer-events: auto;
 }
 #occupancy h1 a {
 	color: #ffffd6;
