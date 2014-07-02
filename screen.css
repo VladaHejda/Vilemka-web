@@ -100,11 +100,11 @@ article nav { float: left; clear: both; margin-top: 20px; width: 100%; }
 article nav div { margin: 0 auto; }
 article nav a span, article nav a em, article nav a strong { display: block; float: left;
 	background-repeat: no-repeat; }
-article nav a span { width: 29px; height: 29px; }
-article nav a em { width: 16px; height: 11px; margin-top: 10px; }
-article nav a:hover span { background-position: -29px 0; }
+article nav a span { width: 33px; height: 33px; }
+article nav a em { width: 16px; height: 11px; margin-top: 12px; }
+article nav a:hover span { background-position: -33px 0; }
 article nav a:hover em { background-position: -16px 0; }
-article nav a strong { margin: 5px 0 0 10px; background-position: 40px 5px; }
+article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 
 
 /*   ARTICLE INFO   */
@@ -165,17 +165,17 @@ article nav a strong { margin: 5px 0 0 10px; background-position: 40px 5px; }
 }
 #photo section { width: 100%; float: left; margin-top: 40px; }
 #photo section #photo-slider { width: 998px; margin: 0 auto;}
-#photo section li { list-style: none; margin-right: 15px; }
-#photo section li { width: 287px; height: 216px; background: url('graphics/frame.png') no-repeat; float: left; }
+#photo section li { list-style: none; margin-right: 12px; width: 287px; height: 216px;
+	background: url('graphics/frame.png') no-repeat; float: left; }
 #photo section li img { width: 250px; margin: 12px 0 0 16px; }
 #photo section .arrow { float: left; margin: 88px 17px 0 0;}
-#photo section .arrow a { display: block; width: 29px; height: 29px; background-repeat: no-repeat;
+#photo section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
 	text-decoration: none; }
-#photo section .arrow a:hover { background-position: -29px 0; }
+#photo section .arrow a:hover { background-position: -33px 0; }
 #photo section .arrow-left a { background-image: url('graphics/arrow-left-blue.png'); }
 #photo section .arrow-right a { background-image: url('graphics/arrow-right-blue.png'); }
 /* navigation to next block */
-#photo nav div { width: 150px; }
+#photo nav div { width: 154px; }
 #photo nav a span { background-image:  url('graphics/arrow-down-orange.png'); }
 #photo nav a em { background-image:  url('graphics/icon_occupancy_t.png'); }
 #photo nav a strong { color: #ff9908; }
@@ -206,16 +206,23 @@ article nav a strong { margin: 5px 0 0 10px; background-position: 40px 5px; }
 #occupancy h1 a {
 	color: #ffffd6;
 }
-#occupancy section #occupancy-slider { float: left; clear: left; width: 770px; margin: 60px 0 0 100px;}
+#occupancy section #occupancy-slider { float: left; clear: left; width: 778px; margin: 60px 0 0 100px;}
 #occupancy section li { list-style: none; margin-right: 15px; }
 #occupancy section li { width: 211px; height: 204px; background: url('graphics/calendar.png') no-repeat; float: left; }
 #occupancy section .arrow { float: left; margin: 88px 17px 0 0;}
-#occupancy section .arrow a { display: block; width: 29px; height: 29px; background-repeat: no-repeat;
+#occupancy section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
 	text-decoration: none; }
-#occupancy section .arrow a:hover { background-position: -29px 0; }
-#occupancy section .arrow-left a { background-image: url('graphics/arrow-left-blue.png'); }
-#occupancy section .arrow-right a { background-image: url('graphics/arrow-right-blue.png'); }
+#occupancy section .arrow a:hover { background-position: -33px 0; }
+#occupancy section .arrow-left a { background-image: url('graphics/arrow-left-orange.png'); }
+#occupancy section .arrow-right a { background-image: url('graphics/arrow-right-orange.png'); }
 #occupancy figure { float: left; clear: left; margin: 20px 0 0 150px; }
+/* navigation to next block */
+#occupancy nav div { width: 144px; }
+#occupancy nav a span { background-image:  url('graphics/arrow-down-green.png'); }
+#occupancy nav a em { background-image:  url('graphics/icon_reservation_t.png'); }
+#occupancy nav a strong { color: #26f217; }
+#occupancy nav a:hover strong { color: #23c416; }
+#occupancy nav a strong { width: 85px; }
 
 
 /*   ARTICLE RESERVATION   */
