@@ -1,40 +1,47 @@
 <?php
 
-namespace App\Presenters;
+namespace Vilemka\Presenters;
 
-use Nette,
-	App\Model,
-	Nette\Diagnostics\Debugger;
+use Nette\Application\BadRequestException;
+use Tracy\Debugger;
 
-
-/**
- * Error presenter.
- */
 class ErrorPresenter extends BasePresenter
 {
 
 	/**
 	 * @param  Exception
-	 * @return void
 	 */
 	public function renderDefault($exception)
 	{
-		if ($exception instanceof Nette\Application\BadRequestException) {
+		$reportSent = FALSE;
+
+		if ($exception instanceof BadRequestException) {
 			$code = $exception->getCode();
-			// load template 403.latte or 404.latte or ... 4xx.latte
-			$this->setView(in_array($code, array(403, 404, 405, 410, 500)) ? $code : '4xx');
-			// log to access.log
-			Debugger::log("HTTP code $code: {$exception->getMessage()} in {$exception->getFile()}:{$exception->getLine()}", 'access');
+			$this->setView(in_array($code, array(403, 404, 500)) ? $code : '4xx');
+
+			$referer = $this->getHttpRequest()->getHeader('referer');
+			$host = $this->getHttpRequest()->getRemoteHost(); // todo
+
+			// when 404 occurred after pass through anchor, it could be bad link in application (not user's typo) - send report
+			if ($code === 404 && $referer && strpos($referer, $host)) {
+				Debugger::log($exception, Debugger::ERROR);
+				$reportSent = TRUE;
+			} else {
+				Debugger::log("HTTP $code: {$exception->getMessage()} in {$exception->getFile()}:{$exception->getLine()}", 'access');
+			}
 
 		} else {
-			$this->setView('500'); // load template 500.latte
-			Debugger::log($exception, Debugger::ERROR); // and log exception
+			$this->setView('500');
+			Debugger::log($exception, Debugger::ERROR);
+			$reportSent = TRUE;
 		}
 
-		if ($this->isAjax()) { // AJAX request? Note this error in payload.
+		if ($this->isAjax()) {
 			$this->payload->error = TRUE;
 			$this->terminate();
 		}
+
+		$this->template->reportSent = $reportSent;
 	}
 
 }
