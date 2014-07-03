@@ -3,6 +3,7 @@ $(function() {
 	var slowdown = 1.5;
 
 	var win = $(window);
+	// todo why are not callback locale?
 	var scroll, move, distance, source;
 	++slowdown;
 	var blocks = [
@@ -20,5 +21,12 @@ $(function() {
 			move = scroll > distance ? (scroll - distance) /slowdown : 0;
 			blocks[i].css('top', move);
 		}
+	});
+
+	$('a[href*=#]').on('click', function(event){
+		event.preventDefault();
+		var anchor = $(this).attr('href').substring(1);
+		var target = $('a[name=' + anchor + ']');
+		$('html').animate({scrollTop: target.offset().top}, 1000);
 	});
 });
