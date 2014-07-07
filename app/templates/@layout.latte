@@ -3,23 +3,44 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>{ifset #title}{include title|striptags} | {/ifset} VILÉMKA.cz</title>
+	<title>{ifset #title}{include title|striptags} | {/ifset}Vilémka.cz</title>
 
 	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/screen.css">
 	{block head}{/block}
 </head>
-
 <body>
-	<ul n:inner-foreach="$flashes as $flash">
-		<li class="flash {$flash->type}">{$flash->message}</li>
-	</ul>
 
-	{include content}
+<header>
+	<h1><a name="top"><em>chata</em> Vilémka</a></h1>
+	<p>ubytování v soukromí na samotě u lesa</p>
+	<nav>
+		<ul>
+			<li id="nav-informations">
+				<a href="#informace">info</a>
+			</li>
+			<li id="nav-photo">
+				<a href="#foto">foto</a>
+			</li>
+			<li id="nav-occupancy">
+				<a href="#obsazenost">obsazenost</a>
+			</li>
+			<li id="nav-reservation">
+				<a href="#rezervace">rezervace</a>
+			</li>
+			<li id="nav-contact">
+				<a href="#kontakt">kontakt</a>
+			</li>
+		</ul>
+	</nav>
+</header>
 
-	{block scripts}
+{include content}
+
+{block scripts}
 	<script src="{$basePath}/js/jquery-1.11.1.min.js"></script>
 	<script src="{$basePath}/js/animations.js"></script>
 	<script src="{$basePath}/js/netteForms.js"></script>
-	{/block}
+{/block}
+
 </body>
 </html>
