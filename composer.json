@@ -1,5 +1,8 @@
 {
+	"autoload": {
+		"classmap": ["app/"]
+	},
 	"require": {
-		"nette/nette": "~2.2"
+		"nette/nette": "~2.2.0"
 	}
 }

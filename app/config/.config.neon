@@ -16,4 +16,5 @@ nette:
 
 
 services:
-	router: Vilemka\RouterFactory()::createRouter
+	- Vilemka\RouterFactory
+	router: @Vilemka\RouterFactory::createRouter
