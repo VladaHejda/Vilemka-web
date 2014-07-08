@@ -209,6 +209,26 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section #occupancy-slider { float: left; clear: left; width: 778px; margin: 60px 0 0 100px;}
 #occupancy section li { list-style: none; margin-right: 15px; }
 #occupancy section li { width: 211px; height: 204px; background: url('graphics/calendar.png') no-repeat; float: left; }
+
+/* calendar: */
+#occupancy section li table { margin: 30px 0 0 22px; border-spacing: 0; border-collapse: collapse; }
+#occupancy section li tbody td { border: #aaa 1px solid; color: #3e3e3e; }
+#occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
+	padding: 1px 2px; background: #93ff4c; }
+#occupancy section li .daynames td { font-family: Arial; padding: 2px; color: #666; }
+#occupancy section li .daynames .weekend  { color: #7f0000; }
+#occupancy section li .month { color: #ff9d40; }
+#occupancy section li .outday { color: #619742; }
+#occupancy section li .today span { background: #fff900; }
+#occupancy section li .occupied-morning.occupied-evening span { background: #ff5c45; color: #8a3627; }
+#occupancy section li .occupied-morning span, #occupancy section li .occupied-morning a {
+	background: #93ff4c url('graphics/occupied-morning.jpg') repeat-y; }
+#occupancy section li .occupied-evening span { background: #ff5c45 url('graphics/occupied-evening.jpg') repeat-y;
+	color: #8a3627; }
+#occupancy section li tbody a { text-decoration: none; color: #000; }
+#occupancy section li tbody a:hover, #occupancy section li tbody .hover { background: #5b70ff; }
+/* END calendar */
+
 #occupancy section .arrow { float: left; margin: 88px 17px 0 0;}
 #occupancy section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
 	text-decoration: none; }

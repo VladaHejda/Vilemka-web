@@ -18,3 +18,5 @@ nette:
 services:
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
+
+	- Calendar

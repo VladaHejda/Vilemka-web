@@ -1,5 +1,6 @@
 $(function() {
 
+	// scroll
 	var slowdown = 1.5;
 
 	var win = $(window);
@@ -28,5 +29,23 @@ $(function() {
 		var anchor = $(this).attr('href').substring(1);
 		var target = $('a[name=' + anchor + ']');
 		$('html').animate({scrollTop: target.offset().top}, 1000);
+	});
+
+
+	// calendar
+	var toggleHover = function(a, add) {
+		var others = $('[data-occupied=' + a.attr('data-occupied') + ']');
+		if (add) {
+			others.addClass('hover');
+		} else {
+			others.removeClass('hover');
+		}
+	};
+	var calendarAnchors = $('.calendar tbody a');
+	calendarAnchors.on('mouseover', function() {
+		toggleHover($(this), true);
+	});
+	calendarAnchors.on(' mouseout', function() {
+		toggleHover($(this), false);
 	});
 });

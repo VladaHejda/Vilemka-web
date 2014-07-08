@@ -76,10 +76,13 @@
 					<div class="arrow arrow-left"><a href="">&nbsp;</a></div>
 					<ul>
 						<li>
+							{$calendar->render($month, $year)|noescape}
 						</li>
 						<li>
+							{$calendar->render($month +1, $year)|noescape}
 						</li>
 						<li>
+							{$calendar->render($month +2, $year)|noescape}
 						</li>
 					</ul>
 					<div class="arrow arrow-right"><a href="">&nbsp;</a></div>
