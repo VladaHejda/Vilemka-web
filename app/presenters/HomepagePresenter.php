@@ -2,6 +2,13 @@
 
 namespace Vilemka\Presenters;
 
+/**
+ * TODO
+ * correct scroll on refresh!
+ * bacha na měsíc co má 6 tejdnů! vyleze z pozadí
+ * kešovat calendáře
+ * #top anchor jquery scroll se posunuje špatně
+ */
 class HomepagePresenter extends BasePresenter
 {
 
