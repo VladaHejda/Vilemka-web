@@ -5,7 +5,6 @@ use Vilemka\OccupationCalendar;
 
 /**
  * TODO
- * correct scroll on refresh!
  * kešovat calendáře
  */
 class HomepagePresenter extends BasePresenter

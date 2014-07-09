@@ -5,13 +5,13 @@ $(function() {
 
 
 	/*********** slow bottom block scrolling ***********/
-	var slowdown = 1.5;
+	var scrollSlowdown = 1.5;
 
-	++slowdown;
+	++scrollSlowdown;
 	var blocks = [
 		$('header'), $('#info'), $('#photo'), $('#occupancy'), $('#reservation'), $('#contact')
 	];
-	win.on('scroll', function(event){
+	var scroller = function(){
 		var scroll = win.scrollTop();
 		distance = 0;
 
@@ -21,10 +21,12 @@ $(function() {
 				source = i == 1 ? blocks[i-1] : $('.content', blocks[i-1]);
 				distance += parseInt(source.css('height'));
 			}
-			move = scroll > distance ? (scroll - distance) /slowdown : 0;
+			move = scroll > distance ? (scroll - distance) /scrollSlowdown : 0;
 			blocks[i].css('top', move);
 		}
-	});
+	};
+	scroller();
+	win.on('scroll', scroller);
 
 
 	/*********** scroll to anchor ***********/
