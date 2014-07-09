@@ -214,9 +214,10 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 
 /* calendar: */
 #occupancy section li table { margin: 30px 0 0 22px; border-spacing: 0; border-collapse: collapse; }
-#occupancy section li tbody td { border: #aaa 1px solid; color: #3e3e3e; }
+#occupancy section li tbody { border-left: 1px #aaa solid; border-top: 1px #aaa solid; }
+#occupancy section li tbody td { border: none; color: #3e3e3e; }
 #occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
-	padding: 1px 2px; background: #93ff4c; }
+	padding: 1px 2px; background: #93ff4c; border-right: 1px #aaa solid; border-bottom: 1px #aaa solid; }
 #occupancy section li tbody a {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
