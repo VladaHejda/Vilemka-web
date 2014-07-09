@@ -4,7 +4,7 @@ $(function() {
 	var win = $(window);
 
 
-	/*********** scroll ***********/
+	/*********** slow bottom block scrolling ***********/
 	var slowdown = 1.5;
 
 	++slowdown;
@@ -26,11 +26,18 @@ $(function() {
 		}
 	});
 
+
+	/*********** scroll to anchor ***********/
 	$('a[href^=#]').on('click', function(event){
 		event.preventDefault();
 		var anchor = $(this).attr('href').substring(1);
-		var target = $('a[name=' + anchor + ']');
-		$('html').animate({scrollTop: target.offset().top}, 1000);
+		var scroll;
+		if (anchor == 'top') {
+			scroll = 0;
+		} else {
+			scroll = $('a[name=' + anchor + ']').offset().top;
+		}
+		$('html').animate({scrollTop: scroll}, 1000);
 	});
 
 
