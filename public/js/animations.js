@@ -1,7 +1,7 @@
 $(function() {
 
 
-	// scroll
+	/*********** scroll ***********/
 	var slowdown = 1.5;
 
 	var win = $(window);
@@ -33,7 +33,7 @@ $(function() {
 	});
 
 
-	// calendar select tour
+	/*********** calendar select tour ***********/
 	var toggleHover = function(a, add) {
 		var classes = a.parent().attr('class').split(' ');
 		var weekNumber = 0;
@@ -59,30 +59,36 @@ $(function() {
 	});
 
 
-	// calendar move
+	/*********** calendar move ***********/
 	var occupancy = $('#occupancy');
-	var anchorDisabled = false;
+	var calendarMoveDisabled = false;
 	var baseMonth = 0;
+	var calendarCache = [];
+	// cache already loaded months
+	occupancy.find('li').each(function(i, li) {
+		calendarCache[i] = $(li).html();
+	});
+
 	occupancy.find('.arrow a').on('click', function(event) {
 		event.preventDefault();
-		if (anchorDisabled) {
+		if (calendarMoveDisabled) {
 			return;
 		}
-		anchorDisabled = true;
+		calendarMoveDisabled = true;
 		var parent = $(this).closest('.arrow');
 		var newLi = $('<li></li>').css({width: 0, marginRight: 0});
 		var liToRemove;
 		var move = parent.hasClass('arrow-left') ? -1 : 1;
 		if (move == -1) {
-			liToRemove = occupancy.find('ul li:last');
+			liToRemove = occupancy.find('li:last');
 			occupancy.find('ul').prepend(newLi);
 		} else {
-			liToRemove = occupancy.find('ul li:first');
+			liToRemove = occupancy.find('li:first');
 			occupancy.find('ul').append(newLi);
 		}
 		var completed = function() {
 			liToRemove.remove();
-			anchorDisabled = false;
+			calendarMoveDisabled = false;
 		};
 		var duration = 500;
 		liToRemove.animate({width: 0, marginRight: 0}, duration, completed);
@@ -91,9 +97,15 @@ $(function() {
 			newLi.html($('<div class="loading"></div>').append(loading));
 			baseMonth += move;
 			var loadMonth = (move == 1) ? baseMonth +2 : baseMonth;
-			$.get('', {loadMonth: loadMonth}, function(data) {
-				newLi.html(data);
-			});
+
+			if (typeof calendarCache[loadMonth] != 'undefined') {
+				newLi.html(calendarCache[loadMonth]);
+			} else {
+				$.get('', {loadMonth: loadMonth}, function(data) {
+					newLi.html(data);
+					calendarCache[loadMonth] = data;
+				});
+			}
 		});
 	});
 });
