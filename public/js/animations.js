@@ -65,7 +65,12 @@ $(function() {
 			otherMonthNumber = findMonthNumber(others.first());
 		}
 		if (otherMonthNumber != originalMonthNumber) {
-			var addToLast = otherMonthNumber > originalMonthNumber ? originalMonthNumber : otherMonthNumber;
+			var addToLast;
+			if (otherMonthNumber == 11 || originalMonthNumber == 11) {
+				addToLast = 11;
+			} else {
+				addToLast = otherMonthNumber > originalMonthNumber ? originalMonthNumber : otherMonthNumber;
+			}
 			last = last.add($('.month-' + addToLast + ' .week-' + weekNumber + ':last span'));
 		}
 
