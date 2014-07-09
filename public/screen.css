@@ -219,11 +219,11 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
 	padding: 1px 2px; background: #95fffc; border-right: 1px #aaa solid; border-bottom: 1px #aaa solid; }
 #occupancy section li tbody .available span, #occupancy section li tbody .available a { background: #93ff4c; }
-#occupancy section li tbody a {
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
+#occupancy section li tbody a, #occupancy section li tbody span {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
 }
 #occupancy section li .daynames td { font-family: Arial; padding: 2px; color: #666; }
 #occupancy section li .daynames .weekend  { color: #7f0000; }
@@ -238,7 +238,8 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li .occupied-evening span { background: #ff5c45 url('graphics/occupied-evening.jpg') repeat-y;
 	color: #8a3627; }
 #occupancy section li tbody a { text-decoration: none; color: #000; }
-#occupancy section li tbody a:hover, #occupancy section li tbody .available .hover { background: #00c60e; }
+#occupancy section li tbody a:hover, #occupancy section li tbody .available .hover { background: #fff900; }
+#occupancy section li tbody .occupied-morning.available .hover { background: #fff900 url('graphics/selected-occupied-morning.jpg') repeat-y; }
 #occupancy .loading { float: left; margin: 105px 0 0 97px; }
 /* END calendar */
 

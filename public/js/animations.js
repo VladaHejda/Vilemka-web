@@ -53,7 +53,7 @@ $(function() {
 				weekNumber = matches[1];
 			}
 		});
-		var others = $('.week-' + weekNumber + ' a');
+		var others = $('.week-' + weekNumber + ' a, .week-' + weekNumber + ' span');
 		if (add) {
 			others.addClass('hover');
 		} else {
