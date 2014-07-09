@@ -57,6 +57,7 @@ class OccupationCalendar
 	{
 		// todo
 		$bookings = [
+			'2014-06-07',
 			'2014-07-19',
 			'2014-08-02',
 			'2014-08-30',
