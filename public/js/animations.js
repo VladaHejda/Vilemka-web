@@ -69,8 +69,8 @@ $(function() {
 		anchorDisabled = true;
 		var parent = $(this).closest('.arrow');
 		var newLi = $('<li></li>');
-		newLi.css('display', 'none');
-		var liToRemove, direction;
+		newLi.css({width: 0, marginRight: 0});
+		var liToRemove;
 		if (parent.hasClass('arrow-left')) {
 			liToRemove = occupancy.find('ul li:last');
 			occupancy.find('ul').prepend(newLi);
@@ -78,11 +78,12 @@ $(function() {
 			liToRemove = occupancy.find('ul li:first');
 			occupancy.find('ul').append(newLi);
 		}
-		liToRemove.hide(500, function() {
+		var completed = function() {
 			liToRemove.remove();
-			newLi.show(500, function() {
-				anchorDisabled = false;
-			});
-		});
+			anchorDisabled = false;
+		};
+		var duration = 500;
+		liToRemove.animate({width: 0, marginRight: 0}, duration, completed);
+		newLi.animate({width: 211, marginRight: 15}, duration +50);
 	});
 });
