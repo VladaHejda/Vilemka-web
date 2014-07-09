@@ -49,10 +49,10 @@ header nav a {
 	padding-right: 50px;
 	background-position: center right;
 	background-repeat: no-repeat;
-	-webkit-transition-duration: 0.5s;
-	transition-duration: 0.5s;
-	-webkit-transition-property: color;
-	transition-property: color;
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
 }
 header nav #nav-informations a {
 	background-image: url('graphics/icon_info.jpg');
@@ -215,6 +215,12 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li tbody td { border: #aaa 1px solid; color: #3e3e3e; }
 #occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
 	padding: 1px 2px; background: #93ff4c; }
+#occupancy section li tbody a {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
 #occupancy section li .daynames td { font-family: Arial; padding: 2px; color: #666; }
 #occupancy section li .daynames .weekend  { color: #7f0000; }
 #occupancy section li .month { color: #ff9d40; }
