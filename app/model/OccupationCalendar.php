@@ -165,12 +165,21 @@ class OccupationCalendar
 				$classes[] = 'first-week-day';
 				if ($lastDay) {
 					$lastDay->add(new \DateInterval('P1D'));
-					$this->calendar->setExtraDateClass($lastDay, ['week-' . $lastWeekNumber, '']);
+					$this->calendar->setExtraDateClass($lastDay, 'week-' . $lastWeekNumber);
 				}
 			}
 			$lastWeekNumber = $weekNumber;
 			$lastDay = $day;
 			$this->calendar->setExtraDateClass($day, $classes);
+		}
+
+		if (isset($day)) {
+			$day->add(new \DateInterval('P1D'));
+			$weekNumber = $this->getSatSatWeekNumber($day);
+
+			if ($weekNumber !== $lastWeekNumber) {
+				$this->calendar->setExtraDateClass($day, 'week-' . $lastWeekNumber);
+			}
 		}
 	}
 
