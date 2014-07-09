@@ -71,7 +71,7 @@ $(function() {
 			} else {
 				addToLast = otherMonthNumber > originalMonthNumber ? originalMonthNumber : otherMonthNumber;
 			}
-			last = last.add($('.month-' + addToLast + ' .week-' + weekNumber + ':last span'));
+			last = last.add($('.month-' + addToLast + ' .week-' + weekNumber + ':last :first-child'));
 		}
 
 		if (add) {
