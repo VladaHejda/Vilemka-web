@@ -32,7 +32,7 @@ $(function() {
 	});
 
 
-	// calendar
+	// calendar select tour
 	var toggleHover = function(a, add) {
 		var classes = a.parent().attr('class').split(' ');
 		var weekNumber = 0;
@@ -55,5 +55,34 @@ $(function() {
 	});
 	calendarAnchors.on(' mouseout', function() {
 		toggleHover($(this), false);
+	});
+
+
+	// calendar move
+	var occupancy = $('#occupancy');
+	var anchorDisabled = false;
+	occupancy.find('.arrow a').on('click', function(event) {
+		event.preventDefault();
+		if (anchorDisabled) {
+			return;
+		}
+		anchorDisabled = true;
+		var parent = $(this).closest('.arrow');
+		var newLi = $('<li></li>');
+		newLi.css('display', 'none');
+		var liToRemove, direction;
+		if (parent.hasClass('arrow-left')) {
+			liToRemove = occupancy.find('ul li:last');
+			occupancy.find('ul').prepend(newLi);
+		} else {
+			liToRemove = occupancy.find('ul li:first');
+			occupancy.find('ul').append(newLi);
+		}
+		liToRemove.hide(500, function() {
+			liToRemove.remove();
+			newLi.show(500, function() {
+				anchorDisabled = false;
+			});
+		});
 	});
 });

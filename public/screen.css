@@ -207,6 +207,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 	color: #ffffd6;
 }
 #occupancy section #occupancy-slider { float: left; clear: left; width: 778px; margin: 60px 0 0 100px;}
+#occupancy section ul { float: left; width: 678px; }
 #occupancy section li { list-style: none; margin-right: 15px; }
 #occupancy section li { width: 211px; height: 219px; background: url('graphics/calendar.png') no-repeat; float: left; }
 
