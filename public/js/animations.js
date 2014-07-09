@@ -24,7 +24,7 @@ $(function() {
 		}
 	});
 
-	$('a[href*=#]').on('click', function(event){
+	$('a[href^=#]').on('click', function(event){
 		event.preventDefault();
 		var anchor = $(this).attr('href').substring(1);
 		var target = $('a[name=' + anchor + ']');

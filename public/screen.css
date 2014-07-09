@@ -218,6 +218,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li .daynames td { font-family: Arial; padding: 2px; color: #666; }
 #occupancy section li .daynames .weekend  { color: #7f0000; }
 #occupancy section li .month { color: #ff9d40; }
+#occupancy section li .month span { color: #ffce92; }
 #occupancy section li .outday { color: #619742; }
 #occupancy section li .today span { background: #fff900; }
 #occupancy section li .occupied-morning.occupied-evening span { background: #ff5c45; color: #8a3627; }

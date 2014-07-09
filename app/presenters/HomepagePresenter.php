@@ -13,6 +13,10 @@ use Vilemka\OccupationCalendar;
 class HomepagePresenter extends BasePresenter
 {
 
+	/** @persistent */
+	public $monthMove = 0;
+
+
 	/** @var OccupationCalendar */
 	protected $occupationCalendar;
 
@@ -29,7 +33,7 @@ class HomepagePresenter extends BasePresenter
 	public function renderDefault()
 	{
 		$this->template->calendar = $this->occupationCalendar;
-		$this->template->month = (int) date('n');
+		$this->template->month = (int) date('n') + $this->monthMove;
 		$this->template->year = (int) date('Y');
 	}
 

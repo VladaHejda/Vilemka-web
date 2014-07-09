@@ -73,7 +73,7 @@
 			<h1><a href="#top" name="obsazenost">chata Vilémka:</a> <strong>obsazenost</strong></h1>
 			<section>
 				<div id="occupancy-slider">
-					<div class="arrow arrow-left"><a href="">&nbsp;</a></div>
+					<div class="arrow arrow-left"><a href="{link this monthMove => $presenter->monthMove -1}#obsazenost">&nbsp;</a></div>
 					<ul>
 						<li>
 							{$calendar->render($month, $year)|noescape}
@@ -85,7 +85,7 @@
 							{$calendar->render($month +2, $year)|noescape}
 						</li>
 					</ul>
-					<div class="arrow arrow-right"><a href="">&nbsp;</a></div>
+					<div class="arrow arrow-right"><a href="{link this monthMove => $presenter->monthMove +1}#obsazenost">&nbsp;</a></div>
 				</div>
 			</section>
 			<figure>

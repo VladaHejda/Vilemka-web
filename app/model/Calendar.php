@@ -477,6 +477,64 @@ class Calendar
 	}
 
 
+	/**
+	 * @param int &$month
+	 * @param int &$year
+	 */
+	public static function correctMonth(& $month, & $year)
+	{
+		if ($month > 12) {
+			$year += floor($month /12);
+			$month = $month %12;
+		} elseif ($month < 1) {
+			$month = abs($month);
+			--$year;
+			$year -= floor($month /12);
+			$month = 12 - $month %12;
+		}
+	}
+
+
+	/**
+	 * @param int $number
+	 * @return string
+	 */
+	public static function intToRoman($number)
+	{
+		static $romanNumerals = [
+			'M' => 1000, 'CM' => 900,
+			'D' => 500, 'CD' => 400,
+			'C' => 100, 'XC' => 90,
+			'L' => 50, 'XL' => 40,
+			'X' => 10, 'IX' => 9,
+			'V' => 5, 'IV' => 4,
+			'I' => 1,
+		];
+		$result = '';
+		foreach ($romanNumerals as $key => $val) {
+			$result .= str_repeat($key, floor($number / $val));
+			$number %= $val;
+		}
+		return $result;
+	}
+
+
+	/**
+	 * @param int $number
+	 * @param int $digitsCount
+	 * @return string
+	 */
+	public static function zerofill($number, $digitsCount)
+	{
+		$length = strlen($number);
+		$pad = '';
+		if ($length < $digitsCount) {
+			$pad = str_repeat('0', $digitsCount - $length);
+		}
+		return $pad . $number;
+	}
+
+
 	protected function createDate($day, $month, $year)
 	{
 		$this->correctMonth($month, $year);
@@ -619,51 +677,6 @@ class Calendar
 			throw new InvalidArgumentException("Month index must be an integer between 0 (Jan) and 11 (Dec). $monthNumber is not.");
 		}
 		return $monthNumber;
-	}
-
-
-	protected static function intToRoman($number)
-	{
-		static $romanNumerals = [
-			'M' => 1000, 'CM' => 900,
-			'D' => 500, 'CD' => 400,
-			'C' => 100, 'XC' => 90,
-			'L' => 50, 'XL' => 40,
-			'X' => 10, 'IX' => 9,
-			'V' => 5, 'IV' => 4,
-			'I' => 1,
-		];
-		$result = '';
-		foreach ($romanNumerals as $key => $val) {
-			$result .= str_repeat($key, floor($number / $val));
-			$number %= $val;
-		}
-		return $result;
-	}
-
-
-	protected static function correctMonth(& $month, & $year)
-	{
-		if ($month > 12) {
-			$year += floor($month /12);
-			$month = $month %12;
-		} elseif ($month < 1) {
-			$month = abs($month);
-			--$year;
-			$year -= floor($month /12);
-			$month = 12 - $month %12;
-		}
-	}
-
-
-	protected static function zerofill($number, $digitsCount)
-	{
-		$length = strlen($number);
-		$pad = '';
-		if ($length < $digitsCount) {
-			$pad = str_repeat('0', $digitsCount - $length);
-		}
-		return $pad . $number;
 	}
 
 

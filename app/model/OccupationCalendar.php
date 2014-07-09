@@ -26,12 +26,15 @@ class OccupationCalendar
 			->setDayOfWeekClasses([0 => 'weekend', 6 => 'weekend'])
 			->setStartingDay(\Calendar::MONDAY)
 			->setIncludeWeekNumbers(FALSE)
-			->setDayPattern('<span>%d</span>');
+			->setDayPattern('<span>%d</span>')
+			->setMonthPattern('%s <span>%y</span>');
 	}
 
 
 	public function render($month, $year)
 	{
+		\Calendar::correctMonth($month, $year);
+
 		$month = (int) $month;
 		$year = (int) $year;
 
