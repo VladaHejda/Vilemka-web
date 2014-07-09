@@ -44,6 +44,9 @@ $(function() {
 
 
 	/*********** calendar select tour ***********/
+	var findMonthNumber = function(el) {
+		return parseInt(el.closest('.calendar').attr('class').match(/month-([0-9]+)/)[1]);
+	};
 	var toggleHover = function(a, add) {
 		var classes = a.parent().attr('class').split(' ');
 		var weekNumber = 0;
@@ -54,12 +57,18 @@ $(function() {
 			}
 		});
 		var others = $('.week-' + weekNumber + ' a, .week-' + weekNumber + ' span');
-		var originalMonthClass = a.closest('.calendar').attr('class').match(/month-[0-9]+/)[0];
 		var last = others.last();
-		var nextMonthClass = last.closest('.calendar').attr('class').match(/month-[0-9]+/)[0];
-		if (nextMonthClass != originalMonthClass) {
-			last = last.add($('.' + originalMonthClass + ' .week-' + weekNumber + ':last span'));
+
+		var originalMonthNumber = findMonthNumber(a);
+		var otherMonthNumber = findMonthNumber(last);
+		if (otherMonthNumber == originalMonthNumber) {
+			otherMonthNumber = findMonthNumber(others.first());
 		}
+		if (otherMonthNumber != originalMonthNumber) {
+			var addToLast = otherMonthNumber > originalMonthNumber ? originalMonthNumber : otherMonthNumber;
+			last = last.add($('.month-' + addToLast + ' .week-' + weekNumber + ':last span'));
+		}
+
 		if (add) {
 			others.addClass('hover');
 			last.addClass('last-week-day');
@@ -68,8 +77,8 @@ $(function() {
 			last.removeClass('last-week-day');
 		}
 	};
-	var daysSelector = '.calendar tbody a';
 
+	var daysSelector = '.calendar tbody a';
 	doc.on('mouseover', daysSelector, function() {
 		toggleHover($(this), true);
 	});
