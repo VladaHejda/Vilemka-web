@@ -22,12 +22,18 @@ class OccupationCalendar
 		$this->calendar = $calendar;
 		$this->database = $context;
 
+		$monthNumbers = range(0, 11);
+		foreach ($monthNumbers as &$monthNumber) {
+			$monthNumber = "month-$monthNumber";
+		}
+
 		$this->calendar
 			->setDayOfWeekClasses([0 => 'weekend', 6 => 'weekend'])
 			->setStartingDay(\Calendar::MONDAY)
 			->setIncludeWeekNumbers(FALSE)
 			->setDayPattern('<span>%d</span>')
-			->setMonthPattern('%s <span>%y</span>');
+			->setMonthPattern('%s <span>%y</span>')
+			->setMonthClasses($monthNumbers);
 	}
 
 

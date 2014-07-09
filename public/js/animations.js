@@ -54,12 +54,18 @@ $(function() {
 			}
 		});
 		var others = $('.week-' + weekNumber + ' a, .week-' + weekNumber + ' span');
+		var originalMonthClass = a.closest('.calendar').attr('class').match(/month-[0-9]+/)[0];
+		var last = others.last();
+		var nextMonthClass = last.closest('.calendar').attr('class').match(/month-[0-9]+/)[0];
+		if (nextMonthClass != originalMonthClass) {
+			last = last.add($('.' + originalMonthClass + ' .week-' + weekNumber + ':last span'));
+		}
 		if (add) {
 			others.addClass('hover');
-			others.last().addClass('last-week-day');
+			last.addClass('last-week-day');
 		} else {
 			others.removeClass('hover');
-			others.last().removeClass('last-week-day');
+			last.removeClass('last-week-day');
 		}
 	};
 	var daysSelector = '.calendar tbody a';
