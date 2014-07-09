@@ -1,6 +1,7 @@
 <?php
 
 namespace Vilemka\Presenters;
+use Vilemka\OccupationCalendar;
 
 /**
  * TODO
@@ -12,84 +13,24 @@ namespace Vilemka\Presenters;
 class HomepagePresenter extends BasePresenter
 {
 
-	/** @var \Calendar */
-	protected $calendar;
+	/** @var OccupationCalendar */
+	protected $occupationCalendar;
 
 
-	public function __construct(\Calendar $calendar)
+	/**
+	 * @param OccupationCalendar $occupationCalendar
+	 */
+	public function __construct(OccupationCalendar $occupationCalendar)
 	{
-		$this->calendar = $calendar;
-	}
-
-
-	public function startup()
-	{
-		parent::startup();
-
-		$this->calendar
-			->setDayOfWeekClasses([0 => 'weekend', 6 => 'weekend'])
-			->setDayHeadings(['NE', 'PO', 'ÚT', 'ST', 'ČT', 'PÁ', 'SO'])
-			->setMonthHeadings(['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září',
-				'Říjen', 'Listopad', 'Prosinec'])
-			->setStartingDay(\Calendar::MONDAY)
-			->setIncludeWeekNumbers(FALSE);
-
-		$this->template->calendar = $this->calendar;
+		$this->occupationCalendar = $occupationCalendar;
 	}
 
 
 	public function renderDefault()
 	{
-		$this->prepareCalendar();
+		$this->template->calendar = $this->occupationCalendar;
+		$this->template->month = (int) date('n');
+		$this->template->year = (int) date('Y');
 	}
 
-
-	protected function prepareCalendar()
-	{
-		$year = (int) date('Y');
-		$month = (int) date('n');
-
-		$this->calendar->setDayPattern('<span>%d</span>');
-
-		$freeSaturdays = [];
-		$daysToSaturday = 6 - date('w');
-		$availablePeriods = new \DatePeriod(new \DateTime("+ $daysToSaturday days"), new \DateInterval('P7D'), 14);
-		foreach ($availablePeriods as $saturday) {
-			$freeSaturdays[$saturday->format('Y-m-d')] = TRUE;
-		}
-
-		$bookings = [
-			'2014-07-19',
-			'2014-08-02',
-			'2014-08-30',
-		];
-
-		$interval = 6;
-
-		// occupied
-		foreach ($bookings as $booking) {
-			unset($freeSaturdays[$booking]);
-
-			$booking = new \DateTime($booking);
-			$period = new \DatePeriod($booking, new \DateInterval('P1D'), $interval);
-			$this->calendar
-				->setExtraPeriodClass($period, 'occupied-evening');
-
-			$booking->add(new \DateInterval('P1D'));
-			$period = new \DatePeriod($booking, new \DateInterval('P1D'), $interval);
-			$this->calendar
-				->setExtraPeriodClass($period, 'occupied-morning');
-		}
-
-		// available
-		foreach (array_keys($freeSaturdays) as $n => $saturday) {
-			$period = new \DatePeriod(new \DateTime($saturday), new \DateInterval('P1D'), 6);
-			$this->calendar
-				->setExtraPeriodPattern($period, '<a href="" data-occupied="' . $n . '">%d</a>');
-		}
-
-
-		$this->template->month = $month;
-		$this->template->year = $year;
-	}
 }

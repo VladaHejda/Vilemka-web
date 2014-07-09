@@ -19,4 +19,10 @@ services:
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
 
-	- Calendar
+	calendar:
+		class: Calendar
+		setup:
+			- setDayHeadings([NE, PO, ÚT, ST, ČT, PÁ, SO])
+			- setMonthHeadings([Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec])
+
+	- Vilemka\OccupationCalendar

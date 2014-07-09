@@ -34,7 +34,15 @@ $(function() {
 
 	// calendar
 	var toggleHover = function(a, add) {
-		var others = $('[data-occupied=' + a.attr('data-occupied') + ']');
+		var classes = a.parent().attr('class').split(' ');
+		var weekNumber = 0;
+		$.each(classes, function (i, classname) {
+			var matches = classname.match(/^week-([0-9]+)/);
+			if (matches && matches[1] > weekNumber) {
+				weekNumber = matches[1];
+			}
+		});
+		var others = $('.week-' + weekNumber + ' a');
 		if (add) {
 			others.addClass('hover');
 		} else {
