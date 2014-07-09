@@ -1,10 +1,11 @@
 $(function() {
 
+	var doc = $(document);
+	var win = $(window);
+
 
 	/*********** scroll ***********/
 	var slowdown = 1.5;
-
-	var win = $(window);
 
 	++slowdown;
 	var blocks = [
@@ -50,11 +51,12 @@ $(function() {
 			others.removeClass('hover');
 		}
 	};
-	var calendarAnchors = $('.calendar tbody a');
-	calendarAnchors.on('mouseover', function() {
+	var daysSelector = '.calendar tbody a';
+
+	doc.on('mouseover', daysSelector, function() {
 		toggleHover($(this), true);
 	});
-	calendarAnchors.on(' mouseout', function() {
+	doc.on('mouseout', daysSelector, function() {
 		toggleHover($(this), false);
 	});
 
