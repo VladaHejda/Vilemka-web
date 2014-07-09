@@ -1,5 +1,6 @@
 $(function() {
 
+
 	// scroll
 	var slowdown = 1.5;
 
@@ -61,6 +62,7 @@ $(function() {
 	// calendar move
 	var occupancy = $('#occupancy');
 	var anchorDisabled = false;
+	var baseMonth = 0;
 	occupancy.find('.arrow a').on('click', function(event) {
 		event.preventDefault();
 		if (anchorDisabled) {
@@ -68,10 +70,10 @@ $(function() {
 		}
 		anchorDisabled = true;
 		var parent = $(this).closest('.arrow');
-		var newLi = $('<li></li>');
-		newLi.css({width: 0, marginRight: 0});
+		var newLi = $('<li></li>').css({width: 0, marginRight: 0});
 		var liToRemove;
-		if (parent.hasClass('arrow-left')) {
+		var move = parent.hasClass('arrow-left') ? -1 : 1;
+		if (move == -1) {
 			liToRemove = occupancy.find('ul li:last');
 			occupancy.find('ul').prepend(newLi);
 		} else {
@@ -84,6 +86,14 @@ $(function() {
 		};
 		var duration = 500;
 		liToRemove.animate({width: 0, marginRight: 0}, duration, completed);
-		newLi.animate({width: 211, marginRight: 15}, duration +50);
+		newLi.animate({width: 211, marginRight: 15}, duration +50, function() {
+			var loading = $('#loading img').clone();
+			newLi.html($('<div class="loading"></div>').append(loading));
+			baseMonth += move;
+			var loadMonth = (move == 1) ? baseMonth +2 : baseMonth;
+			$.get('', {loadMonth: loadMonth}, function(data) {
+				newLi.html(data);
+			});
+		});
 	});
 });

@@ -1,5 +1,6 @@
 * { padding: 0; margin: 0; }
 body { font-size: 14px; font-family: Arial Black;}
+.js-data { display: none; }
 
 
 /*   HEADER   */
@@ -235,6 +236,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 	color: #8a3627; }
 #occupancy section li tbody a { text-decoration: none; color: #000; }
 #occupancy section li tbody a:hover, #occupancy section li tbody .hover { background: #00c60e; }
+#occupancy .loading { float: left; margin: 105px 0 0 97px; }
 /* END calendar */
 
 #occupancy section .arrow { float: left; margin: 88px 17px 0 0;}

@@ -30,11 +30,21 @@ class HomepagePresenter extends BasePresenter
 	}
 
 
-	public function renderDefault()
+	public function renderDefault($loadMonth = NULL)
 	{
+		$month = (int) date('n') + $this->monthMove;
+		$year = (int) date('Y');
+
+		// ajax request to month
+		if ($loadMonth !== NULL) {
+			$calendar = $this->occupationCalendar->render($month + $loadMonth, $year);
+			$response = new \Nette\Application\Responses\TextResponse($calendar);
+			$this->sendResponse($response);
+		}
+
 		$this->template->calendar = $this->occupationCalendar;
-		$this->template->month = (int) date('n') + $this->monthMove;
-		$this->template->year = (int) date('Y');
+		$this->template->month = $month;
+		$this->template->year = $year;
 	}
 
 }
