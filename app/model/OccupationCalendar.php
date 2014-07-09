@@ -57,10 +57,12 @@ class OccupationCalendar
 	{
 		// todo
 		$bookings = [
-			'2014-06-07',
 			'2014-07-19',
 			'2014-08-02',
 			'2014-08-30',
+			'2014-10-11',
+			'2014-10-18',
+			'2015-01-03',
 		];
 		$interval = 6;
 
@@ -94,11 +96,19 @@ class OccupationCalendar
 			$dayOfWeek = $today->format('w');
 			$daysToSaturday = 6 - $dayOfWeek;
 			$firstFocusDay = new \DateTime("+ $daysToSaturday days");
-			$remainingDaysCount =  $firstFocusDay->format('t') - $firstFocusDay->format('j');
+			$monthDaysCount = $firstFocusDay->format('t');
+			$remainingDaysCount =  $monthDaysCount - $firstFocusDay->format('j');
 
 		} else {
 			$firstFocusDay = new \DateTime("$year-$month-01");
-			$remainingDaysCount = (int) $firstFocusDay->format('t') -1;
+			$monthDaysCount = $firstFocusDay->format('t');
+			$remainingDaysCount = $monthDaysCount -1;
+		}
+
+		$lastDay = new \DateTime("$year-$month-$monthDaysCount");
+		$daysOutside = $lastDay->format('w');
+		if ($daysOutside) {
+			$daysOutside = 7 - $daysOutside;
 		}
 
 		$exclude = [];
@@ -108,7 +118,7 @@ class OccupationCalendar
 			}
 		}
 
-		$monthPeriod = new \DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount);
+		$monthPeriod = new \DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount + $daysOutside);
 
 		$freeDays = [];
 		foreach ($monthPeriod as $day) {
@@ -145,7 +155,11 @@ class OccupationCalendar
 	{
 		foreach ($days as $day) {
 			$this->calendar->setExtraDatePattern($day, '<a href="">%d</a>');
-			$this->calendar->setExtraDateClass($day, 'week-' . $this->getSatSatWeekNumber($day));
+			$classes = [
+				'week-' . $this->getSatSatWeekNumber($day),
+				'available',
+			];
+			$this->calendar->setExtraDateClass($day, $classes);
 		}
 	}
 

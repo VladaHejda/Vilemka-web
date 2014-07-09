@@ -217,7 +217,8 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li tbody { border-left: 1px #aaa solid; border-top: 1px #aaa solid; }
 #occupancy section li tbody td { border: none; color: #3e3e3e; }
 #occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
-	padding: 1px 2px; background: #93ff4c; border-right: 1px #aaa solid; border-bottom: 1px #aaa solid; }
+	padding: 1px 2px; background: #95fffc; border-right: 1px #aaa solid; border-bottom: 1px #aaa solid; }
+#occupancy section li tbody .available span, #occupancy section li tbody .available a { background: #93ff4c; }
 #occupancy section li tbody a {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5s ease;
@@ -228,15 +229,16 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li .daynames .weekend  { color: #7f0000; }
 #occupancy section li .month { color: #ff9d40; }
 #occupancy section li .month span { color: #ffce92; }
-#occupancy section li .outday { color: #619742; }
+#occupancy section li .outday { color: #5a9790; }
+#occupancy section li .available.outday { color: #619742; }
 #occupancy section li .today span { background: #25b9ff; }
 #occupancy section li .occupied-morning.occupied-evening span { background: #ff5c45; color: #8a3627; }
-#occupancy section li .occupied-morning span, #occupancy section li .occupied-morning a {
+#occupancy section li .occupied-morning.available span, #occupancy section li .occupied-morning.available a {
 	background: #93ff4c url('graphics/occupied-morning.jpg') repeat-y; }
 #occupancy section li .occupied-evening span { background: #ff5c45 url('graphics/occupied-evening.jpg') repeat-y;
 	color: #8a3627; }
 #occupancy section li tbody a { text-decoration: none; color: #000; }
-#occupancy section li tbody a:hover, #occupancy section li tbody .hover { background: #00c60e; }
+#occupancy section li tbody a:hover, #occupancy section li tbody .available .hover { background: #00c60e; }
 #occupancy .loading { float: left; margin: 105px 0 0 97px; }
 /* END calendar */
 
