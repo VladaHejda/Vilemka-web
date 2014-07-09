@@ -235,6 +235,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li tbody a:hover, #occupancy section li tbody .available .hover { background: #fff900; }
 #occupancy section li tbody .occupied-morning.available .hover { background: #fff900 url('graphics/selected-occupied-evening.jpg') repeat-y; }
 #occupancy section li tbody .first-week-day .hover { background: #fff900 url('graphics/selected-evening.jpg') repeat-y; }
+#occupancy section li tbody .first-week-day .last-week-day.hover { background: #93ff4c url('graphics/selected-morning.jpg') repeat-y; }
 #occupancy .loading { float: left; margin: 105px 0 0 97px; }
 /* END calendar */
 

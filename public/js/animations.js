@@ -56,8 +56,10 @@ $(function() {
 		var others = $('.week-' + weekNumber + ' a, .week-' + weekNumber + ' span');
 		if (add) {
 			others.addClass('hover');
+			others.last().addClass('last-week-day');
 		} else {
 			others.removeClass('hover');
+			others.last().removeClass('last-week-day');
 		}
 	};
 	var daysSelector = '.calendar tbody a';

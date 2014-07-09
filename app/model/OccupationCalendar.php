@@ -153,7 +153,7 @@ class OccupationCalendar
 
 	protected function markAvailableDays(array $days)
 	{
-		$lastWeekNumber = NULL;
+		$lastWeekNumber = $lastDay = NULL;
 		foreach ($days as $day) {
 			$this->calendar->setExtraDatePattern($day, '<a href="">%d</a>');
 			$weekNumber = $this->getSatSatWeekNumber($day);
@@ -163,8 +163,13 @@ class OccupationCalendar
 			];
 			if ($weekNumber !== $lastWeekNumber) {
 				$classes[] = 'first-week-day';
+				if ($lastDay) {
+					$lastDay->add(new \DateInterval('P1D'));
+					$this->calendar->setExtraDateClass($lastDay, ['week-' . $lastWeekNumber, '']);
+				}
 			}
 			$lastWeekNumber = $weekNumber;
+			$lastDay = $day;
 			$this->calendar->setExtraDateClass($day, $classes);
 		}
 	}
