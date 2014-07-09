@@ -103,12 +103,20 @@ class OccupationCalendar
 			$firstFocusDay = new \DateTime("$year-$month-01");
 			$monthDaysCount = $firstFocusDay->format('t');
 			$remainingDaysCount = $monthDaysCount -1;
+			$daysOutsideBefore = $firstFocusDay->format('w');
+			if (!$daysOutsideBefore) {
+				$daysOutsideBefore = 7;
+			}
+			if ($daysOutsideBefore) {
+				$firstFocusDay->sub(new \DateInterval('P' . $daysOutsideBefore . 'D'));
+				$remainingDaysCount += $daysOutsideBefore;
+			}
 		}
 
 		$lastDay = new \DateTime("$year-$month-$monthDaysCount");
-		$daysOutside = $lastDay->format('w');
-		if ($daysOutside) {
-			$daysOutside = 7 - $daysOutside;
+		$daysOutsideAfter = $lastDay->format('w');
+		if ($daysOutsideAfter) {
+			$daysOutsideAfter = 7 - $daysOutsideAfter;
 		}
 
 		$exclude = [];
@@ -118,7 +126,7 @@ class OccupationCalendar
 			}
 		}
 
-		$monthPeriod = new \DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount + $daysOutside);
+		$monthPeriod = new \DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount + $daysOutsideAfter);
 
 		$freeDays = [];
 		foreach ($monthPeriod as $day) {
