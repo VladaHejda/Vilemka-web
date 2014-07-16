@@ -225,6 +225,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section li .month span { color: #ffce92; }
 #occupancy section li .outday { color: #5a9790; }
 #occupancy section li .available.outday { color: #619742; }
+#occupancy section li .outday .hover { color: #978f00; }
 #occupancy section li .today span { background: #25b9ff; }
 #occupancy section li .occupied-morning.occupied-evening span { background: #ff5c45; color: #8a3627; }
 #occupancy section li .occupied-morning.available span, #occupancy section li .occupied-morning.available a {
