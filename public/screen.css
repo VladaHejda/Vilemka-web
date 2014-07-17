@@ -166,6 +166,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 }
 #photo section { width: 100%; float: left; margin-top: 40px; }
 #photo section #photo-slider { width: 998px; margin: 0 auto; }
+#photo section #photo-slider ul { float: left; width: 897px; }
 #photo section #photo-slider li { display: none; }
 #photo section #photo-slider li.show { display: block; }
 #photo section li { list-style: none; margin-right: 12px; width: 287px; height: 216px;

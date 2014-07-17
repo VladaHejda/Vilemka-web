@@ -2,6 +2,8 @@ $(function() {
 
 	var doc = $(document);
 	var win = $(window);
+	var occupancy = $('#occupancy');
+	var photo = $('#photo');
 
 
 	/*********** slow bottom block scrolling ***********/
@@ -9,7 +11,7 @@ $(function() {
 
 	++scrollSlowdown;
 	var blocks = [
-		$('header'), $('#info'), $('#photo'), $('#occupancy'), $('#reservation'), $('#contact')
+		$('header'), $('#info'), photo, occupancy, $('#reservation'), $('#contact')
 	];
 	var scroller = function(){
 		var scroll = win.scrollTop();
@@ -40,6 +42,42 @@ $(function() {
 			scroll = $('a[name=' + anchor + ']').offset().top;
 		}
 		$('html').animate({scrollTop: scroll}, 1000);
+	});
+
+
+	/*********** photo move ***********/
+	var photoMoveDisabled = false;
+	photo.find('.arrow a').on('click', function(event) {
+		event.preventDefault();
+		if (photoMoveDisabled) {
+			return;
+		}
+		photoMoveDisabled = true;
+		var parent = $(this).closest('.arrow');
+		var liToShow, liToHide;
+		if (parent.hasClass('arrow-left')) {
+			liToShow = photo.find('li.show:first').prev();
+			if (!liToShow.length) {
+				liToShow = photo.find('li:last');
+				liToShow.detach().prependTo(photo.find('ul'));
+			}
+			liToHide = photo.find('li.show:last');
+		} else {
+			liToShow = photo.find('li.show:last').next();
+			if (!liToShow.length) {
+				liToShow = photo.find('li:first');
+				liToShow.detach().appendTo(photo.find('ul'));
+			}
+			liToHide = photo.find('li.show:first');
+		}
+		var duration = 500;
+		liToHide.animate({width: 0, marginRight: 0}, duration, function() {
+			liToHide.removeClass('show');
+		});
+		liToShow.css({width: 0, marginRight: 0}).addClass('show');
+		liToShow.animate({width: 287, marginRight: 12}, duration +20, function() {
+			photoMoveDisabled = false;
+		});
 	});
 
 
@@ -93,7 +131,6 @@ $(function() {
 
 
 	/*********** calendar move ***********/
-	var occupancy = $('#occupancy');
 	var calendarMoveDisabled = false;
 	var baseMonth = 0;
 	var calendarCache = [];
@@ -108,10 +145,9 @@ $(function() {
 			return;
 		}
 		calendarMoveDisabled = true;
-		var parent = $(this).closest('.arrow');
 		var newLi = $('<li></li>').css({width: 0, marginRight: 0});
 		var liToRemove;
-		var move = parent.hasClass('arrow-left') ? -1 : 1;
+		var move = $(this).closest('.arrow').hasClass('arrow-left') ? -1 : 1;
 		if (move == -1) {
 			liToRemove = occupancy.find('li:last');
 			occupancy.find('ul').prepend(newLi);
