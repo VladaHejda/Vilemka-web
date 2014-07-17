@@ -44,4 +44,10 @@ class HomepagePresenter extends BasePresenter
 		$this->template->year = $year;
 	}
 
+
+	public function createComponentPhotoSlider()
+	{
+		return new \Vilemka\PhotoSlider;
+	}
+
 }

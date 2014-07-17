@@ -165,7 +165,9 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 	color: #d1ecff;
 }
 #photo section { width: 100%; float: left; margin-top: 40px; }
-#photo section #photo-slider { width: 998px; margin: 0 auto;}
+#photo section #photo-slider { width: 998px; margin: 0 auto; }
+#photo section #photo-slider li { display: none; }
+#photo section #photo-slider li.show { display: block; }
 #photo section li { list-style: none; margin-right: 12px; width: 287px; height: 216px;
 	background: url('graphics/frame.png') no-repeat; float: left; }
 #photo section li img { width: 250px; margin: 12px 0 0 16px; }
