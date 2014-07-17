@@ -16,6 +16,9 @@ class OccupationCalendar
 	/** @var Context */
 	protected $database;
 
+	/** @var callable */
+	protected $linkCreator;
+
 
 	public function __construct(\Calendar $calendar, Context $context)
 	{
@@ -34,6 +37,13 @@ class OccupationCalendar
 			->setDayPattern('<span>%d</span>')
 			->setMonthPattern('%s <span>%y</span>')
 			->setMonthClasses($monthNumbers);
+	}
+
+
+	public function setLinkCreator(callable $linkCreator)
+	{
+		$this->linkCreator = $linkCreator;
+		return $this;
 	}
 
 
@@ -169,8 +179,11 @@ class OccupationCalendar
 	{
 		$lastWeekNumber = $lastDay = NULL;
 		foreach ($days as $day) {
-			$this->calendar->setExtraDatePattern($day, '<a href="">%d</a>');
 			$weekNumber = $this->getSatSatWeekNumber($day);
+			if ($this->linkCreator) {
+				$pattern = '<a href="' . call_user_func($this->linkCreator, $day, $weekNumber) . '">%d</a>';
+				$this->calendar->setExtraDatePattern($day, $pattern);
+			}
 			$classes = [
 				'week-' . $weekNumber,
 				'available',

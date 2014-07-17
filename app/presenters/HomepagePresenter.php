@@ -24,6 +24,9 @@ class HomepagePresenter extends BasePresenter
 	public function __construct(OccupationCalendar $occupationCalendar)
 	{
 		$this->occupationCalendar = $occupationCalendar;
+		$this->occupationCalendar->setLinkCreator(function(\DateTime $date, $week) {
+			return $this->link('this', ['markWeek' => $date->format('Y') . "/$week"]);
+		});
 	}
 
 
