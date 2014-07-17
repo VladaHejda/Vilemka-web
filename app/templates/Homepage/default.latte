@@ -1,5 +1,10 @@
 {block jsData}
-<div id="loading"><img src="{$basePath}/graphics/loading.gif"></div>
+	<div id="loading"><img src="{$basePath}/graphics/loading.gif"></div>
+{/block}
+{block scripts}
+	{include #parent}
+	<link rel="stylesheet" href="{$basePath}/js/vanillabox/theme/bitter/vanillabox.css">
+	<script type="text/javascript" src="{$basePath}/js/vanillabox/jquery.vanillabox-0.1.6.min.js"></script>
 {/block}
 
 {block content}

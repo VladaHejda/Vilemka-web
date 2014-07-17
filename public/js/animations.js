@@ -81,6 +81,10 @@ $(function() {
 	});
 
 
+	/*********** photo show ***********/
+	photo.find('li a').vanillabox();
+
+
 	/*********** calendar select tour ***********/
 	var findMonthNumber = function(el) {
 		return parseInt(el.closest('.calendar').attr('class').match(/month-([0-9]+)/)[1]);
