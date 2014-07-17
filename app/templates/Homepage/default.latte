@@ -1,6 +1,9 @@
 {block jsData}
 	<div id="loading"><img src="{$basePath}/graphics/loading.gif"></div>
 {/block}
+{block head}
+	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/calendar.css">
+{/block}
 {block scripts}
 	{include #parent}
 	<link rel="stylesheet" href="{$basePath}/js/vanillabox/theme/bitter/vanillabox.css">

@@ -1,0 +1,58 @@
+@borderColor: #aaa;
+@dayColor: #95fffc;
+@hoverColor: #fff900;
+@availableColor: #93ff4c;
+@occupiedColor: #ff5c45;
+
+#occupancy {
+	section li {
+		table { margin: 30px 0 0 22px; border-spacing: 0; border-collapse: collapse; font-family: Arial; }
+
+		tbody {
+			border-left: 1px @borderColor solid; border-top: 1px @borderColor solid;
+
+			td { border: none; color: #3e3e3e; }
+
+			span, a { display: block; text-align: right; padding: 1px 2px; background: @dayColor; border-right: 1px @borderColor solid;
+			  	border-bottom: 1px @borderColor solid; }
+
+			a {
+				text-decoration: none; color: #000;
+			}
+
+		  	a:hover, .available .hover { background: @hoverColor; }
+
+			.available {
+			  	span, a { background: @availableColor; }
+			}
+
+			.occupied-morning.available .hover { background: @hoverColor url('../graphics/selected-occupied-evening.jpg') repeat-y; }
+			.occupied-evening .last-week-day.hover { background: @hoverColor url('../graphics/selected-occupied-morning.jpg') repeat-y; }
+			.first-week-day {
+				.hover { background: @hoverColor url('../graphics/selected-evening.jpg') repeat-y; }
+				.last-week-day.hover { background: @availableColor url('../graphics/selected-morning.jpg') repeat-y; }
+			}
+		}
+
+		.daynames {
+		  td { padding: 2px; color: #666; }
+		  .weekend { color: #7f0000; }
+		}
+
+		.month {
+		  color: #ff9d40;
+		  span { color: #ffce92; }
+		}
+		.outday { color: #5a9790; }
+		.available.outday { color: #619742; }
+		.outday .hover { color: #978f00; }
+		.today span { background: #25b9ff; }
+		.occupied-morning.occupied-evening span { background: @occupiedColor; color: #8a3627; }
+		.occupied-morning.available {
+		  	span, a { background: @availableColor url('../graphics/occupied-morning.jpg') repeat-y; }
+		}
+		.occupied-evening span { background: @occupiedColor url('../graphics/occupied-evening.jpg') repeat-y; color: #8a3627; }
+	}
+
+  	.loading { float: left; margin: 105px 0 0 97px; }
+}
