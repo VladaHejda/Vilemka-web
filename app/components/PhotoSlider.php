@@ -1,6 +1,6 @@
 <?php
 
-namespace Vilemka;
+namespace Vilemka\Components;
 
 class PhotoSlider extends \Nette\Application\UI\Control
 {
@@ -10,16 +10,6 @@ class PhotoSlider extends \Nette\Application\UI\Control
 
 	/** @var int */
 	protected $displayedPhotosCount = 3;
-
-
-	/**
-	 * @param int $photoMove
-	 */
-	public function __construct($photoMove = 0)
-	{
-		parent::__construct();
-		$this->photoMove = $photoMove;
-	}
 
 
 	public function render()

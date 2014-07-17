@@ -47,7 +47,7 @@ class HomepagePresenter extends BasePresenter
 
 	public function createComponentPhotoSlider()
 	{
-		return new \Vilemka\PhotoSlider;
+		return new \Vilemka\Components\PhotoSlider;
 	}
 
 }

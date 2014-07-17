@@ -1,0 +1,15 @@
+<div id="occupancy-slider">
+	<div class="arrow arrow-left"><a href="{link this monthMove => $presenter->monthMove -1}#obsazenost">&nbsp;</a></div>
+	<ul>
+		<li>
+			{$calendar->render($month, $year)|noescape}
+		</li>
+		<li>
+			{$calendar->render($month +1, $year)|noescape}
+		</li>
+		<li>
+			{$calendar->render($month +2, $year)|noescape}
+		</li>
+	</ul>
+	<div class="arrow arrow-right"><a href="{link this monthMove => $presenter->monthMove +1}#obsazenost">&nbsp;</a></div>
+</div>
