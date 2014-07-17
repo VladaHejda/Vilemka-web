@@ -71,11 +71,12 @@ $(function() {
 			liToHide = photo.find('li.show:first');
 		}
 		var duration = 500;
+		var width = parseInt(liToHide.css('width'));
 		liToHide.animate({width: 0, marginRight: 0}, duration, function() {
 			liToHide.removeClass('show');
 		});
 		liToShow.css({width: 0, marginRight: 0}).addClass('show');
-		liToShow.animate({width: 287, marginRight: 12}, duration +20, function() {
+		liToShow.animate({width: width, marginRight: 12}, duration +20, function() {
 			photoMoveDisabled = false;
 		});
 	});
@@ -164,8 +165,9 @@ $(function() {
 			calendarMoveDisabled = false;
 		};
 		var duration = 500;
+		var width = parseInt(liToRemove.css('width'));
 		liToRemove.animate({width: 0, marginRight: 0}, duration, completed);
-		newLi.animate({width: 211, marginRight: 15}, duration +50, function() {
+		newLi.animate({width: width, marginRight: 15}, duration +50, function() {
 			var loading = $('#loading img').clone();
 			newLi.html($('<div class="loading"></div>').append(loading));
 			baseMonth += move;
