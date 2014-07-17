@@ -210,16 +210,16 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section #occupancy-slider { float: left; clear: left; width: 778px; margin: 60px 0 0 100px;}
 #occupancy section ul { float: left; width: 678px; }
 #occupancy section li { list-style: none; margin-right: 15px; }
-#occupancy section li { width: 211px; height: 219px; background: url('graphics/calendar.png') no-repeat; float: left; }
+#occupancy section li { width: 211px; height: 198px; background: url('graphics/calendar.png') no-repeat; float: left; }
 
 /* calendar: */
-#occupancy section li table { margin: 30px 0 0 22px; border-spacing: 0; border-collapse: collapse; }
+#occupancy section li table { margin: 30px 0 0 22px; border-spacing: 0; border-collapse: collapse; font-family: Arial; }
 #occupancy section li tbody { border-left: 1px #aaa solid; border-top: 1px #aaa solid; }
 #occupancy section li tbody td { border: none; color: #3e3e3e; }
 #occupancy section li tbody span, #occupancy section li tbody a { display: block; text-align: right;
 	padding: 1px 2px; background: #95fffc; border-right: 1px #aaa solid; border-bottom: 1px #aaa solid; }
 #occupancy section li tbody .available span, #occupancy section li tbody .available a { background: #93ff4c; }
-#occupancy section li .daynames td { font-family: Arial; padding: 2px; color: #666; }
+#occupancy section li .daynames td { padding: 2px; color: #666; }
 #occupancy section li .daynames .weekend  { color: #7f0000; }
 #occupancy section li .month { color: #ff9d40; }
 #occupancy section li .month span { color: #ffce92; }
