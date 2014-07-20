@@ -16,6 +16,12 @@ class OccupationCalendar
 	/** @var Context */
 	protected $database;
 
+	/** @var array $markedData [ int $year => int $satSatWeek ] */
+	protected $markedData = [];
+
+	/** @var string */
+	protected $serializedDataString;
+
 	/** @var callable */
 	protected $linkCreator;
 
@@ -40,6 +46,39 @@ class OccupationCalendar
 	}
 
 
+	/**
+	 * @param string $dataString
+	 * @return self
+	 * @throws \InvalidArgumentException
+	 * @throws \BadMethodCallException
+	 */
+	public function injectDataString($dataString)
+	{
+		if ($this->serializedDataString !== NULL) {
+			throw new \BadMethodCallException('Data string already injected.');
+		}
+
+		$dataString = trim($dataString);
+		if (!empty($dataString)) {
+			foreach (explode('|', $dataString) as $weekData) {
+				$weekData = explode('/', $weekData);
+				if (count($weekData) !== 2) {
+					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
+				}
+				list($year, $week) = $weekData;
+				$this->markedData[$year] = (int) $week;
+			}
+		}
+
+		$this->serializedDataString = $dataString;
+		return $this;
+	}
+
+
+	/**
+	 * @param callable $linkCreator
+	 * @return self
+	 */
 	public function setLinkCreator(callable $linkCreator)
 	{
 		$this->linkCreator = $linkCreator;
@@ -181,7 +220,8 @@ class OccupationCalendar
 		foreach ($days as $day) {
 			$weekNumber = $this->getSatSatWeekNumber($day);
 			if ($this->linkCreator) {
-				$pattern = '<a href="' . call_user_func($this->linkCreator, $day, $weekNumber) . '">%d</a>';
+				$dataString = $this->getSerializedDataString((int) $day->format('Y'), $weekNumber);
+				$pattern = '<a href="' . call_user_func($this->linkCreator, $dataString) . '">%d</a>';
 				$this->calendar->setExtraDatePattern($day, $pattern);
 			}
 			$classes = [
@@ -216,6 +256,13 @@ class OccupationCalendar
 		$date = clone $date;
 		$date->add(new \DateInterval('P2D'));
 		return (int) $date->format('W');
+	}
+
+
+	protected function getSerializedDataString($addYear, $addWeek)
+	{
+		$dataString = empty($this->serializedDataString) ? '' : "$this->serializedDataString|";
+		return "$dataString$addYear/$addWeek";
 	}
 
 }

@@ -24,8 +24,18 @@ class HomepagePresenter extends BasePresenter
 	public function __construct(OccupationCalendar $occupationCalendar)
 	{
 		$this->occupationCalendar = $occupationCalendar;
-		$this->occupationCalendar->setLinkCreator(function(\DateTime $date, $week) {
-			return $this->link('this', ['markWeek' => $date->format('Y') . "/$week"]);
+	}
+
+
+	public function actionDefault($markWeek = '')
+	{
+		try {
+			$this->occupationCalendar->injectDataString($markWeek);
+		} catch (\InvalidArgumentException $e) {
+			throw new \Nette\Application\BadRequestException($e->getMessage());
+		}
+		$this->occupationCalendar->setLinkCreator(function($dataString) {
+			return $this->link('this#obsazenost', ['markWeek' => $dataString]);
 		});
 	}
 
