@@ -16,11 +16,8 @@ class OccupationCalendar
 	/** @var Context */
 	protected $database;
 
-	/** @var array $markedData [ int $year => int $satSatWeek ] */
-	protected $markedData = [];
-
-	/** @var string */
-	protected $serializedDataString;
+	/** @var array $markedData [ int $year => [ int $satSatWeek, ... ], ... ] */
+	protected $markedData;
 
 	/** @var callable */
 	protected $linkCreator;
@@ -54,10 +51,11 @@ class OccupationCalendar
 	 */
 	public function injectDataString($dataString)
 	{
-		if ($this->serializedDataString !== NULL) {
+		if ($this->markedData !== NULL) {
 			throw new \BadMethodCallException('Data string already injected.');
 		}
 
+		$this->markedData = [];
 		$dataString = trim($dataString);
 		if (!empty($dataString)) {
 			foreach (explode('|', $dataString) as $weekData) {
@@ -66,17 +64,22 @@ class OccupationCalendar
 					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
 				}
 				list($year, $week) = $weekData;
-				$this->markedData[$year] = (int) $week;
+				if (!ctype_digit($year) || !ctype_digit($week) || $year < 0 || $week < 0 || $week > 53) {
+					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
+				}
+				if (isset($this->markedData[$year]) && in_array($week, $this->markedData[$year])) {
+					continue;
+				}
+				$this->markedData[$year][] = $week;
 			}
 		}
 
-		$this->serializedDataString = $dataString;
 		return $this;
 	}
 
 
 	/**
-	 * @param callable $linkCreator
+	 * @param callable $linkCreator (string $dataString)
 	 * @return self
 	 */
 	public function setLinkCreator(callable $linkCreator)
@@ -261,8 +264,28 @@ class OccupationCalendar
 
 	protected function getSerializedDataString($addYear, $addWeek)
 	{
-		$dataString = empty($this->serializedDataString) ? '' : "$this->serializedDataString|";
-		return "$dataString$addYear/$addWeek";
+		$markedData = $this->markedData;
+		if (isset($markedData[$addYear])) {
+			$index = array_search($addWeek, $markedData[$addYear]);
+
+			// mark
+			if ($index === FALSE) {
+				$markedData[$addYear][] = $addWeek;
+			// unmark
+			} else {
+				unset($markedData[$addYear][$index]);
+			}
+		} else {
+			$markedData[$addYear] = [$addWeek];
+		}
+
+		foreach ($markedData as $year => & $weeks) {
+			foreach ($weeks as & $week) {
+				$week = "$year/$week";
+			}
+			$weeks = implode('|', $weeks);
+		}
+		return implode('|', $markedData);
 	}
 
 }
