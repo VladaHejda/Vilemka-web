@@ -25,13 +25,13 @@
   text-decoration: none;
   color: #000;
 }
-#occupancy section li tbody a:hover,
-#occupancy section li tbody .available .hover {
-  background: #fff900;
-}
 #occupancy section li tbody .available span,
 #occupancy section li tbody .available a {
   background: #93ff4c;
+}
+#occupancy section li tbody a:hover,
+#occupancy section li tbody .available .hover {
+  background: #fff900;
 }
 #occupancy section li tbody .occupied-morning.available .hover {
   background: #fff900 url('../graphics/selected-occupied-evening.jpg') repeat-y;
