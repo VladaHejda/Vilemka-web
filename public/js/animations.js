@@ -41,7 +41,7 @@ $(function() {
 		} else {
 			scroll = $('a[name=' + anchor + ']').offset().top;
 		}
-		$('html').animate({scrollTop: scroll}, 1000);
+		$('html, body').animate({scrollTop: scroll}, 1000);
 	});
 
 
