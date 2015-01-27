@@ -1,6 +1,8 @@
 <?php
 
 namespace Vilemka\Presenters;
+use Vilemka\Components\PhotoSlider;
+use Vilemka\Components\ReservationForm;
 use Vilemka\OccupationCalendar;
 
 /**
@@ -60,7 +62,19 @@ class HomepagePresenter extends BasePresenter
 
 	public function createComponentPhotoSlider()
 	{
-		return new \Vilemka\Components\PhotoSlider;
+		return new PhotoSlider;
+	}
+
+
+	public function createComponentReservationForm()
+	{
+		$form = new ReservationForm;
+		$form->action .= '#reservation';
+		$form->onSuccess[] = function() {
+			// todo flash message (viz. http://forum.nette.org/cs/17720-vykresleni-casti-formulare-ve-vlastni-sablone)
+			$this->redirect(303, 'this#reservation');
+		};
+		return $form;
 	}
 
 }
