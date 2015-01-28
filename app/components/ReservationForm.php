@@ -16,14 +16,23 @@ class ReservationForm extends \Nette\Application\UI\Form
 	protected $displayedPhotosCount = 3;
 
 
-	public function __construct()
+	/**
+	 * @param int $maxPersonsCapacity
+	 */
+	public function __construct($maxPersonsCapacity)
 	{
 		$today = new DateTime;
 		$datePattern = '(0?[0-9]|[12][0-9]|3[01])\\s*\\.\\s*(0?[0-9]|1[0-2])\\s*\\.\\s*[2-9][0-9]{3}';
 		$dateParsePattern = '([0-9]+)\\s*\\.\\s*([0-9]+)\\s*\\.\\s*([0-9]+)';
+		$dateFormatHelp = 'den. měsíc. rok';
+		$labelFrom = 'Od';
+		$labelTo = 'Do';
 
-		$this->addText('from', 'Od:')
-			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "den. měsíc. rok".', '%label'), $datePattern)
+		$this->addText('from', "$labelFrom:")
+			->setAttribute('placeholder', $dateFormatHelp)
+			->setRequired()
+
+			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelFrom, $dateFormatHelp), $datePattern)
 
 			->addRule(function (TextBase $control) use (& $fromDate, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
@@ -43,8 +52,11 @@ class ReservationForm extends \Nette\Application\UI\Form
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 		;
 
-		$this->addText('to', 'Do:')
-			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "den. měsíc. rok".', '%label'), $datePattern)
+		$this->addText('to', "$labelTo:")
+			->setAttribute('placeholder', $dateFormatHelp)
+			->setRequired()
+
+			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelTo, $dateFormatHelp), $datePattern)
 
 			->addRule(function (TextBase $control) use (& $toDate, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
@@ -57,11 +69,32 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 			->addRule(function() use (& $toDate, & $fromDate) {
 				return $toDate > $fromDate;
-			}, 'Datum "do" musí následovat až po datu "od".')
+			}, sprintf('Datum "%s" musí následovat až po datu "%s".', $labelTo, $labelFrom))
 
 			->addRule(function() use (& $toDate) {
 				return $toDate->format('w') == 6;
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
+		;
+
+		$this->addText('personCount', 'Počet osob:')
+			->setType('number')
+			->setRequired()
+			->addRule(self::INTEGER, $message = 'Prosím, zadejte počet osob od %d do %d.', [1, $maxPersonsCapacity])
+			->addRule(self::RANGE, $message, [1, $maxPersonsCapacity])
+			->setAttribute('placeholder', sprintf('1 - %d', $maxPersonsCapacity))
+		;
+
+		$this->addText('email', 'E-mailová adresa:')
+			->setType('email')
+			->setDefaultValue('@')
+			->addCondition(self::FILLED)
+				->addRule(self::EMAIL, 'E-mailová adresa není správně.')
+		;
+
+		$this->addText('phone', 'Telefonní číslo:')
+			->setRequired()
+			->addCondition(self::FILLED)
+				->addRule(self::PATTERN, 'Telefonní číslo není správně.', "^(\\+\\s*[0-9]{1,3}[- ]?)?[-0-9 ]{1,18}$")
 		;
 
 		$this->addTextArea('notice', 'Poznámka:');

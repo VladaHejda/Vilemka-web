@@ -19,13 +19,17 @@ class HomepagePresenter extends BasePresenter
 	/** @var OccupationCalendar */
 	protected $occupationCalendar;
 
+	/** @var ReservationForm */
+	protected $reservationForm;
+
 
 	/**
 	 * @param OccupationCalendar $occupationCalendar
 	 */
-	public function __construct(OccupationCalendar $occupationCalendar)
+	public function __construct(OccupationCalendar $occupationCalendar, ReservationForm $reservationForm)
 	{
 		$this->occupationCalendar = $occupationCalendar;
+		$this->reservationForm = $reservationForm;
 	}
 
 
@@ -68,13 +72,12 @@ class HomepagePresenter extends BasePresenter
 
 	public function createComponentReservationForm()
 	{
-		$form = new ReservationForm;
-		$form->action .= '#reservation';
-		$form->onSuccess[] = function() {
+		$this->reservationForm->action .= '#reservation';
+		$this->reservationForm->onSuccess[] = function() {
 			// todo flash message (viz. http://forum.nette.org/cs/17720-vykresleni-casti-formulare-ve-vlastni-sablone)
 			$this->redirect(303, 'this#reservation');
 		};
-		return $form;
+		return $this->reservationForm;
 	}
 
 }
