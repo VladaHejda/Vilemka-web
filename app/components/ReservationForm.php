@@ -9,11 +9,11 @@ use Nette\Utils\Strings;
 class ReservationForm extends \Nette\Application\UI\Form
 {
 
-	/** @persistent */
-	public $photoMove = 0;
-
 	/** @var int */
-	protected $displayedPhotosCount = 3;
+	protected $maxPersonsCapacity;
+
+	/** @var DateTime */
+	protected $dateFrom, $dateTo;
 
 
 	/**
@@ -21,6 +21,14 @@ class ReservationForm extends \Nette\Application\UI\Form
 	 */
 	public function __construct($maxPersonsCapacity)
 	{
+		$this->maxPersonsCapacity = $maxPersonsCapacity;
+	}
+
+
+	protected function createFields()
+	{
+		// todo čekovat zda je termín volný
+
 		$today = new DateTime;
 		$datePattern = '(0?[0-9]|[12][0-9]|3[01])\\s*\\.\\s*(0?[0-9]|1[0-2])\\s*\\.\\s*[2-9][0-9]{3}';
 		$dateParsePattern = '([0-9]+)\\s*\\.\\s*([0-9]+)\\s*\\.\\s*([0-9]+)';
@@ -28,27 +36,32 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$labelFrom = 'Od';
 		$labelTo = 'Do';
 
+		$this->addText('name', 'Vaše jméno:')
+			->setRequired()
+		;
+
 		$this->addText('from', "$labelFrom:")
 			->setAttribute('placeholder', $dateFormatHelp)
 			->setRequired()
 
 			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelFrom, $dateFormatHelp), $datePattern)
 
-			->addRule(function (TextBase $control) use (& $fromDate, $dateParsePattern) {
+			->addRule(function (TextBase $control) use (& $dateFrom, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
 				if (checkdate($month, $day, $year)) {
-					$fromDate = DateTime::from(mktime(0, 0, 0, $month, $day, $year));
+					$dateFrom = DateTime::from(mktime(0, 0, 0, $month, $day, $year));
+					$this->dateFrom = $dateFrom;
 					return true;
 				}
 				return false;
 			}, 'Datum %value neexistuje...')
 
-			->addRule(function () use (& $fromDate, $today) {
-				return $fromDate > $today;
+			->addRule(function () use (& $dateFrom, $today) {
+				return $dateFrom > $today;
 			}, 'Datum "od" je v minulosti. Nelze rezerovovat termín v minulosti :)')
 
-			->addRule(function() use (& $fromDate) {
-				return $fromDate->format('w') == 6;
+			->addRule(function() use (& $dateFrom) {
+				return $dateFrom->format('w') == 6;
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 		;
 
@@ -58,30 +71,31 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelTo, $dateFormatHelp), $datePattern)
 
-			->addRule(function (TextBase $control) use (& $toDate, $dateParsePattern) {
+			->addRule(function (TextBase $control) use (& $dateTo, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
 				if (checkdate($month, $day, $year)) {
-					$toDate = DateTime::from(mktime(0, 0, 0, $month, $day, $year));
+					$dateTo = DateTime::from(mktime(0, 0, 0, $month, $day, $year));
+					$this->dateTo = $dateTo;
 					return true;
 				}
 				return false;
 			}, 'Datum %value neexistuje...')
 
-			->addRule(function() use (& $toDate, & $fromDate) {
-				return $toDate > $fromDate;
+			->addRule(function() use (& $dateTo, & $dateFrom) {
+				return $dateTo > $dateFrom;
 			}, sprintf('Datum "%s" musí následovat až po datu "%s".', $labelTo, $labelFrom))
 
-			->addRule(function() use (& $toDate) {
-				return $toDate->format('w') == 6;
+			->addRule(function() use (& $dateTo) {
+				return $dateTo->format('w') == 6;
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 		;
 
 		$this->addText('personCount', 'Počet osob:')
 			->setType('number')
 			->setRequired()
-			->addRule(self::INTEGER, $message = 'Prosím, zadejte počet osob od %d do %d.', [1, $maxPersonsCapacity])
-			->addRule(self::RANGE, $message, [1, $maxPersonsCapacity])
-			->setAttribute('placeholder', sprintf('1 - %d', $maxPersonsCapacity))
+			->addRule(self::INTEGER, $message = 'Prosím, zadejte počet osob od %d do %d.', [1, $this->maxPersonsCapacity])
+			->addRule(self::RANGE, $message, [1, $this->maxPersonsCapacity])
+			->setAttribute('placeholder', sprintf('1 - %d', $this->maxPersonsCapacity))
 		;
 
 		$this->addText('email', 'E-mailová adresa:')
@@ -100,14 +114,15 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$this->addTextArea('notice', 'Poznámka:');
 
 		$this->addSubmit('send', 'Zaslat objednávku');
-
-		$this->onSuccess[] = [$this, 'sendOrder'];
 	}
 
 
-	public function sendOrder(self $form)
+	public function getValues($asArray = FALSE)
 	{
-
+		$values = parent::getValues($asArray);
+		$values->from = $this->dateFrom;
+		$values->to = $this->dateTo;
+		return $values;
 	}
 
 }
