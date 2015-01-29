@@ -5,6 +5,7 @@ namespace Vilemka\Components;
 use Nette\Forms\Controls\TextBase;
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
+use Vilemka\OccupationRepository;
 
 class ReservationForm extends \Nette\Application\UI\Form
 {
@@ -12,16 +13,21 @@ class ReservationForm extends \Nette\Application\UI\Form
 	/** @var int */
 	protected $maxPersonsCapacity;
 
+	/** @var OccupationRepository */
+	protected $occupationRepository;
+
 	/** @var DateTime */
 	protected $dateFrom, $dateTo;
 
 
 	/**
 	 * @param int $maxPersonsCapacity
+	 * @param OccupationRepository $occupationRepository
 	 */
-	public function __construct($maxPersonsCapacity)
+	public function __construct($maxPersonsCapacity, OccupationRepository $occupationRepository)
 	{
 		$this->maxPersonsCapacity = $maxPersonsCapacity;
+		$this->occupationRepository = $occupationRepository;
 	}
 
 
@@ -87,6 +93,10 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 			->addRule(function() use (& $dateTo) {
 				return $dateTo->format('w') == 6;
+			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
+
+			->addRule(function() use (& $dateTo, & $dateFrom) {
+				return $this->occupationRepository->isPeriodFree($dateFrom, $dateTo);
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 		;
 

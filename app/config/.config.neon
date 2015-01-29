@@ -3,12 +3,14 @@ parameters:
 
 	maxPersonsCapacity: 6
 
+	noreplyEmial: noreply@<host>
+
 	orderEmail:
 		from: ubytovani@<host>
-		name: Vilémka.cz rezervace
+		fromName: Vilémka.cz rezervace
 	messageEmail:
 		from: info@<host>
-		name: Vilémka.cz info
+		fromName: Vilémka.cz info
 
 
 php:
@@ -26,8 +28,6 @@ nette:
 
 
 services:
-	- Vilemka\Presenters\HomepagePresenter(%orderEmailFrom%, %messageEmailFrom%)
-
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
 
@@ -37,8 +37,8 @@ services:
 			- setDayHeadings([NE, PO, ÚT, ST, ČT, PÁ, SO])
 			- setMonthHeadings([Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec])
 
+	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
-
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
-
-	- Vilemka\NewOrderMailer(..., %orderEmail.from%, %orderEmail.name%)
+	- Vilemka\UserNotifier(..., ..., %orderEmail.from%, %orderEmail.fromName%)
+	- Vilemka\AdminNotifier(..., ..., %noreplyEmial%)

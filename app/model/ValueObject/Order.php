@@ -2,29 +2,93 @@
 
 namespace Vilemka\ValueObject;
 
-use DatePeriod;
+use DateTime;
 
-class Order
+class Order extends \Nette\Object
 {
 
-	/** @var DatePeriod */
-	public $period;
+	/** @var DateTime */
+	private $from, $to;
 
 	/** @var int */
-	public $personsCount;
+	private $personsCount;
 
 	/** @var string */
-	public $name, $email, $phone, $notice;
+	private $name, $email, $phone, $notice;
 
 
-	public function __construct(DatePeriod $period, $name, $personsCount, $email, $phone, $notice)
+	public function __construct(DateTime $from, DateTime $to, $name, $personsCount, $email, $phone, $notice)
 	{
-		$this->period = $period;
+		$this->from = $from;
+		$this->to = $to;
 		$this->name = $name;
 		$this->personsCount = $personsCount;
 		$this->email = $email;
 		$this->phone = $phone;
 		$this->notice = $notice;
+	}
+
+
+	/**
+	 * @return DateTime
+	 */
+	public function getFrom()
+	{
+		return $this->from;
+	}
+
+
+	/**
+	 * @return DateTime
+	 */
+	public function getTo()
+	{
+		return $this->to;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	public function getPersonsCount()
+	{
+		return $this->personsCount;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getEmail()
+	{
+		return $this->email;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getPhone()
+	{
+		return $this->phone;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getNotice()
+	{
+		return $this->notice;
 	}
 
 }

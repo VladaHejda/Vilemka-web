@@ -2,8 +2,6 @@
 
 namespace Vilemka;
 
-use Nette\Database\Context;
-
 /**
  * @todo cache
  */
@@ -13,8 +11,8 @@ class OccupationCalendar
 	/** @var \Calendar */
 	protected $calendar;
 
-	/** @var Context */
-	protected $database;
+	/** @var OccupationRepository */
+	protected $occupationRepository;
 
 	/** @var array $markedData [ int $year => [ int $satSatWeek, ... ], ... ] */
 	protected $markedData;
@@ -23,10 +21,10 @@ class OccupationCalendar
 	protected $linkCreator;
 
 
-	public function __construct(\Calendar $calendar, Context $context)
+	public function __construct(\Calendar $calendar, OccupationRepository $occupationRepository)
 	{
 		$this->calendar = $calendar;
-		$this->database = $context;
+		$this->occupationRepository = $occupationRepository;
 
 		$monthNumbers = range(0, 11);
 		foreach ($monthNumbers as &$monthNumber) {
@@ -58,6 +56,10 @@ class OccupationCalendar
 		$this->markedData = [];
 		$dataString = trim($dataString);
 		if (!empty($dataString)) {
+			$today = new \DateTime;
+			$currentYear = (int) $today->format('Y');
+			$currentWeek = $this->getSatSatWeekNumber($today);
+
 			foreach (explode('|', $dataString) as $weekData) {
 				$weekData = explode('/', $weekData);
 				if (count($weekData) !== 2) {
@@ -66,6 +68,9 @@ class OccupationCalendar
 				list($year, $week) = $weekData;
 				if (!ctype_digit($year) || !ctype_digit($week) || $year < 0 || $week < 0 || $week > 53) {
 					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
+				}
+				if ($year < $currentYear || ($year === $currentYear && $week <= $currentWeek)) {
+					continue;
 				}
 				if (isset($this->markedData[$year]) && in_array($week, $this->markedData[$year])) {
 					continue;
@@ -98,11 +103,24 @@ class OccupationCalendar
 
 		$bookedPeriods = $this->getBookedPeriods($month, $year);
 		$availableDays = $this->calculateAvailableDays($month, $year, $bookedPeriods);
+		$markedDays = $this->calculateMarkedDays($month, $year, $availableDays);
 
 		$this->markOccupiedDays($bookedPeriods);
 		$this->markAvailableDays($availableDays);
+//		$this->markMarkedDays($markedDays);
 
 		return $this->calendar->render($month, $year);
+	}
+
+
+	public function getMarkedPeriodsSinceToday()
+	{
+		$today = new \DateTime;
+		$currentWeek = $this->getSatSatWeekNumber($today);
+		$currentYear = (int) $today->format('Y');
+		foreach ($this->markedData as $year => $weeks) {
+
+		}
 	}
 
 
@@ -113,24 +131,7 @@ class OccupationCalendar
 	 */
 	protected function getBookedPeriods($month, $year)
 	{
-		// todo
-		$bookings = [
-			'2014-07-19',
-			'2014-08-02',
-			'2014-08-30',
-			'2014-10-11',
-			'2014-10-18',
-			'2015-01-03',
-		];
-		$interval = 6;
-
-		$periods = [];
-		foreach ($bookings as $booking) {
-			$booking = new \DateTime($booking);
-			$periods[] = new \DatePeriod($booking, new \DateInterval('P1D'), $interval);
-		}
-
-		return $periods;
+		return $this->occupationRepository->getBookedPeriods($month, $year);
 	}
 
 
@@ -194,6 +195,18 @@ class OccupationCalendar
 		}
 
 		return $freeDays;
+	}
+
+
+	/**
+	 * @param int $month
+	 * @param int $year
+	 * @param \DateTime[] $availableDays
+	 * @return \DateTime[]
+	 */
+	protected function calculateMarkedDays($month, $year, $availableDays)
+	{
+
 	}
 
 

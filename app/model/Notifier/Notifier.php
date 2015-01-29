@@ -2,11 +2,12 @@
 
 namespace Vilemka;
 
+use Nette\Http\Request;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
 use Nette\Utils\Validators;
 
-abstract class Mailer extends \Nette\Object
+abstract class Notifier extends \Nette\Object
 {
 
 	/** @var array [ $email, $name ] */
@@ -21,20 +22,21 @@ abstract class Mailer extends \Nette\Object
 
 	/**
 	 * @param IMailer $mailer
+	 * @param Request $request
 	 * @param string $email
-	 * @param string $name
+	 * @param string $fromName
 	 */
-	public function __construct(IMailer $mailer, $email, $name = null)
+	public function __construct(IMailer $mailer, Request $request, $email, $fromName = null)
 	{
-		str_replace('<host>', $_SERVER['HTTP_HOST'], $email);
+		$email = str_replace('<host>', $request->getUrl()->getHost(), $email);
 
 		if (!Validators::isEmail($email)) {
 			throw new \InvalidArgumentException(sprintf('%s is not valid e-mail.', $email));
 		}
 
 		$this->from[] = $email;
-		if ($name !== null) {
-			$this->from[] = $name;
+		if ($fromName !== null) {
+			$this->from[] = $fromName;
 		}
 
 		$this->mailer = $mailer;

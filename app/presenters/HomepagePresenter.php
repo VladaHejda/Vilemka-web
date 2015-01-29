@@ -3,9 +3,12 @@
 namespace Vilemka\Presenters;
 
 use Nette\Forms\Form;
+use Tracy\Debugger;
 use Vilemka\Components\PhotoSlider;
 use Vilemka\Components\ReservationForm;
-use Vilemka\NewOrderMailer;
+use Vilemka\OccupationRepository;
+use Vilemka\UserNotifier;
+use Vilemka\AdminNotifier;
 use Vilemka\OccupationCalendar;
 use Vilemka\ValueObject\Order;
 
@@ -20,26 +23,36 @@ class HomepagePresenter extends BasePresenter
 	public $monthMove = 0;
 
 
+	/** @var OccupationRepository */
+	protected $occupationRepository;
+
 	/** @var OccupationCalendar */
 	protected $occupationCalendar;
 
 	/** @var ReservationForm */
 	protected $reservationForm;
 
-	/** @var NewOrderMailer */
-	protected $mailer;
+	/** @var UserNotifier */
+	protected $userNotifier;
+
+	/** @var AdminNotifier */
+	protected $adminNotifier;
 
 
 	/**
+	 * @param OccupationRepository $occupationRepository
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationForm $reservationForm
-	 * @param NewOrderMailer $mailer
+	 * @param UserNotifier $userNotifier
 	 */
-	public function __construct(OccupationCalendar $occupationCalendar, ReservationForm $reservationForm, NewOrderMailer $mailer)
+	public function __construct(OccupationRepository $occupationRepository, OccupationCalendar $occupationCalendar,
+		ReservationForm $reservationForm, UserNotifier $userNotifier, AdminNotifier $adminNotifier)
 	{
+		$this->occupationRepository = $occupationRepository;
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationForm = $reservationForm;
-		$this->mailer = $mailer;
+		$this->userNotifier = $userNotifier;
+		$this->adminNotifier = $adminNotifier;
 	}
 
 
@@ -92,16 +105,24 @@ class HomepagePresenter extends BasePresenter
 	{
 		$values = $form->getValues();
 
-		$period = new \DatePeriod($values->from, $values->from->diff($values->to), $values->to);
-		$order = new Order($period, $values->name, $values->personCount, $values->email,
+		$order = new Order($values->from, $values->to, $values->name, $values->personCount, $values->email,
 			$values->phone, $values->notice);
 
-		if ($this->debugEmail) {
-			$this->mailer->onBeforeSend[] = function (\Nette\Mail\Message $mail) {
-				$mail->addBcc($this->debugEmail); // todo pokud to bude notifikovat oba, je toto taky blbost
-			};
+		$this->occupationRepository->insert($order);
+
+		try {
+			$this->adminNotifier->notify($order);
+		} catch (\Nette\InvalidStateException $e) {
+			Debugger::log($e, Debugger::ERROR);
 		}
-		$this->mailer->notify($order);
+
+		if ($order->getEmail()) {
+			try {
+				$this->userNotifier->notify($order->getEmail(), $order);
+			} catch (\Nette\InvalidStateException $e) {
+				Debugger::log($e, Debugger::ERROR);
+			}
+		}
 
 		// todo flash message by form (viz. http://forum.nette.org/cs/17720-vykresleni-casti-formulare-ve-vlastni-sablone)
 		$this->redirect(303, 'this#reservation');
