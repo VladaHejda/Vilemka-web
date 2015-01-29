@@ -5,6 +5,7 @@ namespace Vilemka\Components;
 use Nette\Forms\Controls\TextBase;
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
+use Vilemka\ValueObject\EmailAddress;
 use Vilemka\OccupationRepository;
 
 class ReservationForm extends \Nette\Application\UI\Form
@@ -132,6 +133,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$values = parent::getValues($asArray);
 		$values->from = $this->dateFrom;
 		$values->to = $this->dateTo;
+		$values->email = $values->email ? new EmailAddress($values->email, $values->name) : null;
 		return $values;
 	}
 

@@ -3,6 +3,7 @@
 namespace Vilemka\ValueObject;
 
 use DateTime;
+use Vilemka\ValueObject\EmailAddress;
 
 class Order extends \Nette\Object
 {
@@ -13,11 +14,14 @@ class Order extends \Nette\Object
 	/** @var int */
 	private $personsCount;
 
+	/** @var EmailAddress */
+	private $email;
+
 	/** @var string */
-	private $name, $email, $phone, $notice;
+	private $name, $phone, $notice;
 
 
-	public function __construct(DateTime $from, DateTime $to, $name, $personsCount, $email, $phone, $notice)
+	public function __construct(DateTime $from, DateTime $to, $name, $personsCount, EmailAddress $email, $phone, $notice)
 	{
 		$this->from = $from;
 		$this->to = $to;
@@ -66,7 +70,7 @@ class Order extends \Nette\Object
 
 
 	/**
-	 * @return string
+	 * @return EmailAddress
 	 */
 	public function getEmail()
 	{

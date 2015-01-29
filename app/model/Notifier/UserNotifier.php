@@ -9,8 +9,9 @@ class UserNotifier extends \Vilemka\Notifier
 
 	public function notify(ValueObject\Order $order)
 	{
+		$this->setRecipient($order->getEmail());
+
 		$mail = new Message;
-		$mail->addTo($order->getEmail(), $order->getName());
 		$mail->setSubject('Rezervace pobytu na Vilémka.cz');
 
 		$body = 'Dobrý den,' . "\n"

@@ -5,47 +5,55 @@ namespace Vilemka;
 use Nette\Http\Request;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
-use Nette\Utils\Validators;
+use Vilemka\ValueObject\EmailAddress;
 
 abstract class Notifier extends \Nette\Object
 {
 
-	/** @var array [ $email, $name ] */
-	protected $from = [];
+	/** @var array before message send listeners function(Message) */
+	public $onBeforeSend = [];
+
+	/** @var EmailAddress */
+	protected $sender, $recipient;
 
 	/** @var IMailer */
 	protected $mailer;
-
-	/** @var array before message send listeners function(Message) */
-	public $onBeforeSend = [];
 
 
 	/**
 	 * @param IMailer $mailer
 	 * @param Request $request
-	 * @param string $email
-	 * @param string $fromName
+	 * @param EmailAddress $sender
+	 * @param EmailAddress $recipient
 	 */
-	public function __construct(IMailer $mailer, Request $request, $email, $fromName = null)
+	public function __construct(IMailer $mailer, Request $request, EmailAddress $sender, EmailAddress $recipient = null)
 	{
-		$email = str_replace('<host>', $request->getUrl()->getHost(), $email);
-
-		if (!Validators::isEmail($email)) {
-			throw new \InvalidArgumentException(sprintf('%s is not valid e-mail.', $email));
-		}
-
-		$this->from[] = $email;
-		if ($fromName !== null) {
-			$this->from[] = $fromName;
-		}
-
+		$this->sender = $sender;
+		$this->recipient = $recipient;
 		$this->mailer = $mailer;
+	}
+
+
+	public function setSender(EmailAddress $sender)
+	{
+		$this->sender = $sender;
+	}
+
+
+	public function setRecipient(EmailAddress $recipient)
+	{
+		$this->recipient = $recipient;
 	}
 
 
 	public function send(Message $mail)
 	{
-		$mail->setFrom(...$this->from);
+		if ($this->sender !== null) {
+			$mail->setFrom(...$this->sender->getComplete());
+		}
+		if ($this->recipient !== null) {
+			$mail->addTo(...$this->recipient->getComplete());
+		}
 		$this->onBeforeSend($mail);
 		$this->mailer->send($mail);
 	}

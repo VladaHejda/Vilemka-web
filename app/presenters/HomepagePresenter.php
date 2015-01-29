@@ -118,7 +118,7 @@ class HomepagePresenter extends BasePresenter
 
 		if ($order->getEmail()) {
 			try {
-				$this->userNotifier->notify($order->getEmail(), $order);
+				$this->userNotifier->notify($order);
 			} catch (\Nette\InvalidStateException $e) {
 				Debugger::log($e, Debugger::ERROR);
 			}

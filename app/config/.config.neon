@@ -3,15 +3,6 @@ parameters:
 
 	maxPersonsCapacity: 6
 
-	noreplyEmial: noreply@<host>
-
-	orderEmail:
-		from: ubytovani@<host>
-		fromName: Vilémka.cz rezervace
-	messageEmail:
-		from: info@<host>
-		fromName: Vilémka.cz info
-
 
 php:
 	date.timezone: Europe/Prague
@@ -37,8 +28,18 @@ services:
 			- setDayHeadings([NE, PO, ÚT, ST, ČT, PÁ, SO])
 			- setMonthHeadings([Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec])
 
+	orderSender:
+		class: Vilemka\ValueObject\EmailAddress(..., ubytovani@<host>, "Vilémka.cz rezervace")
+		autowired: no
+	messageSender:
+		class: Vilemka\ValueObject\EmailAddress(..., info@<host>, "Vilémka.cz info")
+		autowired: no
+	noreplySender:
+		class: Vilemka\ValueObject\EmailAddress(..., noreply@<host>)
+		autowired: no
+
 	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
-	- Vilemka\UserNotifier(..., ..., %orderEmail.from%, %orderEmail.fromName%)
-	- Vilemka\AdminNotifier(..., ..., %noreplyEmial%)
+	- Vilemka\UserNotifier(..., ..., @orderSender)
+	- Vilemka\AdminNotifier(..., ..., @noreplySender)
