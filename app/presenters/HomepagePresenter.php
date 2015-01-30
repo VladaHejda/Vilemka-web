@@ -114,7 +114,6 @@ class HomepagePresenter extends BasePresenter
 	 */
 	public function createComponentReservationForm()
 	{
-		$this->reservationForm->action .= '#reservation';
 		$this->reservationForm->onSuccess[] = [$this, 'sendOrder'];
 		return $this->reservationForm;
 	}
@@ -148,7 +147,7 @@ class HomepagePresenter extends BasePresenter
 		}
 
 		// todo flash message by form (viz. http://forum.nette.org/cs/17720-vykresleni-casti-formulare-ve-vlastni-sablone)
-		$this->redirect(303, 'this#reservation');
+		$this->redirect(303, 'this#rezervace');
 	}
 
 }

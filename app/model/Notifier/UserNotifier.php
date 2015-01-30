@@ -30,6 +30,7 @@ class UserOrderNotifier extends \Vilemka\Notifier
 			. "\n"
 			. 'Platba probíhá na místě. Prosíme, přijeďtě v den počátku rezervace nejdříve ve 14 hodin (nebo déle). '
 			. 'Děkujeme za pochopení.' . "\n\n"
+			. 'Potvrzení rezervace Vám co nejdříve zašleme.' . "\n\n"
 			. 'S pozdravem a přáním hezkého dne' . "\n"
 			. 'Hejda Vladislav' . "\n"
 			. sprintf('IČO: %s', $idNumber) . "\n"
