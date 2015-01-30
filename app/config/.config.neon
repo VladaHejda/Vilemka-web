@@ -12,6 +12,8 @@ parameters:
 		from: info@<host>
 		name: "Vilémka.cz info"
 
+	idNumber:
+
 	maxPersonsCapacity: 6
 
 
@@ -38,7 +40,7 @@ nette:
 
 services:
 	homepage:
-		class: Vilemka\Presenters\HomepagePresenter
+		class: Vilemka\Presenters\HomepagePresenter(%idNumber%)
 		setup:
 			- setDebugEmail(%debugEmail%)
 

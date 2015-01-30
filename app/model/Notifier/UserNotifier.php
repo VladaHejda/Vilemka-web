@@ -7,7 +7,11 @@ use Nette\Mail\Message;
 class UserOrderNotifier extends \Vilemka\Notifier
 {
 
-	public function notify(ValueObject\Order $order)
+	/**
+	 * @param ValueObject\Order $order
+	 * @param string $idNumber
+	 */
+	public function notify(ValueObject\Order $order, $idNumber)
 	{
 		$this->setRecipient($order->getEmail());
 
@@ -28,6 +32,7 @@ class UserOrderNotifier extends \Vilemka\Notifier
 			. 'Děkujeme za pochopení.' . "\n\n"
 			. 'S pozdravem a přáním hezkého dne' . "\n"
 			. 'Hejda Vladislav' . "\n"
+			. sprintf('IČO: %s', $idNumber) . "\n"
 			. sprintf('Ubytování v jižních čechách - chata Vilémka (http://%s)', $_SERVER['HTTP_HOST']) . "\n"
 			. sprintf('tel.: %s', '+420 739 352 926') . "\n"
 			. sprintf('e-mail.: %s', $this->sender->getEmail()) . "\n"

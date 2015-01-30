@@ -39,16 +39,21 @@ class HomepagePresenter extends BasePresenter
 	/** @var AdminOrderNotifier */
 	protected $adminOrderNotifier;
 
+	/** @var string */
+	protected $idNumber;
+
 
 	/**
+	 * @param string $idNumber
 	 * @param OccupationRepository $occupationRepository
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationForm $reservationForm
 	 * @param UserOrderNotifier $userOrderNotifier
 	 */
-	public function __construct(OccupationRepository $occupationRepository, OccupationCalendar $occupationCalendar,
+	public function __construct($idNumber, OccupationRepository $occupationRepository, OccupationCalendar $occupationCalendar,
 		ReservationForm $reservationForm, UserOrderNotifier $userOrderNotifier, AdminOrderNotifier $adminOrderNotifier)
 	{
+		$this->idNumber = $idNumber;
 		$this->occupationRepository = $occupationRepository;
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationForm = $reservationForm;
@@ -122,7 +127,6 @@ class HomepagePresenter extends BasePresenter
 	{
 		$values = $form->getValues();
 
-
 		$order = new Order($values->from, $values->to, $values->name, $values->personCount,
 			$values->email ? new EmailAddress($this->getHttpRequest(), $values->email, $values->name) : null,
 			$values->phone, $values->notice);
@@ -137,7 +141,7 @@ class HomepagePresenter extends BasePresenter
 
 		if ($order->getEmail()) {
 			try {
-				$this->userOrderNotifier->notify($order);
+				$this->userOrderNotifier->notify($order, $this->idNumber);
 			} catch (\Nette\InvalidStateException $e) {
 				Debugger::log($e, Debugger::ERROR);
 			}
