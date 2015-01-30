@@ -1,3 +1,13 @@
-<div n:foreach="$flashes as $flash" class="flash">{$flash->message}</div>
-{var $control[reservationForm]->action .= '#rezervace'}
-{control reservationForm}
+<div id="reservation-control">
+
+	{if $control[reservationForm]->success}
+	<ul n:if="$flashes" class="flashes">
+		<li n:foreach="$flashes as $flash" class="flash">{$flash->message}</li>
+	</ul>
+
+	{else}
+	{var $control[reservationForm]->action .= '#rezervace'}
+	{control reservationForm}
+	{/if}
+
+</div>

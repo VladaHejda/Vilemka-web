@@ -2,12 +2,19 @@
 body { font-size: 14px; font-family: Arial Black;}
 .js-data { display: none; }
 
+input, a {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
 
 /*   HEADER   */
 header {
 	width: 100%;
 	height: 600px;
-	background: url('graphics/top.jpg') center center no-repeat;
+	background: url('../graphics/top.jpg') center center no-repeat;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -50,45 +57,41 @@ header nav a {
 	padding-right: 50px;
 	background-position: center right;
 	background-repeat: no-repeat;
-	-webkit-transition: all 0.5s ease;
-	-moz-transition: all 0.5s ease;
-	-o-transition: all 0.5s ease;
-	transition: all 0.5s ease;
 }
 header nav #nav-informations a {
-	background-image: url('graphics/icon_info.jpg');
+	background-image: url('../graphics/icon_info.jpg');
 }
 header nav #nav-informations a:hover {
 	color: #ff4d1e;
-	background-image: url('graphics/icon_info_h.jpg');
+	background-image: url('../graphics/icon_info_h.jpg');
 }
 header nav #nav-photo a {
-	background-image: url('graphics/icon_photo.jpg');
+	background-image: url('../graphics/icon_photo.jpg');
 }
 header nav #nav-photo a:hover {
 	color: #0091f7;
-	background-image: url('graphics/icon_photo_h.jpg');
+	background-image: url('../graphics/icon_photo_h.jpg');
 }
 header nav #nav-occupancy a {
-	background-image: url('graphics/icon_occupancy.jpg');
+	background-image: url('../graphics/icon_occupancy.jpg');
 }
 header nav #nav-occupancy a:hover {
 	color: #f9f703;
-	background-image: url('graphics/icon_occupancy_h.jpg');
+	background-image: url('../graphics/icon_occupancy_h.jpg');
 }
 header nav #nav-reservation a {
-	background-image: url('graphics/icon_reservation.jpg');
+	background-image: url('../graphics/icon_reservation.jpg');
 }
 header nav #nav-reservation a:hover {
 	color: #26f217;
-	background-image: url('graphics/icon_reservation_h.jpg');
+	background-image: url('../graphics/icon_reservation_h.jpg');
 }
 header nav #nav-contact a {
-	background-image: url('graphics/icon_contact.jpg');
+	background-image: url('../graphics/icon_contact.jpg');
 }
 header nav #nav-contact a:hover {
 	color: #ae00ff;
-	background-image: url('graphics/icon_contact_h.jpg');
+	background-image: url('../graphics/icon_contact_h.jpg');
 }
 
 
@@ -111,7 +114,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 /*   ARTICLE INFO   */
 #info {
 	width: 100%;
-	background: url('graphics/sunflower.png') 90% top no-repeat;
+	background: url('../graphics/sunflower.png') 90% top no-repeat;
 	margin-top: -290px;
 	position: relative;
 	z-index: 10;
@@ -119,12 +122,12 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 }
 #info .cover {
 	width: 100%;
-	background: url('graphics/meadow.png') left 174px repeat-x;
+	background: url('../graphics/meadow.png') left 174px repeat-x;
 	padding-top: 309px;
 }
 #info .content {
 	width: 100%;
-	background: #ffdbd2 url('graphics/meadow_bg.jpg') repeat-x;
+	background: #ffdbd2 url('../graphics/meadow_bg.jpg') repeat-x;
 	height: 515px;
 	pointer-events: auto;
 }
@@ -134,8 +137,8 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #info section { float: right; margin: 10px 70px 0 0; width: 63%; }
 /* navigation to next block */
 #info nav div { width: 100px; }
-#info nav a span { background-image:  url('graphics/arrow-down-blue.png'); }
-#info nav a em { background-image:  url('graphics/icon_photo_t.png'); }
+#info nav a span { background-image: url('../graphics/arrow-down-blue.png'); }
+#info nav a em { background-image: url('../graphics/icon_photo_t.png'); }
 #info nav a strong { color: #0392f7; }
 #info nav a:hover strong { color: #0b03f7; }
 #info nav a strong { width: 40px; }
@@ -144,7 +147,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 /*   ARTICLE PHOTO   */
 #photo {
 	width: 100%;
-	background: url('graphics/reed.png') 5% top no-repeat;
+	background: url('../graphics/reed.png') 5% top no-repeat;
 	margin-top: -368px;
 	position: relative;
 	z-index: 20;
@@ -152,12 +155,12 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 }
 #photo .cover {
 	width: 100%;
-	background: url('graphics/wave.png') left 319px repeat-x;
+	background: url('../graphics/wave.png') left 319px repeat-x;
 	padding-top: 405px;
 }
 #photo .content {
 	width: 100%;
-	background: #ceeaff url('graphics/wave_bg.jpg') repeat-x;
+	background: #ceeaff url('../graphics/wave_bg.jpg') repeat-x;
 	height: 450px;
 	pointer-events: auto;
 }
@@ -170,18 +173,18 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #photo section #photo-slider li { display: none; }
 #photo section #photo-slider li.show { display: block; }
 #photo section li { list-style: none; margin-right: 12px; width: 287px; height: 216px;
-	background: url('graphics/frame.png') no-repeat; float: left; }
+	background: url('../graphics/frame.png') no-repeat; float: left; }
 #photo section li img { width: 250px; margin: 12px 0 0 16px; }
 #photo section .arrow { float: left; margin: 88px 17px 0 0;}
 #photo section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
 	text-decoration: none; }
 #photo section .arrow a:hover { background-position: -33px 0; }
-#photo section .arrow-left a { background-image: url('graphics/arrow-left-blue.png'); }
-#photo section .arrow-right a { background-image: url('graphics/arrow-right-blue.png'); }
+#photo section .arrow-left a { background-image: url('../graphics/arrow-left-blue.png'); }
+#photo section .arrow-right a { background-image: url('../graphics/arrow-right-blue.png'); }
 /* navigation to next block */
 #photo nav div { width: 154px; }
-#photo nav a span { background-image:  url('graphics/arrow-down-orange.png'); }
-#photo nav a em { background-image:  url('graphics/icon_occupancy_t.png'); }
+#photo nav a span { background-image: url('../graphics/arrow-down-orange.png'); }
+#photo nav a em { background-image: url('../graphics/icon_occupancy_t.png'); }
 #photo nav a strong { color: #ff9908; }
 #photo nav a:hover strong { color: #f75f03; }
 #photo nav a strong { width: 95px; }
@@ -190,7 +193,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 /*   ARTICLE OCCUPANCY   */
 #occupancy {
 	width: 100%;
-	background: url('graphics/rock.png') left top no-repeat;
+	background: url('../graphics/rock.png') left top no-repeat;
 	margin-top: -367px;
 	position: relative;
 	z-index: 30;
@@ -198,12 +201,12 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 }
 #occupancy .cover {
 	width: 100%;
-	background: url('graphics/stones.png') left 325px repeat-x;
+	background: url('../graphics/stones.png') left 325px repeat-x;
 	padding-top: 385px;
 }
 #occupancy .content {
 	width: 100%;
-	background: #fefdc2 url('graphics/stones_bg.jpg') repeat-x;
+	background: #fefdc2 url('../graphics/stones_bg.jpg') repeat-x;
 	height: 500px;
 	pointer-events: auto;
 }
@@ -213,18 +216,18 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #occupancy section #occupancy-slider { float: left; clear: left; width: 778px; margin: 60px 0 0 100px;}
 #occupancy section ul { float: left; width: 678px; }
 #occupancy section li { list-style: none; margin-right: 15px; }
-#occupancy section li { width: 211px; height: 198px; background: url('graphics/calendar.png') no-repeat; float: left; }
+#occupancy section li { width: 211px; height: 198px; background: url('../graphics/calendar.png') no-repeat; float: left; }
 #occupancy section .arrow { float: left; margin: 88px 17px 0 0;}
 #occupancy section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
 	text-decoration: none; }
 #occupancy section .arrow a:hover { background-position: -33px 0; }
-#occupancy section .arrow-left a { background-image: url('graphics/arrow-left-orange.png'); }
-#occupancy section .arrow-right a { background-image: url('graphics/arrow-right-orange.png'); }
+#occupancy section .arrow-left a { background-image: url('../graphics/arrow-left-orange.png'); }
+#occupancy section .arrow-right a { background-image: url('../graphics/arrow-right-orange.png'); }
 #occupancy figure { float: left; clear: left; margin: 20px 0 0 150px; }
 /* navigation to next block */
 #occupancy nav div { width: 144px; }
-#occupancy nav a span { background-image:  url('graphics/arrow-down-green.png'); }
-#occupancy nav a em { background-image:  url('graphics/icon_reservation_t.png'); }
+#occupancy nav a span { background-image: url('../graphics/arrow-down-green.png'); }
+#occupancy nav a em { background-image: url('../graphics/icon_reservation_t.png'); }
 #occupancy nav a strong { color: #26f217; }
 #occupancy nav a:hover strong { color: #23c416; }
 #occupancy nav a strong { width: 85px; }
@@ -233,7 +236,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 /*   ARTICLE RESERVATION   */
 #reservation {
 	width: 100%;
-	background: url('graphics/mushroom.png') 92% top no-repeat;
+	background: url('../graphics/mushroom.png') 92% top no-repeat;
 	margin-top: -286px;
 	position: relative;
 	z-index: 40;
@@ -241,24 +244,81 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 }
 #reservation .cover {
 	width: 100%;
-	background: url('graphics/moss.png') left 239px repeat-x;
+	background: url('../graphics/moss.png') left 239px repeat-x;
 	padding-top: 302px;
 }
 #reservation .content {
 	width: 100%;
-	background: #b7fbb2 url('graphics/moss_bg.jpg') repeat-x;
+	background: #b7fbb2 url('../graphics/moss_bg.jpg') repeat-x;
 	height: 600px;
 	pointer-events: auto;
 }
 #reservation h1 a {
 	color: #dbffd8;
 }
+#reservation section #reservation-control {
+	float: left;
+	clear: left;
+	width: 1000px;
+	margin: 40px 0 0 100px;
+	font-family: Arial;
+	table {
+		border-collapse: collapse;
+	}
+	.flashes {
+		font-size: 2em;
+		color: #0b5800;
+		font-weight: bold;
+		text-align: center;
+		.flash {
+			list-style: none;
+		}
+	}
+	tr {
+		th {
+			text-align: left;
+			vertical-align: top;
+			width: 170px;
+			padding-top: 7px;
+		}
+		td {
+			padding: 2px 0;
+			.text, .textarea, .button {
+				padding: 3px 8px;
+				border-radius: 5px;
+				border: 1px solid #12a200;
+			}
+			.text {
+				width: 300px;
+				height: 20px;
+			}
+			.textarea {
+				width: 800px;
+				height: 50px;
+			}
+			.button {
+				width: 150px;
+				background-color: #19e600;
+				cursor: pointer;
+				&:hover {
+					background-color: #12a200;
+					color: #fff;
+				}
+			}
+			.error {
+				padding-left: 10px;
+				color: #dc0000;
+				font-weight: bold;
+			}
+		}
+	}
+}
 
 
 /*   ARTICLE CONTACT   */
 #contact {
 	width: 100%;
-	background: url('graphics/grass.png') repeat-x;
+	background: url('../graphics/grass.png') repeat-x;
 	margin-top: -188px;
 	padding-top: 229px;
 	position: relative;
@@ -273,14 +333,14 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #contact h1 a {
 	color: #3d3d3d;
 }
-/* todo nest ids #contact #contact-summary? (for better recognition by programmer) */
+// todo nest ids #contact #contact-summary? (for better recognition by programmer)
 #contact-summary { float: left; clear: left; margin: 30px 0 0 20px; }
 #contact-summary li { list-style: none; }
 #contact-form { float: right; margin: 30px 50px 0 0; }
 #contact-form h2 { font-size: 1em; font-weight: normal; }
 #contact-form label { display: block; }
 #contact-form textarea { width: 447px; height: 90px; border: 2px #fff solid; color: #fff; padding: 5px;
-	background: url('graphics/textarea.jpg') repeat-x; }
+	background: url('../graphics/textarea.jpg') repeat-x; }
 #contact-form label.submit { text-align: right; margin-top: 10px; }
-#contact-form label.submit input { width: 161px; height: 33px; background: url('graphics/submit2.png') no-repeat;
+#contact-form label.submit input { width: 161px; height: 33px; background: url('../graphics/submit2.png') no-repeat;
 	border: none; color: #96d3fd; font-size: 1.1em; font-weight: bold; cursor: pointer; }

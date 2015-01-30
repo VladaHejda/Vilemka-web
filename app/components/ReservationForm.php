@@ -43,12 +43,12 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$labelTo = 'Do';
 
 		$this->addText('name', 'Vaše jméno:')
-			->setRequired()
+			->setRequired('Prosím, zadejte jméno.')
 		;
 
 		$this->addText('from', "$labelFrom:")
 			->setAttribute('placeholder', $dateFormatHelp)
-			->setRequired()
+			->setRequired('Prosím, zadejte termín.')
 
 			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelFrom, $dateFormatHelp), $datePattern)
 
@@ -73,7 +73,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 		$this->addText('to', "$labelTo:")
 			->setAttribute('placeholder', $dateFormatHelp)
-			->setRequired()
+			->setRequired('Prosím, zadejte termín.')
 
 			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelTo, $dateFormatHelp), $datePattern)
 
@@ -102,10 +102,11 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 		$this->addText('personCount', 'Počet osob:')
 			->setType('number')
-			->setRequired()
+			->setRequired('Prosím, zadejte počet osob.')
 			->addRule(self::INTEGER, $message = 'Prosím, zadejte počet osob od %d do %d.', [1, $this->maxPersonsCapacity])
 			->addRule(self::RANGE, $message, [1, $this->maxPersonsCapacity])
 			->setAttribute('placeholder', sprintf('1 - %d', $this->maxPersonsCapacity))
+			->getControlPrototype()->addClass('text')
 		;
 
 		$this->addText('email', 'E-mailová adresa:')
@@ -114,14 +115,17 @@ class ReservationForm extends \Nette\Application\UI\Form
 			->addCondition(self::FILLED)
 				->addRule(self::EMAIL, 'E-mailová adresa není správně.')
 		;
+		$this['email']->getControlPrototype()->addClass('text');
 
 		$this->addText('phone', 'Telefonní číslo:')
-			->setRequired()
+			->setRequired('Prosím, zadejte telefonní číslo.')
 			->addCondition(self::FILLED)
 				->addRule(self::PATTERN, 'Telefonní číslo není správně.', "^(\\+\\s*[0-9]{1,3}[- ]?)?[-0-9 ]{1,18}$")
 		;
 
-		$this->addTextArea('notice', 'Poznámka:');
+		$this->addTextArea('notice', 'Poznámka:')
+			->getControlPrototype()->addClass('textarea')
+		;
 
 		$this->addSubmit('send', 'Zaslat objednávku');
 	}
