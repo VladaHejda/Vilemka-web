@@ -40,7 +40,7 @@ nette:
 
 services:
 	homepage:
-		class: Vilemka\Presenters\HomepagePresenter(%idNumber%)
+		class: Vilemka\Presenters\HomepagePresenter
 		setup:
 			- setDebugEmail(%debugEmail%)
 
@@ -66,6 +66,7 @@ services:
 
 	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
+	- Vilemka\Components\ReservationControl(%idNumber%)
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
 	- Vilemka\UserOrderNotifier(..., ..., @orderEmail)
 	- Vilemka\AdminOrderNotifier(..., ..., @noreplySender, @orderEmail)

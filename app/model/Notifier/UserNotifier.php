@@ -13,6 +13,10 @@ class UserOrderNotifier extends \Vilemka\Notifier
 	 */
 	public function notify(ValueObject\Order $order, $idNumber)
 	{
+		if ($order->getEmail() === null) {
+			throw new \InvalidArgumentException('Cannot notify user with no e-mail.');
+		}
+
 		$this->setRecipient($order->getEmail());
 
 		$mail = new Message;
@@ -24,7 +28,7 @@ class UserOrderNotifier extends \Vilemka\Notifier
 			. sprintf('Vaše jméno: %s', $order->getName()) . "\n"
 			. sprintf('Termín od soboty %s do soboty %s', $order->getFrom()->format('j. n.'), $order->getTo()->format('j. n. Y')) . "\n"
 			. sprintf('Počet osob: %d', $order->getPersonsCount()) . "\n"
-			. sprintf('E-mailová adresa: %s', $order->getEmail()->getEmail()) . "\n"
+			. ($order->getEmail() ? sprintf('E-mailová adresa: %s', $order->getEmail()->getEmail()) . "\n" : '')
 			. ($order->getPhone() ? sprintf('Telefonní číslo: %s', $order->getPhone()) . "\n" : '')
 			. ($order->getNotice() ? sprintf("Poznámka:\n%s", $order->getNotice()) . "\n" : '')
 			. "\n"

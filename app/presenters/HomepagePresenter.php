@@ -2,16 +2,9 @@
 
 namespace Vilemka\Presenters;
 
-use Nette\Forms\Form;
-use Tracy\Debugger;
 use Vilemka\Components\PhotoSlider;
-use Vilemka\Components\ReservationForm;
-use Vilemka\OccupationRepository;
-use Vilemka\UserOrderNotifier;
-use Vilemka\AdminOrderNotifier;
+use Vilemka\Components\ReservationControl;
 use Vilemka\OccupationCalendar;
-use Vilemka\ValueObject\EmailAddress;
-use Vilemka\ValueObject\Order;
 
 /**
  * TODO
@@ -24,41 +17,21 @@ class HomepagePresenter extends BasePresenter
 	public $monthMove = 0;
 
 
-	/** @var OccupationRepository */
-	protected $occupationRepository;
-
 	/** @var OccupationCalendar */
 	protected $occupationCalendar;
 
-	/** @var ReservationForm */
-	protected $reservationForm;
-
-	/** @var UserOrderNotifier */
-	protected $userOrderNotifier;
-
-	/** @var AdminOrderNotifier */
-	protected $adminOrderNotifier;
-
-	/** @var string */
-	protected $idNumber;
+	/** @var ReservationControl */
+	protected $reservationControl;
 
 
 	/**
-	 * @param string $idNumber
-	 * @param OccupationRepository $occupationRepository
 	 * @param OccupationCalendar $occupationCalendar
-	 * @param ReservationForm $reservationForm
-	 * @param UserOrderNotifier $userOrderNotifier
+	 * @param ReservationControl $reservationControl
 	 */
-	public function __construct($idNumber, OccupationRepository $occupationRepository, OccupationCalendar $occupationCalendar,
-		ReservationForm $reservationForm, UserOrderNotifier $userOrderNotifier, AdminOrderNotifier $adminOrderNotifier)
+	public function __construct(OccupationCalendar $occupationCalendar, ReservationControl $reservationControl)
 	{
-		$this->idNumber = $idNumber;
-		$this->occupationRepository = $occupationRepository;
 		$this->occupationCalendar = $occupationCalendar;
-		$this->reservationForm = $reservationForm;
-		$this->userOrderNotifier = $userOrderNotifier;
-		$this->adminOrderNotifier = $adminOrderNotifier;
+		$this->reservationControl = $reservationControl;
 	}
 
 
@@ -110,44 +83,11 @@ class HomepagePresenter extends BasePresenter
 
 
 	/**
-	 * @return ReservationForm
+	 * @return ReservationControl
 	 */
-	public function createComponentReservationForm()
+	public function createComponentReservationControl()
 	{
-		$this->reservationForm->onSuccess[] = [$this, 'sendOrder'];
-		return $this->reservationForm;
-	}
-
-
-	/**
-	 * @param Form $form
-	 */
-	public function sendOrder(Form $form)
-	{
-		$values = $form->getValues();
-
-		$order = new Order($values->from, $values->to, $values->name, $values->personCount,
-			$values->email ? new EmailAddress($this->getHttpRequest(), $values->email, $values->name) : null,
-			$values->phone, $values->notice);
-
-		$this->occupationRepository->insert($order);
-
-		try {
-			$this->adminOrderNotifier->notify($order);
-		} catch (\Nette\InvalidStateException $e) {
-			Debugger::log($e, Debugger::ERROR);
-		}
-
-		if ($order->getEmail()) {
-			try {
-				$this->userOrderNotifier->notify($order, $this->idNumber);
-			} catch (\Nette\InvalidStateException $e) {
-				Debugger::log($e, Debugger::ERROR);
-			}
-		}
-
-		// todo flash message by form (viz. http://forum.nette.org/cs/17720-vykresleni-casti-formulare-ve-vlastni-sablone)
-		$this->redirect(303, 'this#rezervace');
+		return $this->reservationControl;
 	}
 
 }

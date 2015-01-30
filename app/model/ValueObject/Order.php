@@ -21,7 +21,8 @@ class Order extends \Nette\Object
 	private $name, $phone, $notice;
 
 
-	public function __construct(DateTime $from, DateTime $to, $name, $personsCount, EmailAddress $email, $phone, $notice)
+	public function __construct(DateTime $from, DateTime $to, $name, $personsCount, EmailAddress $email = null,
+		$phone = null, $notice = '')
 	{
 		$this->from = $from;
 		$this->to = $to;
@@ -70,7 +71,7 @@ class Order extends \Nette\Object
 
 
 	/**
-	 * @return EmailAddress
+	 * @return EmailAddress|null
 	 */
 	public function getEmail()
 	{
@@ -79,7 +80,7 @@ class Order extends \Nette\Object
 
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
 	public function getPhone()
 	{
