@@ -7,9 +7,10 @@ use Tracy\Debugger;
 use Vilemka\Components\PhotoSlider;
 use Vilemka\Components\ReservationForm;
 use Vilemka\OccupationRepository;
-use Vilemka\UserNotifier;
-use Vilemka\AdminNotifier;
+use Vilemka\UserOrderNotifier;
+use Vilemka\AdminOrderNotifier;
 use Vilemka\OccupationCalendar;
+use Vilemka\ValueObject\EmailAddress;
 use Vilemka\ValueObject\Order;
 
 /**
@@ -32,30 +33,34 @@ class HomepagePresenter extends BasePresenter
 	/** @var ReservationForm */
 	protected $reservationForm;
 
-	/** @var UserNotifier */
-	protected $userNotifier;
+	/** @var UserOrderNotifier */
+	protected $userOrderNotifier;
 
-	/** @var AdminNotifier */
-	protected $adminNotifier;
+	/** @var AdminOrderNotifier */
+	protected $adminOrderNotifier;
 
 
 	/**
 	 * @param OccupationRepository $occupationRepository
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationForm $reservationForm
-	 * @param UserNotifier $userNotifier
+	 * @param UserOrderNotifier $userOrderNotifier
 	 */
 	public function __construct(OccupationRepository $occupationRepository, OccupationCalendar $occupationCalendar,
-		ReservationForm $reservationForm, UserNotifier $userNotifier, AdminNotifier $adminNotifier)
+		ReservationForm $reservationForm, UserOrderNotifier $userOrderNotifier, AdminOrderNotifier $adminOrderNotifier)
 	{
 		$this->occupationRepository = $occupationRepository;
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationForm = $reservationForm;
-		$this->userNotifier = $userNotifier;
-		$this->adminNotifier = $adminNotifier;
+		$this->userOrderNotifier = $userOrderNotifier;
+		$this->adminOrderNotifier = $adminOrderNotifier;
 	}
 
 
+	/**
+	 * @param string $markWeek
+	 * @throws \Nette\Application\BadRequestException
+	 */
 	public function actionDefault($markWeek = '')
 	{
 		try {
@@ -69,6 +74,9 @@ class HomepagePresenter extends BasePresenter
 	}
 
 
+	/**
+	 * @param int $loadMonth
+	 */
 	public function renderDefault($loadMonth = NULL)
 	{
 		$month = (int) date('n') + $this->monthMove;
@@ -87,12 +95,18 @@ class HomepagePresenter extends BasePresenter
 	}
 
 
+	/**
+	 * @return PhotoSlider
+	 */
 	public function createComponentPhotoSlider()
 	{
 		return new PhotoSlider;
 	}
 
 
+	/**
+	 * @return ReservationForm
+	 */
 	public function createComponentReservationForm()
 	{
 		$this->reservationForm->action .= '#reservation';
@@ -101,24 +115,29 @@ class HomepagePresenter extends BasePresenter
 	}
 
 
+	/**
+	 * @param Form $form
+	 */
 	public function sendOrder(Form $form)
 	{
 		$values = $form->getValues();
 
-		$order = new Order($values->from, $values->to, $values->name, $values->personCount, $values->email,
+
+		$order = new Order($values->from, $values->to, $values->name, $values->personCount,
+			$values->email ? new EmailAddress($this->getHttpRequest(), $values->email, $values->name) : null,
 			$values->phone, $values->notice);
 
 		$this->occupationRepository->insert($order);
 
 		try {
-			$this->adminNotifier->notify($order);
+			$this->adminOrderNotifier->notify($order);
 		} catch (\Nette\InvalidStateException $e) {
 			Debugger::log($e, Debugger::ERROR);
 		}
 
 		if ($order->getEmail()) {
 			try {
-				$this->userNotifier->notify($order);
+				$this->userOrderNotifier->notify($order);
 			} catch (\Nette\InvalidStateException $e) {
 				Debugger::log($e, Debugger::ERROR);
 			}

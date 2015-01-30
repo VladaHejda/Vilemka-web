@@ -1,5 +1,16 @@
 parameters:
+	database:
+		dsn:
+		user:
+		password:
+
 	debugEmail:
+	orderEmail:
+		from: ubytovani@<host>
+		name: "Vilémka.cz rezervace"
+	infoEmail:
+		from: info@<host>
+		name: "Vilémka.cz info"
 
 	maxPersonsCapacity: 6
 
@@ -17,8 +28,21 @@ nette:
 	session:
 		expiration: 14 days
 
+	database:
+		dsn: %database.dsn%
+		user: %database.user%
+		password: %database.password%
+		options:
+			lazy: yes
+
 
 services:
+	homepage:
+		class: Vilemka\Presenters\HomepagePresenter
+		setup:
+			- setDebugEmail(%debugEmail%)
+
+
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
 
@@ -28,18 +52,18 @@ services:
 			- setDayHeadings([NE, PO, ÚT, ST, ČT, PÁ, SO])
 			- setMonthHeadings([Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec])
 
-	orderSender:
-		class: Vilemka\ValueObject\EmailAddress(..., ubytovani@<host>, "Vilémka.cz rezervace")
-		autowired: no
-	messageSender:
-		class: Vilemka\ValueObject\EmailAddress(..., info@<host>, "Vilémka.cz info")
-		autowired: no
 	noreplySender:
 		class: Vilemka\ValueObject\EmailAddress(..., noreply@<host>)
+		autowired: no
+	orderEmail:
+		class: Vilemka\ValueObject\EmailAddress(..., %orderEmail.from%, %orderEmail.name%)
+		autowired: no
+	infoEmail:
+		class: Vilemka\ValueObject\EmailAddress(..., %infoEmail.from%, %infoEmail.name%)
 		autowired: no
 
 	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
-	- Vilemka\UserNotifier(..., ..., @orderSender)
-	- Vilemka\AdminNotifier(..., ..., @noreplySender)
+	- Vilemka\UserOrderNotifier(..., ..., @orderEmail)
+	- Vilemka\AdminOrderNotifier(..., ..., @noreplySender, @orderEmail)

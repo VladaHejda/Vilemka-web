@@ -5,7 +5,6 @@ namespace Vilemka\Components;
 use Nette\Forms\Controls\TextBase;
 use Nette\Utils\DateTime;
 use Nette\Utils\Strings;
-use Vilemka\ValueObject\EmailAddress;
 use Vilemka\OccupationRepository;
 
 class ReservationForm extends \Nette\Application\UI\Form
@@ -27,15 +26,15 @@ class ReservationForm extends \Nette\Application\UI\Form
 	 */
 	public function __construct($maxPersonsCapacity, OccupationRepository $occupationRepository)
 	{
+		parent::__construct();
 		$this->maxPersonsCapacity = $maxPersonsCapacity;
 		$this->occupationRepository = $occupationRepository;
+		$this->createFields();
 	}
 
 
 	protected function createFields()
 	{
-		// todo čekovat zda je termín volný
-
 		$today = new DateTime;
 		$datePattern = '(0?[0-9]|[12][0-9]|3[01])\\s*\\.\\s*(0?[0-9]|1[0-2])\\s*\\.\\s*[2-9][0-9]{3}';
 		$dateParsePattern = '([0-9]+)\\s*\\.\\s*([0-9]+)\\s*\\.\\s*([0-9]+)';
@@ -133,7 +132,6 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$values = parent::getValues($asArray);
 		$values->from = $this->dateFrom;
 		$values->to = $this->dateTo;
-		$values->email = $values->email ? new EmailAddress($values->email, $values->name) : null;
 		return $values;
 	}
 
