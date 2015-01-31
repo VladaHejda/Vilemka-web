@@ -1,6 +1,6 @@
 <div id="reservation-control">
 
-	{if $control[reservationForm]->success}
+	{if $flashes}
 	<ul n:if="$flashes" class="flashes">
 		<li n:foreach="$flashes as $flash" class="flash">{$flash->message}</li>
 	</ul>

@@ -5,7 +5,7 @@ namespace Vilemka;
 use Nette\Mail\Message;
 use Vilemka\ValueObject\EmailAddress;
 
-class UserMessageCopyNotifier extends \Vilemka\Notifier
+class UserMessageCopyNotifier extends UserNotifier
 {
 
 	/**
@@ -17,15 +17,20 @@ class UserMessageCopyNotifier extends \Vilemka\Notifier
 		$this->setRecipient($recipient);
 
 		$mail = new Message;
-		$mail->setSubject('');
+		$mail->setSubject('Kopie zprávy z Vilémka.cz');
 
-		$body = ''
-			. "\n"
+		$body = 'Dobrý den,' . "\n"
+			. 'přijali jsme od Vás zprávu z Vilémka.cz' . "\n\n"
+			. sprintf('Vaše jméno: %s', $recipient->getName()) . "\n"
+			. sprintf('E-mailová adresa: %s', $recipient->getEmail()) . "\n"
+			. sprintf("Kopie Vaší zprávy:\n%s", $message) . "\n\n"
+			. 'Děkujeme! Brzy se Vám ozveme.' . "\n"
+			. ($this->signature ? "\n{$this->signature}\n" : '')
 		;
 
 		$mail->setBody($body);
 
-//		$this->send($mail);
+		$this->send($mail);
 	}
 
 }

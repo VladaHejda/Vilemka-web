@@ -4,14 +4,13 @@ namespace Vilemka;
 
 use Nette\Mail\Message;
 
-class UserOrderNotifier extends \Vilemka\Notifier
+class UserOrderNotifier extends UserNotifier
 {
 
 	/**
 	 * @param ValueObject\Order $order
-	 * @param string $idNumber
 	 */
-	public function notify(ValueObject\Order $order, $idNumber)
+	public function notify(ValueObject\Order $order)
 	{
 		if ($order->getEmail() === null) {
 			throw new \InvalidArgumentException('Cannot notify user with no e-mail.');
@@ -32,15 +31,10 @@ class UserOrderNotifier extends \Vilemka\Notifier
 			. ($order->getPhone() ? sprintf('Telefonní číslo: %s', $order->getPhone()) . "\n" : '')
 			. ($order->getNotice() ? sprintf("Poznámka:\n%s", $order->getNotice()) . "\n" : '')
 			. "\n"
-			. 'Platba probíhá na místě. Prosíme, přijeďtě v den počátku rezervace nejdříve ve 14 hodin (nebo déle). '
-			. 'Děkujeme za pochopení.' . "\n\n"
-			. 'Potvrzení rezervace Vám co nejdříve zašleme.' . "\n\n"
-			. 'S pozdravem a přáním hezkého dne' . "\n"
-			. 'Hejda Vladislav' . "\n"
-			. sprintf('IČO: %s', $idNumber) . "\n"
-			. sprintf('Ubytování v jižních čechách - chata Vilémka (http://%s)', $_SERVER['HTTP_HOST']) . "\n"
-			. sprintf('tel.: %s', '+420 739 352 926') . "\n"
-			. sprintf('e-mail.: %s', $this->sender->getEmail()) . "\n"
+//			. 'Platba probíhá na místě. Prosíme, přijeďtě v den počátku rezervace nejdříve ve 14 hodin (nebo déle). '
+//			. 'Děkujeme za pochopení.' . "\n\n" // todo to se týká až při potvrzení rezervace
+			. 'Potvrzení rezervace Vám co nejdříve zašleme.' . "\n"
+			. ($this->signature ? "\n{$this->signature}\n" : '')
 		;
 
 		$mail->setBody($body);

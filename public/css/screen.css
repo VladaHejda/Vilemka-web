@@ -459,7 +459,7 @@ article nav a strong {
   color: #fff;
 }
 #reservation section #reservation-control table td .error {
-  padding-left: 10px;
+  padding-left: 5px;
   color: #dc0000;
   font-weight: bold;
 }

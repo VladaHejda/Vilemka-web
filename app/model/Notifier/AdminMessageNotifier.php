@@ -16,15 +16,18 @@ class AdminMessageNotifier extends \Vilemka\Notifier
 	public function notify($message, $name, EmailAddress $email = null)
 	{
 		$mail = new Message;
-		$mail->setSubject('');
+		$mail->setSubject('Vilémka.cz nová zpráva');
 
-		$body = ''
-			. "\n"
+		$body = 'Nová zpráva:' . "\n\n"
+			. sprintf('Jméno: %s', $name) . "\n"
+			. sprintf('E-mailová adresa: %s', $email ? $email->getEmail() : '-') . "\n"
+			. sprintf("Zpráva:\n%s", $message) . "\n\n"
+			. sprintf('http://%s', $_SERVER['HTTP_HOST']) . "\n"
 		;
 
 		$mail->setBody($body);
 
-//		$this->send($mail);
+		$this->send($mail);
 	}
 
 }
