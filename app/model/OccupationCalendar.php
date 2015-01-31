@@ -237,8 +237,9 @@ class OccupationCalendar
 			$weekNumber = $this->getSatSatWeekNumber($day);
 			if ($this->linkCreator) {
 				$dataString = $this->getSerializedDataString((int) $day->format('Y'), $weekNumber);
-				$pattern = '<a href="' . call_user_func($this->linkCreator, $dataString) . '">%d</a>';
-				$this->calendar->setExtraDatePattern($day, $pattern);
+				// todo commented out until it is not working correctly
+//				$pattern = '<a href="' . call_user_func($this->linkCreator, $dataString) . '">%d</a>';
+//				$this->calendar->setExtraDatePattern($day, $pattern);
 			}
 			$classes = [
 				'week-' . $weekNumber,

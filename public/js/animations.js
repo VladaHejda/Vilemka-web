@@ -127,12 +127,15 @@ $(function() {
 	};
 
 	var daysSelector = '.calendar tbody a';
+	// todo commented out until it is not working correctly
+	/*
 	doc.on('mouseover', daysSelector, function() {
 		toggleHover($(this), true);
 	});
 	doc.on('mouseout', daysSelector, function() {
 		toggleHover($(this), false);
 	});
+	*/
 
 
 	/*********** calendar move ***********/

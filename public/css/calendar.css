@@ -7,6 +7,16 @@
 #occupancy section li tbody {
   border-left: 1px #aaaaaa solid;
   border-top: 1px #aaaaaa solid;
+  /*
+		 	a:hover, .available .hover { background: @hoverColor; }
+
+			.occupied-morning.available .hover { background: @hoverColor url('../graphics/selected-occupied-evening.jpg') repeat-y; }
+			.occupied-evening .last-week-day.hover { background: @hoverColor url('../graphics/selected-occupied-morning.jpg') repeat-y; }
+			.first-week-day {
+				.hover { background: @hoverColor url('../graphics/selected-evening.jpg') repeat-y; }
+				.last-week-day.hover { background: @availableColor url('../graphics/selected-morning.jpg') repeat-y; }
+			}
+			*/
 }
 #occupancy section li tbody td {
   border: none;
@@ -28,22 +38,6 @@
 #occupancy section li tbody .available span,
 #occupancy section li tbody .available a {
   background: #93ff4c;
-}
-#occupancy section li tbody a:hover,
-#occupancy section li tbody .available .hover {
-  background: #fff900;
-}
-#occupancy section li tbody .occupied-morning.available .hover {
-  background: #fff900 url('../graphics/selected-occupied-evening.jpg') repeat-y;
-}
-#occupancy section li tbody .occupied-evening .last-week-day.hover {
-  background: #fff900 url('../graphics/selected-occupied-morning.jpg') repeat-y;
-}
-#occupancy section li tbody .first-week-day .hover {
-  background: #fff900 url('../graphics/selected-evening.jpg') repeat-y;
-}
-#occupancy section li tbody .first-week-day .last-week-day.hover {
-  background: #93ff4c url('../graphics/selected-morning.jpg') repeat-y;
 }
 #occupancy section li .daynames td {
   padding: 2px;
