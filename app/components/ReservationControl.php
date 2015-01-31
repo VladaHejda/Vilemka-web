@@ -29,6 +29,7 @@ class ReservationControl extends \Nette\Application\UI\Control
 	/** @var AdminOrderNotifier */
 	protected $adminOrderNotifier;
 
+	/** @var Request */
 	protected $request;
 
 
@@ -62,7 +63,7 @@ class ReservationControl extends \Nette\Application\UI\Control
 
 	public function render()
 	{
-		$this->template->setFile(__DIR__ . '/reservationControl.latte');
+		$this->template->setFile(__DIR__ . '/reservation.latte');
 		$this->template->render();
 	}
 

@@ -1,0 +1,44 @@
+<section id="contact-summary">
+	<ul>
+		<li>facebook</li>
+		<li>Vladislav Hejda</li>
+		<li>739 352 926</li>
+		<li>ubytovani@vilemka.cz</li>
+	</ul>
+</section>
+<section id="contact-form">
+
+	<ul n:if="$flashes" class="flashes">
+		<li n:foreach="$flashes as $flash" class="flash">{$flash->message}</li>
+	</ul>
+
+	{var $control[contactForm]->action .= '#kontakt'}
+	{form contactForm}
+	<h2>{label message /}</h2>
+		<table>
+			<tr>
+				<td colspan="2">{input message, class => textarea}</td>
+			</tr>
+			<tr n:if="$form[message]->errors" n:foreach="$form[message]->errors as $error" class="error">
+				<td colspan="2">{$error}</td>
+			</tr>
+			<tr>
+				<th>{label name /}</th>
+				<td>{input name, class => text}</td>
+			</tr>
+			<tr n:if="$form[name]->errors" n:foreach="$form[name]->errors as $error" class="error">
+				<td colspan="2">{$error}</td>
+			</tr>
+			<tr>
+				<th>{label email /}</th>
+				<td>{input email, class => text}</td>
+			</tr>
+			<tr n:if="$form[email]->errors" n:foreach="$form[email]->errors as $error" class="error">
+				<td colspan="2">{$error}</td>
+			</tr>
+			<tr>
+				<td colspan="2">{input send, class => button}</td>
+			</tr>
+		</table>
+	{/form}
+</section>

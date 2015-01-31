@@ -4,6 +4,7 @@ namespace Vilemka\Presenters;
 
 use Vilemka\Components\PhotoSlider;
 use Vilemka\Components\ReservationControl;
+use Vilemka\Components\FooterControl;
 use Vilemka\OccupationCalendar;
 
 /**
@@ -23,15 +24,21 @@ class HomepagePresenter extends BasePresenter
 	/** @var ReservationControl */
 	protected $reservationControl;
 
+	/** @var FooterControl */
+	protected $footerControl;
+
 
 	/**
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationControl $reservationControl
+	 * @param FooterControl $footerControl
 	 */
-	public function __construct(OccupationCalendar $occupationCalendar, ReservationControl $reservationControl)
+	public function __construct(OccupationCalendar $occupationCalendar, ReservationControl $reservationControl,
+		FooterControl $footerControl)
 	{
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationControl = $reservationControl;
+		$this->footerControl = $footerControl;
 	}
 
 
@@ -88,6 +95,15 @@ class HomepagePresenter extends BasePresenter
 	public function createComponentReservationControl()
 	{
 		return $this->reservationControl;
+	}
+
+
+	/**
+	 * @return FooterControl
+	 */
+	public function createComponentFooterControl()
+	{
+		return $this->footerControl;
 	}
 
 }

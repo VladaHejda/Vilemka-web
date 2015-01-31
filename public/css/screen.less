@@ -262,9 +262,6 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 	width: 1000px;
 	margin: 40px 0 0 100px;
 	font-family: Arial;
-	table {
-		border-collapse: collapse;
-	}
 	.flashes {
 		font-size: 2em;
 		color: #0b5800;
@@ -274,7 +271,8 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 			list-style: none;
 		}
 	}
-	tr {
+	table {
+		border-collapse: collapse;
 		th {
 			text-align: left;
 			vertical-align: top;
@@ -284,7 +282,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 		td {
 			padding: 2px 0;
 			.text, .textarea, .button {
-				padding: 3px 8px;
+				padding: 3px 5px;
 				border-radius: 5px;
 				border: 1px solid #12a200;
 			}
@@ -324,23 +322,81 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 	position: relative;
 	z-index: 50;
 	color: #fff;
+	.content {
+		width: 100%;
+		background: #000;
+		height: 400px;
+	}
+	h1 a {
+		color: #3d3d3d;
+	}
+	#contact-summary {
+		float: left;
+		clear: left;
+		margin: 30px 0 0 20px;
+		li {
+			list-style: none;
+		}
+	}
+	#contact-form {
+		float: right;
+		margin: 30px 50px 0 0;
+		font-family: Arial;
+		h2 {
+			font-size: 1em;
+			font-weight: normal;
+		}
+		.flashes {
+			color: #1cf300;
+			font-weight: bold;
+			margin-bottom: 10px;
+			.flash {
+				list-style: none;
+			}
+		}
+		table {
+			border-collapse: collapse;
+			th {
+				text-align: left;
+				vertical-align: top;
+				width: 170px;
+				padding-top: 7px;
+			}
+			td {
+				padding: 2px 0;
+				text-align: right;
+				.text, .textarea, .button {
+					padding: 3px 5px;
+					border-radius: 5px;
+					border: 1px solid #d5d5d5;
+				}
+				.text {
+					width: 200px;
+					height: 20px;
+				}
+				.textarea {
+					width: 370px;
+					height: 80px;
+				}
+				.button {
+					width: 100px;
+					background-color: #cccccc;
+					cursor: pointer;
+					&:hover {
+						background-color: #8b8b8b;
+						color: #fff;
+					}
+				}
+			}
+			.error {
+				color: #ff0000;
+				font-weight: bold;
+				td {
+					text-align: left;
+				}
+			}
+		}
+
+
+	}
 }
-#contact .content {
-	width: 100%;
-	background: #000;
-	height: 400px;
-}
-#contact h1 a {
-	color: #3d3d3d;
-}
-// todo nest ids #contact #contact-summary? (for better recognition by programmer)
-#contact-summary { float: left; clear: left; margin: 30px 0 0 20px; }
-#contact-summary li { list-style: none; }
-#contact-form { float: right; margin: 30px 50px 0 0; }
-#contact-form h2 { font-size: 1em; font-weight: normal; }
-#contact-form label { display: block; }
-#contact-form textarea { width: 447px; height: 90px; border: 2px #fff solid; color: #fff; padding: 5px;
-	background: url('../graphics/textarea.jpg') repeat-x; }
-#contact-form label.submit { text-align: right; margin-top: 10px; }
-#contact-form label.submit input { width: 161px; height: 33px; background: url('../graphics/submit2.png') no-repeat;
-	border: none; color: #96d3fd; font-size: 1.1em; font-weight: bold; cursor: pointer; }

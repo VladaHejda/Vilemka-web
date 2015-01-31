@@ -413,9 +413,6 @@ article nav a strong {
   margin: 40px 0 0 100px;
   font-family: Arial;
 }
-#reservation section #reservation-control table {
-  border-collapse: collapse;
-}
 #reservation section #reservation-control .flashes {
   font-size: 2em;
   color: #0b5800;
@@ -425,40 +422,43 @@ article nav a strong {
 #reservation section #reservation-control .flashes .flash {
   list-style: none;
 }
-#reservation section #reservation-control tr th {
+#reservation section #reservation-control table {
+  border-collapse: collapse;
+}
+#reservation section #reservation-control table th {
   text-align: left;
   vertical-align: top;
   width: 170px;
   padding-top: 7px;
 }
-#reservation section #reservation-control tr td {
+#reservation section #reservation-control table td {
   padding: 2px 0;
 }
-#reservation section #reservation-control tr td .text,
-#reservation section #reservation-control tr td .textarea,
-#reservation section #reservation-control tr td .button {
-  padding: 3px 8px;
+#reservation section #reservation-control table td .text,
+#reservation section #reservation-control table td .textarea,
+#reservation section #reservation-control table td .button {
+  padding: 3px 5px;
   border-radius: 5px;
   border: 1px solid #12a200;
 }
-#reservation section #reservation-control tr td .text {
+#reservation section #reservation-control table td .text {
   width: 300px;
   height: 20px;
 }
-#reservation section #reservation-control tr td .textarea {
+#reservation section #reservation-control table td .textarea {
   width: 800px;
   height: 50px;
 }
-#reservation section #reservation-control tr td .button {
+#reservation section #reservation-control table td .button {
   width: 150px;
   background-color: #19e600;
   cursor: pointer;
 }
-#reservation section #reservation-control tr td .button:hover {
+#reservation section #reservation-control table td .button:hover {
   background-color: #12a200;
   color: #fff;
 }
-#reservation section #reservation-control tr td .error {
+#reservation section #reservation-control table td .error {
   padding-left: 10px;
   color: #dc0000;
   font-weight: bold;
@@ -481,44 +481,72 @@ article nav a strong {
 #contact h1 a {
   color: #3d3d3d;
 }
-#contact-summary {
+#contact #contact-summary {
   float: left;
   clear: left;
   margin: 30px 0 0 20px;
 }
-#contact-summary li {
+#contact #contact-summary li {
   list-style: none;
 }
-#contact-form {
+#contact #contact-form {
   float: right;
   margin: 30px 50px 0 0;
+  font-family: Arial;
 }
-#contact-form h2 {
+#contact #contact-form h2 {
   font-size: 1em;
   font-weight: normal;
 }
-#contact-form label {
-  display: block;
-}
-#contact-form textarea {
-  width: 447px;
-  height: 90px;
-  border: 2px #fff solid;
-  color: #fff;
-  padding: 5px;
-  background: url('../graphics/textarea.jpg') repeat-x;
-}
-#contact-form label.submit {
-  text-align: right;
-  margin-top: 10px;
-}
-#contact-form label.submit input {
-  width: 161px;
-  height: 33px;
-  background: url('../graphics/submit2.png') no-repeat;
-  border: none;
-  color: #96d3fd;
-  font-size: 1.1em;
+#contact #contact-form .flashes {
+  color: #1cf300;
   font-weight: bold;
+  margin-bottom: 10px;
+}
+#contact #contact-form .flashes .flash {
+  list-style: none;
+}
+#contact #contact-form table {
+  border-collapse: collapse;
+}
+#contact #contact-form table th {
+  text-align: left;
+  vertical-align: top;
+  width: 170px;
+  padding-top: 7px;
+}
+#contact #contact-form table td {
+  padding: 2px 0;
+  text-align: right;
+}
+#contact #contact-form table td .text,
+#contact #contact-form table td .textarea,
+#contact #contact-form table td .button {
+  padding: 3px 5px;
+  border-radius: 5px;
+  border: 1px solid #d5d5d5;
+}
+#contact #contact-form table td .text {
+  width: 200px;
+  height: 20px;
+}
+#contact #contact-form table td .textarea {
+  width: 370px;
+  height: 80px;
+}
+#contact #contact-form table td .button {
+  width: 100px;
+  background-color: #cccccc;
   cursor: pointer;
+}
+#contact #contact-form table td .button:hover {
+  background-color: #8b8b8b;
+  color: #fff;
+}
+#contact #contact-form table .error {
+  color: #ff0000;
+  font-weight: bold;
+}
+#contact #contact-form table .error td {
+  text-align: left;
 }

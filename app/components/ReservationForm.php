@@ -111,7 +111,6 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 		$this->addText('email', 'E-mailová adresa:')
 			->setType('email')
-			->setDefaultValue('@')
 			->addCondition(self::FILLED)
 				->addRule(self::EMAIL, 'E-mailová adresa není správně.')
 		;

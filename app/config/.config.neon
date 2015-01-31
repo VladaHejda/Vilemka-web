@@ -68,5 +68,9 @@ services:
 	- Vilemka\OccupationCalendar
 	- Vilemka\Components\ReservationControl(%idNumber%)
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
+	- Vilemka\MessageRepository
+	- Vilemka\Components\FooterControl
 	- Vilemka\UserOrderNotifier(..., ..., @orderEmail)
 	- Vilemka\AdminOrderNotifier(..., ..., @noreplySender, @orderEmail)
+	- Vilemka\UserMessageCopyNotifier(..., ..., @infoEmail)
+	- Vilemka\AdminMessageNotifier(..., ..., @noreplySender, @infoEmail)
