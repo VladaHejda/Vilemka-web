@@ -1,9 +1,10 @@
 <section id="contact-summary">
 	<ul>
-		<li>facebook</li>
-		<li>Vladislav Hejda</li>
-		<li>739 352 926</li>
-		<li>ubytovani@vilemka.cz</li>
+		<li>{$vars->contactPerson}</li>
+		<li>IČO: {$vars->idNumber}</li>
+		<li>{$vars->phone}</li>
+		<li>{$vars->email->email}</li>
+		<li><a href="{$vars->facebookUrl}" target="_blank"><img src="{$basePath}/graphics/fb.png" alt="Vilémka.cz Facebook"></a></li>
 	</ul>
 </section>
 <section id="contact-form">

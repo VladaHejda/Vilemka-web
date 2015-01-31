@@ -13,6 +13,9 @@ use Vilemka\AdminMessageNotifier;
 class FooterControl extends \Nette\Application\UI\Control
 {
 
+	/** @var \stdClass */
+	protected $templateVars;
+
 	/** @var MessageRepository */
 	protected $messageRepository;
 
@@ -26,7 +29,14 @@ class FooterControl extends \Nette\Application\UI\Control
 	protected $request;
 
 
-	public function __construct(MessageRepository $messageRepository, UserMessageCopyNotifier $userMessageCopyNotifier,
+	/**
+	 * @param array $templateVars
+	 * @param MessageRepository $messageRepository
+	 * @param UserMessageCopyNotifier $userMessageCopyNotifier
+	 * @param AdminMessageNotifier $adminMessageNotifier
+	 * @param Request $request
+	 */
+	public function __construct(array $templateVars, MessageRepository $messageRepository, UserMessageCopyNotifier $userMessageCopyNotifier,
 		AdminMessageNotifier $adminMessageNotifier, Request $request)
 	{
 		parent::__construct();
@@ -34,6 +44,8 @@ class FooterControl extends \Nette\Application\UI\Control
 		$this->userMessageCopyNotifier = $userMessageCopyNotifier;
 		$this->adminMessageNotifier = $adminMessageNotifier;
 		$this->request = $request;
+
+		$this->templateVars = (object) $templateVars;
 	}
 
 
@@ -47,6 +59,7 @@ class FooterControl extends \Nette\Application\UI\Control
 
 	public function render()
 	{
+		$this->template->vars = $this->templateVars;
 		$this->template->setFile(__DIR__ . '/footer.latte');
 		$this->template->render();
 	}

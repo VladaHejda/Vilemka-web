@@ -12,16 +12,18 @@ parameters:
 		from: info@<host>
 		name: "Vilémka.cz info"
 
-	idNumber:
-	phone:
+	supplier:
+		contactPerson:
+		idNumber:
+		phone:
 	signature:
 		- "S pozdravem a přáním hezkého dne"
-		- "Hejda Vladislav"
-		- "IČO: %idNumber%"
+		- %supplier.contactPerson%
+		- "IČO: %supplier.idNumber%"
 		- "Ubytování v jižních čechách - chata Vilémka (http://<host>)"
-		- "tel.: %phone%"
+		- "tel.: %supplier.phone%"
 		- "e-mail.: <sender>"
-		- "e-mail.: <sender>"
+	facebookUrl:
 
 	maxPersonsCapacity: 6
 
@@ -48,11 +50,10 @@ nette:
 
 
 services:
-	homepage:
+	-
 		class: Vilemka\Presenters\HomepagePresenter
 		setup:
 			- setDebugEmail(%debugEmail%)
-
 
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
@@ -78,13 +79,19 @@ services:
 	- Vilemka\Components\ReservationControl
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
 	- Vilemka\MessageRepository
-	- Vilemka\Components\FooterControl
-	userOrderNotifier:
+	- Vilemka\Components\FooterControl([
+		contactPerson: %supplier.contactPerson%
+		idNumber: %supplier.idNumber%
+		phone: %supplier.phone%
+		facebookUrl: %facebookUrl%
+		email: @orderEmail
+	])
+	-
 		class: Vilemka\UserOrderNotifier(..., ..., @orderEmail)
 		setup:
 			- setSignature(%signature%, @httpRequest)
 	- Vilemka\AdminOrderNotifier(..., ..., @noreplySender, @orderEmail)
-	userMessageCopyNotifier:
+	-
 		class: Vilemka\UserMessageCopyNotifier(..., ..., @infoEmail)
 		setup:
 			- setSignature(%signature%, @httpRequest)
