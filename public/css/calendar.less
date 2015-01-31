@@ -57,5 +57,24 @@
 		.occupied-evening span { background: @occupiedColor url('../graphics/occupied-evening.jpg') repeat-y; color: #8a3627; }
 	}
 
+	figure {
+		.calendar-legend {
+			padding: 0 5px;
+			border-width: 1px;
+			border-style: solid;
+		}
+		.calendar-legend-border(@color) {
+			border-color: darken(@color, 40%);
+		}
+		.calendar-legend-free {
+			.calendar-legend-border(@availableColor);
+			background: @availableColor;
+		}
+		.calendar-legend-occupied {
+			.calendar-legend-border(@occupiedColor);
+			background: @occupiedColor;
+		}
+	}
+
   	.loading { float: left; margin: 105px 0 0 97px; }
 }

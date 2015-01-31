@@ -76,6 +76,19 @@
   background: #ff5c45 url('../graphics/occupied-evening.jpg') repeat-y;
   color: #8a3627;
 }
+#occupancy figure .calendar-legend {
+  padding: 0 5px;
+  border-width: 1px;
+  border-style: solid;
+}
+#occupancy figure .calendar-legend-free {
+  border-color: #327f00;
+  background: #93ff4c;
+}
+#occupancy figure .calendar-legend-occupied {
+  border-color: #780f00;
+  background: #ff5c45;
+}
 #occupancy .loading {
   float: left;
   margin: 105px 0 0 97px;
