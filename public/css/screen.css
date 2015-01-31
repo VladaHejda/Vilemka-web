@@ -409,7 +409,7 @@ article nav a strong {
 #reservation section #reservation-control {
   float: left;
   clear: left;
-  width: 1000px;
+  width: 900px;
   margin: 40px 0 0 100px;
   font-family: Arial;
 }
@@ -446,7 +446,7 @@ article nav a strong {
   height: 20px;
 }
 #reservation section #reservation-control table td .textarea {
-  width: 800px;
+  width: 700px;
   height: 50px;
 }
 #reservation section #reservation-control table td .button {
