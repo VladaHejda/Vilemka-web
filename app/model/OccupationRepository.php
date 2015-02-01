@@ -49,8 +49,8 @@ class OccupationRepository
 
 	public function isPeriodFree(DateTime $from, DateTime $to)
 	{
-		// todo
-		return true;
+		return !$this->database->fetchField('SELECT 1 FROM occupancy WHERE day > ? AND day < ? LIMIT 1',
+			$from->format('Y-m-d'), $to->format('Y-m-d'));
 	}
 
 

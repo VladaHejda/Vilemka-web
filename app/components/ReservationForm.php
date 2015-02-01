@@ -68,7 +68,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 			}, 'Datum "od" je v minulosti. Nelze rezerovovat termín v minulosti :)')
 
 			->addRule(function() use (& $dateFrom) {
-				return $dateFrom->format('w') == 6;
+				return (int) $dateFrom->format('w') === 6;
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 		;
 
@@ -93,12 +93,12 @@ class ReservationForm extends \Nette\Application\UI\Form
 			}, sprintf('Datum "%s" musí následovat až po datu "%s".', $labelTo, $labelFrom))
 
 			->addRule(function() use (& $dateTo) {
-				return $dateTo->format('w') == 6;
+				return (int) $dateTo->format('w') === 6;
 			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
 
 			->addRule(function() use (& $dateTo, & $dateFrom) {
 				return $this->occupationRepository->isPeriodFree($dateFrom, $dateTo);
-			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
+			}, 'Termín bohužel není volný :-(. Zkontrolujte kalendář výše.')
 		;
 
 		$this->addText('personCount', 'Počet osob:')
