@@ -44,6 +44,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 
 		$this->addText('name', 'Vaše jméno:')
 			->setRequired('Prosím, zadejte jméno.')
+			->addRule(self::MAX_LENGTH, 'Prosím, zkraťte jméno na %d znaků, delší se nám nevejde do databáze :(', 255)
 		;
 
 		$this->addText('from', "$labelFrom:")
@@ -135,6 +136,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$values = parent::getValues($asArray);
 		$values->from = $this->dateFrom;
 		$values->to = $this->dateTo;
+		$values->phone = $values->phone ? preg_replace('/\\s+/', ' ', $values->phone) : $values->phone;
 		return $values;
 	}
 

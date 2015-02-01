@@ -20,22 +20,27 @@ class OccupationRepository
 
 	public function getBookedPeriods($month, $year)
 	{
-		// todo
-		$bookings = [
-			'2014-07-19',
-			'2014-08-02',
-			'2014-08-30',
-			'2014-10-11',
-			'2014-10-18',
-			'2015-01-03',
-			'2015-03-21',
-			'2015-04-25',
-		];
-		$interval = 6;
+		$occupiedDays = $this->database->fetchAll('SELECT day FROM occupancy WHERE day LIKE ?',
+			sprintf('%d-%s%%', $year, str_pad((string) $month, 2, '0', STR_PAD_LEFT)));
 
 		$periods = [];
-		foreach ($bookings as $booking) {
-			$periods[] = new \DatePeriod(new DateTime($booking), new \DateInterval('P1D'), $interval);
+		$oneDayInterval = new \DateInterval('P1D');
+		$firstDay = null; // unnecessary, but IDE
+
+		foreach ($occupiedDays as $occupiedDay) {
+			/** @var \Nette\Utils\DateTime $occupiedDay */
+			$occupiedDay = $occupiedDay->day;
+			if (isset($lastDay) && $lastDay->modify('+1 day') != $occupiedDay) {
+				$periods[] = new \DatePeriod($firstDay, $oneDayInterval, $lastDay);
+				unset($firstDay);
+			}
+			if (!isset($firstDay)) {
+				$firstDay = clone $occupiedDay;
+			}
+			$lastDay = $occupiedDay;
+		}
+		if (isset($lastDay)) {
+			$periods[] = new \DatePeriod($firstDay, $oneDayInterval, $lastDay->modify('+1 day'));
 		}
 
 		return $periods;
