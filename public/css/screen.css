@@ -274,13 +274,8 @@ article nav a strong {
   float: left;
   width: 897px;
 }
-#photo section #photo-slider li {
+#photo section #photo-slider ul li {
   display: none;
-}
-#photo section #photo-slider li.show {
-  display: block;
-}
-#photo section li {
   list-style: none;
   margin-right: 12px;
   width: 287px;
@@ -288,28 +283,48 @@ article nav a strong {
   background: url('../graphics/frame.png') no-repeat;
   float: left;
 }
-#photo section li img {
-  width: 250px;
+#photo section #photo-slider ul li a {
+  display: block;
+  height: 187px;
+  overflow: hidden;
   margin: 12px 0 0 16px;
 }
-#photo section .arrow {
+#photo section #photo-slider ul li a,
+#photo section #photo-slider ul li img {
+  width: 250px;
+}
+#photo section #photo-slider ul li #photo section .arrow {
   float: left;
   margin: 88px 17px 0 0;
 }
-#photo section .arrow a {
+#photo section #photo-slider ul li #photo section .arrow a {
   display: block;
   width: 33px;
   height: 33px;
   background-repeat: no-repeat;
   text-decoration: none;
 }
-#photo section .arrow a:hover {
+#photo section #photo-slider ul li.show {
+  display: block;
+}
+#photo section #photo-slider .arrow {
+  float: left;
+  margin: 88px 17px 0 0;
+}
+#photo section #photo-slider .arrow a {
+  display: block;
+  width: 33px;
+  height: 33px;
+  background-repeat: no-repeat;
+  text-decoration: none;
+}
+#photo section #photo-slider .arrow a:hover {
   background-position: -33px 0;
 }
-#photo section .arrow-left a {
+#photo section #photo-slider .arrow.arrow-left a {
   background-image: url('../graphics/arrow-left-blue.png');
 }
-#photo section .arrow-right a {
+#photo section #photo-slider .arrow.arrow-right a {
   background-image: url('../graphics/arrow-right-blue.png');
 }
 /* navigation to next block */

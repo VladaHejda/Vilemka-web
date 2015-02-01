@@ -208,20 +208,71 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #photo h1 a {
 	color: #d1ecff;
 }
-#photo section { width: 100%; float: left; margin-top: 40px; }
-#photo section #photo-slider { width: 998px; margin: 0 auto; }
-#photo section #photo-slider ul { float: left; width: 897px; }
-#photo section #photo-slider li { display: none; }
-#photo section #photo-slider li.show { display: block; }
-#photo section li { list-style: none; margin-right: 12px; width: 287px; height: 216px;
-	background: url('../graphics/frame.png') no-repeat; float: left; }
-#photo section li img { width: 250px; margin: 12px 0 0 16px; }
-#photo section .arrow { float: left; margin: 88px 17px 0 0;}
-#photo section .arrow a { display: block; width: 33px; height: 33px; background-repeat: no-repeat;
-	text-decoration: none; }
-#photo section .arrow a:hover { background-position: -33px 0; }
-#photo section .arrow-left a { background-image: url('../graphics/arrow-left-blue.png'); }
-#photo section .arrow-right a { background-image: url('../graphics/arrow-right-blue.png'); }
+#photo section {
+	width: 100%;
+	float: left;
+	margin-top: 40px;
+	#photo-slider {
+		width: 998px;
+		margin: 0 auto;
+		ul {
+			float: left;
+			width: 897px;
+			li {
+				display: none;
+				list-style: none;
+				margin-right: 12px;
+				width: 287px;
+				height: 216px;
+				background: url('../graphics/frame.png') no-repeat;
+				float: left;
+				a {
+					display: block;
+					height: 187px;
+					overflow: hidden;
+					margin: 12px 0 0 16px;
+				}
+				a, img {
+					width: 250px;
+				}
+				#photo section .arrow {
+					float: left;
+					margin: 88px 17px 0 0;
+				}
+				#photo section .arrow a {
+					display: block;
+					width: 33px;
+					height: 33px;
+					background-repeat: no-repeat;
+					text-decoration: none;
+				}
+				&.show {
+					display: block;
+				}
+			}
+		}
+		.arrow {
+			float: left;
+			margin: 88px 17px 0 0;
+			a {
+				display: block;
+				width: 33px;
+				height: 33px;
+				background-repeat: no-repeat;
+				text-decoration: none;
+				&:hover {
+					background-position: -33px 0;
+				}
+			}
+			&.arrow-left a {
+				background-image: url('../graphics/arrow-left-blue.png');
+			}
+			&.arrow-right a {
+				background-image: url('../graphics/arrow-right-blue.png');
+			}
+		}
+	}
+}
 /* navigation to next block */
 #photo nav div { width: 154px; }
 #photo nav a span { background-image: url('../graphics/arrow-down-orange.png'); }
