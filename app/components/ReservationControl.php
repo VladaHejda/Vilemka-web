@@ -74,8 +74,6 @@ class ReservationControl extends \Nette\Application\UI\Control
 			$values->email ? new EmailAddress($this->request, $values->email, $values->name) : null,
 			$values->phone, $values->notice);
 
-		$this->occupationRepository->insert($order);
-
 		try {
 			$this->adminOrderNotifier->notify($order);
 		} catch (\Nette\InvalidStateException $e) {
