@@ -3,7 +3,7 @@
 		<li>{$vars->contactPerson}</li>
 		<li>IČO: {$vars->idNumber}</li>
 		<li>{$vars->phone}</li>
-		<li>{$vars->email->email}</li>
+		<li>{$vars->email->email|atAntispam:"$basePath/images/at1.jpg"}</li>
 		<li><a href="{$vars->facebookUrl}" target="_blank"><img src="{$basePath}/graphics/fb.png" alt="Vilémka.cz Facebook"></a></li>
 	</ul>
 </section>

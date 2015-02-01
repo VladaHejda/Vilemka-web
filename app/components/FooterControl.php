@@ -64,6 +64,16 @@ class FooterControl extends \Nette\Application\UI\Control
 	}
 
 
+	public function createTemplate($class = null)
+	{
+		$template = parent::createTemplate($class);
+		$template->addFilter('atAntispam', function ($s, $src) {
+			return \Nette\Utils\Html::el()->setHtml(str_replace('@', sprintf('<img src="%s" alt="@">', $src), $s));
+		});
+		return $template;
+	}
+
+
 	/**
 	 * @param Form $form
 	 */
