@@ -45,6 +45,18 @@ $(function() {
 	});
 
 
+	/*********** info expands ***********/
+	$('.info-destination-container li').on('mouseover', function() {
+		$(this).find('li').stop().fadeIn(250);
+	}).on('mouseout', function() {
+		$(this).find('li').stop().fadeOut(100);
+		//var block = $(this).find('li');
+		//setTimeout(function() {
+		//	block.hide();
+		//}, 500);
+	}).find('li').css('display', 'none');
+
+
 	/*********** photo move ***********/
 	var photoMoveDisabled = false;
 	photo.find('.arrow a').on('click', function(event) {

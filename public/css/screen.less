@@ -127,7 +127,7 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #info .content {
 	width: 100%;
 	background: #ffdbd2 url('../graphics/meadow_bg.jpg') repeat-x;
-	height: 515px;
+	height: 550px;
 	pointer-events: auto;
 }
 #info h1 a {
@@ -145,7 +145,35 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 		text-align: justify;
 	}
 	li {
+		float: left;
+		clear: left;
 		list-style: none;
+		cursor: help;
+		.info-destination-head {
+			border-bottom: 1px dotted #ff5642;
+			font-style: normal;
+		}
+		ul {
+			margin-left: 40px;
+			li {
+				display: none;
+				position: absolute;
+				width: 40%;
+				background: #fff;
+				border: 1px solid #d39b8e;
+				border-radius: 5px;
+				box-shadow: 1px 1px 7px #545454;
+				padding: 15px;
+				cursor: auto;
+			}
+		}
+		&:hover {
+			font-weight: bold;
+			ul li {
+				display: block;
+				font-weight: normal;
+			}
+		}
 	}
 }
 /* navigation to next block */

@@ -169,7 +169,7 @@ article nav a strong {
 #info .content {
   width: 100%;
   background: #ffdbd2 url('../graphics/meadow_bg.jpg') repeat-x;
-  height: 515px;
+  height: 550px;
   pointer-events: auto;
 }
 #info h1 a {
@@ -189,7 +189,35 @@ article nav a strong {
   text-align: justify;
 }
 #info section li {
+  float: left;
+  clear: left;
   list-style: none;
+  cursor: help;
+}
+#info section li .info-destination-head {
+  border-bottom: 1px dotted #ff5642;
+  font-style: normal;
+}
+#info section li ul {
+  margin-left: 40px;
+}
+#info section li ul li {
+  display: none;
+  position: absolute;
+  width: 40%;
+  background: #fff;
+  border: 1px solid #d39b8e;
+  border-radius: 5px;
+  box-shadow: 1px 1px 7px #545454;
+  padding: 15px;
+  cursor: auto;
+}
+#info section li:hover {
+  font-weight: bold;
+}
+#info section li:hover ul li {
+  display: block;
+  font-weight: normal;
 }
 /* navigation to next block */
 #info nav div {
