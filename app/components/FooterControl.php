@@ -44,7 +44,6 @@ class FooterControl extends \Nette\Application\UI\Control
 		$this->userMessageCopyNotifier = $userMessageCopyNotifier;
 		$this->adminMessageNotifier = $adminMessageNotifier;
 		$this->request = $request;
-
 		$this->templateVars = (object) $templateVars;
 	}
 

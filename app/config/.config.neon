@@ -51,7 +51,9 @@ nette:
 
 services:
 	-
-		class: Vilemka\Presenters\HomepagePresenter
+		class: Vilemka\Presenters\HomepagePresenter([
+			capacity: %maxPersonsCapacity%
+		])
 		setup:
 			- setDebugEmail(%debugEmail%)
 
@@ -83,8 +85,9 @@ services:
 		contactPerson: %supplier.contactPerson%
 		idNumber: %supplier.idNumber%
 		phone: %supplier.phone%
-		facebookUrl: %facebookUrl%
 		email: @orderEmail
+		facebookUrl: %facebookUrl%,
+		mapUrl: %mapUrl%
 	])
 	-
 		class: Vilemka\UserOrderNotifier(..., ..., @orderEmail)

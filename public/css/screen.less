@@ -99,7 +99,6 @@ article h1 { float: left; font-size: 1.5em; margin: 10px 0 0 20px; }
 article h1 strong { color: #fff; }
 article h1 a { text-decoration: none; }
 article h2 { margin-bottom: 10px; }
-article section p { text-align: justify; font-family: Arial; }
 article nav { float: left; clear: both; margin-top: 20px; width: 100%; }
 article nav div { margin: 0 auto; }
 article nav a span, article nav a em, article nav a strong { display: block; float: left;
@@ -134,7 +133,21 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 #info h1 a {
 	color: #ffc5b5;
 }
-#info section { float: right; margin: 10px 70px 0 0; width: 63%; }
+#info section {
+	float: right;
+	margin: 10px 70px 0 0;
+	width: 63%;
+	p, li {
+		font-family: Arial;
+		margin-bottom: 4px;
+	}
+	p {
+		text-align: justify;
+	}
+	li {
+		list-style: none;
+	}
+}
 /* navigation to next block */
 #info nav div { width: 100px; }
 #info nav a span { background-image: url('../graphics/arrow-down-blue.png'); }
@@ -339,6 +352,14 @@ article nav a strong { margin: 7px 0 0 10px; background-position: 40px 5px; }
 			img {
 				padding-top: 5px;
 			}
+		}
+	}
+	#contact-map {
+		float: left;
+		margin: 30px 0 0 30px;
+		.contact-map-frame {
+			border: 1px solid #616161;
+			border-radius: 5px;
 		}
 	}
 	#contact-form {

@@ -18,6 +18,9 @@ class HomepagePresenter extends BasePresenter
 	public $monthMove = 0;
 
 
+	/** @var \stdClass */
+	protected $templateVars;
+
 	/** @var OccupationCalendar */
 	protected $occupationCalendar;
 
@@ -29,16 +32,25 @@ class HomepagePresenter extends BasePresenter
 
 
 	/**
+	 * @param array $templateVars
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationControl $reservationControl
 	 * @param FooterControl $footerControl
 	 */
-	public function __construct(OccupationCalendar $occupationCalendar, ReservationControl $reservationControl,
-		FooterControl $footerControl)
+	public function __construct(array $templateVars, OccupationCalendar $occupationCalendar,
+		ReservationControl $reservationControl, FooterControl $footerControl)
 	{
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationControl = $reservationControl;
 		$this->footerControl = $footerControl;
+		$this->templateVars = (object) $templateVars;
+	}
+
+
+	public function beforeRender()
+	{
+		parent::beforeRender();
+		$this->template->vars = $this->templateVars;
 	}
 
 
