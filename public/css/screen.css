@@ -184,6 +184,9 @@ article nav a strong {
   margin: 10px 70px 0 0;
   width: 63%;
 }
+#info section a {
+  color: #9d004b;
+}
 #info section p,
 #info section li {
   font-family: Arial;
