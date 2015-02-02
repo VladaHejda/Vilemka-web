@@ -14,6 +14,9 @@ use Vilemka\AdminOrderNotifier;
 class ReservationControl extends \Nette\Application\UI\Control
 {
 
+	/** @var \stdClass */
+	protected $templateVars;
+
 	/** @var ReservationForm */
 	protected $form;
 
@@ -31,13 +34,14 @@ class ReservationControl extends \Nette\Application\UI\Control
 
 
 	/**
+	 * @param array $templateVars
 	 * @param ReservationForm $form
 	 * @param OccupationRepository $occupationRepository
 	 * @param UserOrderNotifier $userOrderNotifier
 	 * @param AdminOrderNotifier $adminOrderNotifier
 	 * @param Request $request
 	 */
-	public function __construct(ReservationForm $form, OccupationRepository $occupationRepository,
+	public function __construct(array $templateVars, ReservationForm $form, OccupationRepository $occupationRepository,
 		UserOrderNotifier $userOrderNotifier, AdminOrderNotifier $adminOrderNotifier, Request $request)
 	{
 		parent::__construct();
@@ -46,6 +50,7 @@ class ReservationControl extends \Nette\Application\UI\Control
 		$this->adminOrderNotifier = $adminOrderNotifier;
 		$this->form = $form;
 		$this->request = $request;
+		$this->templateVars = (object) $templateVars;
 	}
 
 
@@ -58,6 +63,7 @@ class ReservationControl extends \Nette\Application\UI\Control
 
 	public function render()
 	{
+		$this->template->vars = $this->templateVars;
 		$this->template->setFile(__DIR__ . '/reservation.latte');
 		$this->template->render();
 	}

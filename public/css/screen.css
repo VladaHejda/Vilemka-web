@@ -467,6 +467,10 @@ article nav a strong {
   margin: 40px 0 0 100px;
   font-family: Arial;
 }
+#reservation section #reservation-control .reservation-control-info {
+  margin-bottom: 10px;
+  color: #900;
+}
 #reservation section #reservation-control .flashes {
   font-size: 2em;
   color: #0b5800;

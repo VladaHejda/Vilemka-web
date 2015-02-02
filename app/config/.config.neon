@@ -26,6 +26,7 @@ parameters:
 	facebookUrl:
 
 	maxPersonsCapacity: 6
+	pricePerDay:
 
 
 php:
@@ -78,7 +79,9 @@ services:
 
 	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
-	- Vilemka\Components\ReservationControl
+	- Vilemka\Components\ReservationControl([
+		pricePerDay: %pricePerDay%
+	])
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
 	- Vilemka\MessageRepository
 	- Vilemka\Components\FooterControl([

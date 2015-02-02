@@ -1,5 +1,9 @@
 <div id="reservation-control">
 
+	<figure class="reservation-control-info">
+		<p><strong>Cena:</strong> {$vars->pricePerDay} Kč / den / celý objekt (nejsme plátci DPH)</p>
+	</figure>
+
 	{if $flashes}
 	<ul n:if="$flashes" class="flashes">
 		<li n:foreach="$flashes as $flash" class="flash">{$flash->message}</li>
