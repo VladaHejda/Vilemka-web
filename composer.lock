@@ -1144,12 +1144,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/VladaHejda/calendarPHP.git",
-                "reference": "e3b78f501d1567839be7c8efef818f609aa1c579"
+                "reference": "1b90e05222440b7b840e7f7ca7a62355d9924a2d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/VladaHejda/calendarPHP/zipball/e3b78f501d1567839be7c8efef818f609aa1c579",
-                "reference": "e3b78f501d1567839be7c8efef818f609aa1c579",
+                "url": "https://api.github.com/repos/VladaHejda/calendarPHP/zipball/1b90e05222440b7b840e7f7ca7a62355d9924a2d",
+                "reference": "1b90e05222440b7b840e7f7ca7a62355d9924a2d",
                 "shasum": ""
             },
             "type": "library",
@@ -1172,7 +1172,7 @@
             "keywords": [
                 "calendar"
             ],
-            "time": "2014-11-24 22:02:51"
+            "time": "2015-01-30 00:03:54"
         }
     ],
     "packages-dev": [],
