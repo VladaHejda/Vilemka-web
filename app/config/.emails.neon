@@ -1,0 +1,24 @@
+services:
+	noreplySender:
+		class: Vilemka\ValueObject\EmailAddress(..., noreply@<host>)
+		autowired: no
+	orderEmail:
+		class: Vilemka\ValueObject\EmailAddress(..., %orderEmail.address%, %orderEmail.name%)
+		autowired: no
+	infoEmail:
+		class: Vilemka\ValueObject\EmailAddress(..., %infoEmail.address%, %infoEmail.name%)
+		autowired: no
+	adminEmail:
+		class: Vilemka\ValueObject\EmailAddress(..., %adminEmail.address%, %adminEmail.name%)
+		autowired: no
+
+	-
+		class: Vilemka\UserOrderNotifier(..., @orderEmail)
+		setup:
+			- setSignature(%signature%, @httpRequest)
+	- Vilemka\AdminOrderNotifier(..., @noreplySender, @adminEmail)
+	-
+		class: Vilemka\UserMessageCopyNotifier(..., @infoEmail)
+		setup:
+			- setSignature(%signature%, @httpRequest)
+	- Vilemka\AdminMessageNotifier(..., @noreplySender, @adminEmail)

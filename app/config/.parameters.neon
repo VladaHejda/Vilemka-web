@@ -1,0 +1,32 @@
+parameters:
+	database:
+		dsn:
+		user:
+		password:
+
+	debugEmail:
+	orderEmail:
+		address: ubytovani@<host>
+		name: "Vilémka.cz rezervace"
+	infoEmail:
+		address: info@<host>
+		name: "Vilémka.cz info"
+	adminEmail:
+		address:
+		name: Vilémka.cz
+
+	supplier:
+		contactPerson:
+		idNumber:
+		phone:
+	signature:
+		- "S pozdravem a přáním hezkého dne"
+		- %supplier.contactPerson%
+		- "IČO: %supplier.idNumber%"
+		- "Ubytování v jižních čechách - chata Vilémka (http://<host>)"
+		- "tel.: %supplier.phone%"
+		- "e-mail.: <sender>"
+	facebookUrl:
+
+	maxPersonsCapacity: 6
+	pricePerDay:

@@ -1,0 +1,53 @@
+php:
+	date.timezone: Europe/Prague
+
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: Vilemka\Presenters\*Presenter
+
+	session:
+		expiration: 14 days
+
+	database:
+		dsn: %database.dsn%
+		user: %database.user%
+		password: %database.password%
+		options:
+			lazy: yes
+
+
+services:
+	-
+		class: Vilemka\Presenters\HomepagePresenter([
+			capacity: %maxPersonsCapacity%
+		])
+		setup:
+			- setDebugEmail(%debugEmail%)
+
+	- Vilemka\RouterFactory
+	router: @Vilemka\RouterFactory::createRouter
+
+	calendar:
+		class: Calendar
+		setup:
+			- setDayHeadings([NE, PO, ÚT, ST, ČT, PÁ, SO])
+			- setMonthHeadings([Leden, Únor, Březen, Duben, Květen, Červen, Červenec, Srpen, Září, Říjen, Listopad, Prosinec])
+
+	- Vilemka\OccupationRepository
+	- Vilemka\OccupationCalendar
+	- Vilemka\Components\ReservationControl([
+		pricePerDay: %pricePerDay%
+	])
+	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
+	- Vilemka\MessageRepository
+	- Vilemka\Components\FooterControl([
+		contactPerson: %supplier.contactPerson%
+		idNumber: %supplier.idNumber%
+		phone: %supplier.phone%
+		email: @orderEmail
+		facebookUrl: %facebookUrl%,
+		mapUrl: %mapUrl%
+	])
