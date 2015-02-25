@@ -93,12 +93,12 @@ services:
 		mapUrl: %mapUrl%
 	])
 	-
-		class: Vilemka\UserOrderNotifier(..., ..., @orderEmail)
+		class: Vilemka\UserOrderNotifier(..., @orderEmail)
 		setup:
 			- setSignature(%signature%, @httpRequest)
-	- Vilemka\AdminOrderNotifier(..., ..., @noreplySender, @orderEmail)
+	- Vilemka\AdminOrderNotifier(..., @noreplySender, @orderEmail)
 	-
-		class: Vilemka\UserMessageCopyNotifier(..., ..., @infoEmail)
+		class: Vilemka\UserMessageCopyNotifier(..., @infoEmail)
 		setup:
 			- setSignature(%signature%, @httpRequest)
-	- Vilemka\AdminMessageNotifier(..., ..., @noreplySender, @infoEmail)
+	- Vilemka\AdminMessageNotifier(..., @noreplySender, @infoEmail)

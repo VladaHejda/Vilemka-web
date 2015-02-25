@@ -2,7 +2,6 @@
 
 namespace Vilemka;
 
-use Nette\Http\Request;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message;
 use Vilemka\ValueObject\EmailAddress;
@@ -22,11 +21,10 @@ abstract class Notifier extends \Nette\Object
 
 	/**
 	 * @param IMailer $mailer
-	 * @param Request $request
 	 * @param EmailAddress $sender
 	 * @param EmailAddress $recipient
 	 */
-	public function __construct(IMailer $mailer, Request $request, EmailAddress $sender, EmailAddress $recipient = null)
+	public function __construct(IMailer $mailer, EmailAddress $sender, EmailAddress $recipient = null)
 	{
 		$this->sender = $sender;
 		$this->recipient = $recipient;
