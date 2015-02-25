@@ -3,7 +3,7 @@
 		"classmap": ["app/"]
 	},
 	"require": {
-		"nette/nette": "~2.2.0",
+		"nette/nette": "~2.3.0",
 		"vladahejda/calendarphp": "dev-master"
 	}
 }
