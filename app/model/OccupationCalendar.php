@@ -5,7 +5,7 @@ namespace Vilemka;
 /**
  * @todo cache
  */
-class OccupationCalendar
+class OccupationCalendar extends \Nette\Object
 {
 
 	/** @var \Calendar */

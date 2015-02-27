@@ -5,7 +5,7 @@ namespace Vilemka;
 use DateTime;
 use Nette\Database\Context;
 
-class OccupationRepository
+class OccupationRepository extends \Nette\Object
 {
 
 	/** @var Context */

@@ -5,7 +5,7 @@ namespace Vilemka;
 use Nette\Database\Context;
 use Vilemka\ValueObject\EmailAddress;
 
-class MessageRepository
+class MessageRepository extends \Nette\Object
 {
 
 	/** @var Context */
