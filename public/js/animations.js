@@ -95,7 +95,9 @@ $(function() {
 
 
 	/*********** photo show ***********/
-	photo.find('li a').vanillabox();
+	photo.find('li a').vanillabox({
+		loop: true
+	});
 
 
 	/*********** calendar select tour ***********/
