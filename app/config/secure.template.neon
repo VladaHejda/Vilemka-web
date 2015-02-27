@@ -1,0 +1,27 @@
+common:
+	parameters:
+		supplier:
+			contactPerson:
+			idNumber:
+			phone:
+
+		facebookUrl:
+		mapUrl:
+
+		pricePerDay:
+
+		debugEmail:
+
+dev < common:
+	parameters:
+		database:
+			dsn: 'mysql:host=127.0.0.1;dbname='
+			user: root
+			password: xylofon
+
+production < common:
+	parameters:
+		database:
+			dsn: 'mysql:host=127.0.0.1;dbname='
+			user:
+			password:
