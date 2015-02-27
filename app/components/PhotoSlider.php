@@ -2,6 +2,8 @@
 
 namespace Vilemka\Components;
 
+use Nette\Utils\Strings;
+
 class PhotoSlider extends \Nette\Application\UI\Control
 {
 
@@ -46,7 +48,8 @@ class PhotoSlider extends \Nette\Application\UI\Control
 		$showCount = 0;
 		foreach ($photosIterator as $photo) {
 			$filename = $photo->getFilename();
-			$photos[] = $filename;
+			$alt = Strings::firstUpper(str_replace('_', ' ', substr($filename, 0, strrpos($filename, '.'))));
+			$photos[$alt] = $filename;
 			if ($i == $this->photoMove) {
 				$showCount = $this->displayedPhotosCount;
 			}

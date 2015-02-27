@@ -1,9 +1,9 @@
 <div id="photo-slider">
 	<div class="arrow arrow-left"><a href="{link this photoMove => $previous}#foto">&nbsp;</a></div>
-		<ul n:inner-foreach="$photos as $photo">
+		<ul n:inner-foreach="$photos as $alt => $photo">
 			<li n:class="isset($show[$photo]) ? show">
 				<a href="{$basePath}/images/photos/{$photo}">
-					<img src="{$basePath}/images/photos/{$photo}" alt="">
+					<img src="{$basePath}/images/photos/{$photo}" alt="{$alt}">
 				</a>
 			</li>
 		</ul>
