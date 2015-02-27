@@ -11,6 +11,8 @@ common:
 		pricePerDay:
 
 		debugEmail:
+		adminEmail:
+			address:
 
 dev < common:
 	parameters:
@@ -22,6 +24,6 @@ dev < common:
 production < common:
 	parameters:
 		database:
-			dsn: 'mysql:host=127.0.0.1;dbname='
+			dsn: 'mysql:host=;dbname='
 			user:
 			password:
