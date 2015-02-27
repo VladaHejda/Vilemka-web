@@ -25,6 +25,9 @@ class FooterControl extends \Nette\Application\UI\Control
 	/** @var AdminMessageNotifier */
 	protected $adminMessageNotifier;
 
+	/** @var ContactForm */
+	protected $contactForm;
+
 	/** @var Request */
 	protected $request;
 
@@ -34,15 +37,17 @@ class FooterControl extends \Nette\Application\UI\Control
 	 * @param MessageRepository $messageRepository
 	 * @param UserMessageCopyNotifier $userMessageCopyNotifier
 	 * @param AdminMessageNotifier $adminMessageNotifier
+	 * @param ContactForm $contactForm
 	 * @param Request $request
 	 */
 	public function __construct(array $templateVars, MessageRepository $messageRepository, UserMessageCopyNotifier $userMessageCopyNotifier,
-		AdminMessageNotifier $adminMessageNotifier, Request $request)
+		AdminMessageNotifier $adminMessageNotifier, ContactForm $contactForm, Request $request)
 	{
 		parent::__construct();
 		$this->messageRepository = $messageRepository;
 		$this->userMessageCopyNotifier = $userMessageCopyNotifier;
 		$this->adminMessageNotifier = $adminMessageNotifier;
+		$this->contactForm = $contactForm;
 		$this->request = $request;
 		$this->templateVars = (object) $templateVars;
 	}
@@ -50,9 +55,8 @@ class FooterControl extends \Nette\Application\UI\Control
 
 	public function createComponentContactForm()
 	{
-		$form = new ContactForm;
-		$form->onSuccess[] = [$this, 'sendMessage'];
-		return $form;
+		$this->contactForm->onSuccess[] = [$this, 'sendMessage'];
+		return $this->contactForm;
 	}
 
 

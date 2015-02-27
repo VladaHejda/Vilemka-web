@@ -30,19 +30,24 @@ class HomepagePresenter extends BasePresenter
 	/** @var FooterControl */
 	protected $footerControl;
 
+	/** @var FooterControl */
+	protected $photoSlider;
+
 
 	/**
 	 * @param array $templateVars
 	 * @param OccupationCalendar $occupationCalendar
 	 * @param ReservationControl $reservationControl
 	 * @param FooterControl $footerControl
+	 * @param PhotoSlider $photoSlider
 	 */
 	public function __construct(array $templateVars, OccupationCalendar $occupationCalendar,
-		ReservationControl $reservationControl, FooterControl $footerControl)
+		ReservationControl $reservationControl, FooterControl $footerControl, PhotoSlider $photoSlider)
 	{
 		$this->occupationCalendar = $occupationCalendar;
 		$this->reservationControl = $reservationControl;
 		$this->footerControl = $footerControl;
+		$this->photoSlider = $photoSlider;
 		$this->templateVars = (object) $templateVars;
 	}
 
@@ -97,7 +102,7 @@ class HomepagePresenter extends BasePresenter
 	 */
 	public function createComponentPhotoSlider()
 	{
-		return new PhotoSlider;
+		return $this->photoSlider;
 	}
 
 

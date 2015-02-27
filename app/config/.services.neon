@@ -42,6 +42,8 @@ services:
 		pricePerDay: %pricePerDay%
 	])
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
+	- Vilemka\Components\PhotoSlider
+	- Vilemka\Components\ContactForm
 	- Vilemka\MessageRepository
 	- Vilemka\Components\FooterControl([
 		contactPerson: %supplier.contactPerson%
