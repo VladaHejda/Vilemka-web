@@ -107,15 +107,15 @@ class ReservationForm extends \Nette\Application\UI\Form
 			->addRule(self::INTEGER, $message = 'Prosím, zadejte počet osob od %d do %d.', [1, $this->maxPersonsCapacity])
 			->addRule(self::RANGE, $message, [1, $this->maxPersonsCapacity])
 			->setAttribute('placeholder', sprintf('1 - %d', $this->maxPersonsCapacity))
-			->getControlPrototype()->addClass('text')
+			->setAttribute('class', 'text')
 		;
 
 		$this->addText('email', 'E-mailová adresa:')
 			->setType('email')
+			->setAttribute('class', 'text')
 			->addCondition(self::FILLED)
 				->addRule(self::EMAIL, 'E-mailová adresa není správně.')
 		;
-		$this['email']->getControlPrototype()->addClass('text');
 
 		$this->addText('phone', 'Telefonní číslo:')
 			->setRequired('Prosím, zadejte telefonní číslo.')
@@ -124,7 +124,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 		;
 
 		$this->addTextArea('notice', 'Poznámka:')
-			->getControlPrototype()->addClass('textarea')
+			->setAttribute('class', 'text')
 		;
 
 		$this->addSubmit('send', 'Zaslat objednávku');
