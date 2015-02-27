@@ -14,7 +14,7 @@ common:
 		adminEmail:
 			address:
 
-dev < common:
+development < common:
 	parameters:
 		database:
 			dsn: 'mysql:host=127.0.0.1;dbname='

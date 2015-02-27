@@ -8,12 +8,11 @@ $configurator->setDebugMode([]);
 $configurator->enableDebugger(__DIR__ . '/../log');
 $configurator->setTempDirectory(__DIR__ . '/../temp');
 
-$environment = $configurator->isDebugMode() ? 'dev' : 'production';
 $configurator
 	->addConfig(__DIR__ . '/config/.parameters.neon')
 	->addConfig(__DIR__ . '/config/.services.neon')
 	->addConfig(__DIR__ . '/config/.emails.neon')
-	->addConfig(__DIR__ . '/config/.secure.neon', $environment)
+	->addConfig(__DIR__ . '/config/.secure.neon', $configurator::AUTO)
 ;
 
 $container = $configurator->createContainer();
