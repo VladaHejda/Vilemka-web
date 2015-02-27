@@ -1,5 +1,3 @@
-CREATE DATABASE `vilemka_new` COLLATE 'utf8_czech_ci';
-
 CREATE TABLE client (
 	id INT(1) UNSIGNED NOT NULL AUTO_INCREMENT,
 	name VARCHAR(255) NOT NULL,
