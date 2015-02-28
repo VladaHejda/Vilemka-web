@@ -1,6 +1,7 @@
 /log/*
 /temp/*
 /vendor/*
+/public/components
 !.gitignore
 !.htaccess
 !web.config
