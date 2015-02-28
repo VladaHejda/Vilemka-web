@@ -6,3 +6,4 @@
 !.htaccess
 !web.config
 /app/config/.secure.neon
+/public/css/*.css
