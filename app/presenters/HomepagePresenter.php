@@ -2,6 +2,7 @@
 
 namespace Vilemka\Presenters;
 
+use Nette\Application\BadRequestException;
 use Vilemka\Components\PhotoSlider;
 use Vilemka\Components\ReservationControl;
 use Vilemka\Components\FooterControl;
@@ -61,17 +62,21 @@ class HomepagePresenter extends BasePresenter
 
 	/**
 	 * @param string $markWeek
-	 * @throws \Nette\Application\BadRequestException
+	 * @throws BadRequestException
 	 */
 	public function actionDefault($markWeek = '')
 	{
-		try {
-			$this->occupationCalendar->injectDataString($markWeek);
-		} catch (\InvalidArgumentException $e) {
-			throw new \Nette\Application\BadRequestException($e->getMessage());
+		$markWeek = trim($markWeek);
+		if (!empty($markWeek)) {
+			@list($year, $week) = explode('/', $markWeek);
+			if (!ctype_digit($year) || !ctype_digit($week) || $year < 0 || $week < 0 || $week > 53) {
+				throw new BadRequestException(sprintf('Malformed week mark "%s".', $markWeek));
+			}
+			$this->reservationControl->setSelectedWeek($year, $week);
 		}
-		$this->occupationCalendar->setLinkCreator(function($dataString) {
-			return $this->link('this#rezervace', ['markWeek' => $dataString]);
+
+		$this->occupationCalendar->setLinkCreator(function($year, $week) {
+			return $this->link('this#rezervace', ['markWeek' => sprintf('%d/%d', $year, $week)]);
 		});
 	}
 

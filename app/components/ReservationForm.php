@@ -33,6 +33,17 @@ class ReservationForm extends \Nette\Application\UI\Form
 	}
 
 
+	public function setSelectedWeek($year, $week)
+	{
+		$date = (new DateTime)->setISODate($year, $week)->modify('-2 days');
+		$from = $date->format('j. n. Y');
+		$to = $date->modify('+7 days')->format('j. n. Y');
+
+		$this->getComponent('from')->setDefaultValue($from);
+		$this->getComponent('to')->setDefaultValue($to);
+	}
+
+
 	protected function createFields()
 	{
 		$today = new DateTime;

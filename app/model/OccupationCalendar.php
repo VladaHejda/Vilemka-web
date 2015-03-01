@@ -14,9 +14,6 @@ class OccupationCalendar extends \Nette\Object
 	/** @var OccupationRepository */
 	protected $occupationRepository;
 
-	/** @var array $markedData [ int $year => [ int $satSatWeek, ... ], ... ] */
-	protected $markedData;
-
 	/** @var callable */
 	protected $linkCreator;
 
@@ -42,48 +39,6 @@ class OccupationCalendar extends \Nette\Object
 
 
 	/**
-	 * @param string $dataString
-	 * @return self
-	 * @throws \InvalidArgumentException
-	 * @throws \BadMethodCallException
-	 */
-	public function injectDataString($dataString)
-	{
-		if ($this->markedData !== NULL) {
-			throw new \BadMethodCallException('Data string already injected.');
-		}
-
-		$this->markedData = [];
-		$dataString = trim($dataString);
-		if (!empty($dataString)) {
-			$today = new \DateTime;
-			$currentYear = (int) $today->format('Y');
-			$currentWeek = $this->getSatSatWeekNumber($today);
-
-			foreach (explode('|', $dataString) as $weekData) {
-				$weekData = explode('/', $weekData);
-				if (count($weekData) !== 2) {
-					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
-				}
-				list($year, $week) = $weekData;
-				if (!ctype_digit($year) || !ctype_digit($week) || $year < 0 || $week < 0 || $week > 53) {
-					throw new \InvalidArgumentException("Malformed data string '$dataString'.");
-				}
-				if ($year < $currentYear || ($year === $currentYear && $week <= $currentWeek)) {
-					continue;
-				}
-				if (isset($this->markedData[$year]) && in_array($week, $this->markedData[$year])) {
-					continue;
-				}
-				$this->markedData[$year][] = $week;
-			}
-		}
-
-		return $this;
-	}
-
-
-	/**
 	 * @param callable $linkCreator (string $dataString)
 	 * @return self
 	 */
@@ -103,24 +58,11 @@ class OccupationCalendar extends \Nette\Object
 
 		$bookedPeriods = $this->getBookedPeriods($month, $year);
 		$availableDays = $this->calculateAvailableDays($month, $year, $bookedPeriods);
-		$markedDays = $this->calculateMarkedDays($month, $year, $availableDays);
 
 		$this->markOccupiedDays($bookedPeriods);
 		$this->markAvailableDays($availableDays);
-//		$this->markMarkedDays($markedDays);
 
 		return $this->calendar->render($month, $year);
-	}
-
-
-	public function getMarkedPeriodsSinceToday()
-	{
-		$today = new \DateTime;
-		$currentWeek = $this->getSatSatWeekNumber($today);
-		$currentYear = (int) $today->format('Y');
-		foreach ($this->markedData as $year => $weeks) {
-
-		}
 	}
 
 
@@ -199,18 +141,6 @@ class OccupationCalendar extends \Nette\Object
 
 
 	/**
-	 * @param int $month
-	 * @param int $year
-	 * @param \DateTime[] $availableDays
-	 * @return \DateTime[]
-	 */
-	protected function calculateMarkedDays($month, $year, $availableDays)
-	{
-
-	}
-
-
-	/**
 	 * @param \DatePeriod[] $periods
 	 */
 	protected function markOccupiedDays(array $periods)
@@ -236,8 +166,7 @@ class OccupationCalendar extends \Nette\Object
 		foreach ($days as $day) {
 			$weekNumber = $this->getSatSatWeekNumber($day);
 			if ($this->linkCreator) {
-				$dataString = $this->getSerializedDataString((int) $day->format('Y'), $weekNumber);
-				$pattern = '<a href="' . call_user_func($this->linkCreator, $dataString) . '">%d</a>';
+				$pattern = '<a href="' . call_user_func($this->linkCreator, (int) $day->format('Y'), $weekNumber) . '">%d</a>';
 				$this->calendar->setExtraDatePattern($day, $pattern);
 			}
 			$classes = [
@@ -272,33 +201,6 @@ class OccupationCalendar extends \Nette\Object
 		$date = clone $date;
 		$date->add(new \DateInterval('P2D'));
 		return (int) $date->format('W');
-	}
-
-
-	protected function getSerializedDataString($addYear, $addWeek)
-	{
-		$markedData = $this->markedData;
-		if (isset($markedData[$addYear])) {
-			$index = array_search($addWeek, $markedData[$addYear]);
-
-			// mark
-			if ($index === FALSE) {
-				$markedData[$addYear][] = $addWeek;
-			// unmark
-			} else {
-				unset($markedData[$addYear][$index]);
-			}
-		} else {
-			$markedData[$addYear] = [$addWeek];
-		}
-
-		foreach ($markedData as $year => & $weeks) {
-			foreach ($weeks as & $week) {
-				$week = "$year/$week";
-			}
-			$weeks = implode('|', $weeks);
-		}
-		return implode('|', $markedData);
 	}
 
 }

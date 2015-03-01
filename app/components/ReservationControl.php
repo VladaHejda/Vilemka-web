@@ -54,6 +54,12 @@ class ReservationControl extends \Nette\Application\UI\Control
 	}
 
 
+	public function setSelectedWeek($year, $week)
+	{
+		$this->form->setSelectedWeek($year, $week);
+	}
+
+
 	public function createComponentReservationForm()
 	{
 		$this->form->onSuccess[] = [$this, 'sendOrder'];
