@@ -39,19 +39,17 @@ class ReservationForm extends \Nette\Application\UI\Form
 		$datePattern = '(0?[0-9]|[12][0-9]|3[01])\\s*\\.\\s*(0?[0-9]|1[0-2])\\s*\\.\\s*[2-9][0-9]{3}';
 		$dateParsePattern = '([0-9]+)\\s*\\.\\s*([0-9]+)\\s*\\.\\s*([0-9]+)';
 		$dateFormatHelp = 'den. měsíc. rok';
-		$labelFrom = 'Od';
-		$labelTo = 'Do';
 
 		$this->addText('name', 'Vaše jméno:')
 			->setRequired('Prosím, zadejte jméno.')
 			->addRule(self::MAX_LENGTH, 'Prosím, zkraťte jméno na %d znaků, delší se nám nevejde do databáze :(', 255)
 		;
 
-		$this->addText('from', "$labelFrom:")
+		$this->addText('from', "Od:")
 			->setAttribute('placeholder', $dateFormatHelp)
 			->setRequired('Prosím, zadejte termín.')
 
-			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelFrom, $dateFormatHelp), $datePattern)
+			->addRule(self::PATTERN, sprintf('Uveďte prosím datum ve formátu "%s".', $dateFormatHelp), $datePattern)
 
 			->addRule(function (TextBase $control) use (& $dateFrom, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
@@ -64,19 +62,25 @@ class ReservationForm extends \Nette\Application\UI\Form
 			}, 'Datum %value neexistuje...')
 
 			->addRule(function () use (& $dateFrom, $today) {
+				if (!$dateFrom) {
+					return true;
+				}
 				return $dateFrom > $today;
-			}, 'Datum "od" je v minulosti. Nelze rezerovovat termín v minulosti :)')
+			}, 'Nelze rezerovovat termín v minulosti :)')
 
 			->addRule(function() use (& $dateFrom) {
+				if (!$dateFrom) {
+					return true;
+				}
 				return (int) $dateFrom->format('w') === 6;
-			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
+			}, 'Lze rezervovat pouze turnusy od soboty do soboty.')
 		;
 
-		$this->addText('to', "$labelTo:")
+		$this->addText('to', "Do:")
 			->setAttribute('placeholder', $dateFormatHelp)
 			->setRequired('Prosím, zadejte termín.')
 
-			->addRule(self::PATTERN, sprintf('Uveďte prosím datum "%s" ve formátu "%s".', $labelTo, $dateFormatHelp), $datePattern)
+			->addRule(self::PATTERN, sprintf('Uveďte prosím datum ve formátu "%s".', $dateFormatHelp), $datePattern)
 
 			->addRule(function (TextBase $control) use (& $dateTo, $dateParsePattern) {
 				list(, $day, $month, $year) = Strings::match($control->getValue(), "/$dateParsePattern/");
@@ -89,14 +93,23 @@ class ReservationForm extends \Nette\Application\UI\Form
 			}, 'Datum %value neexistuje...')
 
 			->addRule(function() use (& $dateTo, & $dateFrom) {
+				if (!$dateFrom || !$dateTo) {
+					return true;
+				}
 				return $dateTo > $dateFrom;
-			}, sprintf('Datum "%s" musí následovat až po datu "%s".', $labelTo, $labelFrom))
+			}, 'Data musí následovat po sobě.')
 
 			->addRule(function() use (& $dateTo) {
+				if (!$dateTo) {
+					return true;
+				}
 				return (int) $dateTo->format('w') === 6;
-			}, sprintf('Lze rezervovat pouze turnusy od soboty do soboty. %s není sobota.', '%value'))
+			}, 'Lze rezervovat pouze turnusy od soboty do soboty.')
 
 			->addRule(function() use (& $dateTo, & $dateFrom) {
+				if (!$dateFrom || !$dateTo) {
+					return true;
+				}
 				return $this->occupationRepository->isPeriodFree($dateFrom, $dateTo);
 			}, 'Termín bohužel není volný :-(. Zkontrolujte kalendář výše.')
 		;
