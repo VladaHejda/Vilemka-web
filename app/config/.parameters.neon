@@ -4,7 +4,6 @@ parameters:
 		user:
 		password:
 
-	debugEmail:
 	orderEmail:
 		address: ubytovani@<host>
 		name: "Vilémka.cz rezervace"

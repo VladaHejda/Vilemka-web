@@ -20,13 +20,10 @@ nette:
 
 
 services:
-	-
-		class: Vilemka\Presenters\HomepagePresenter([
-			capacity: %maxPersonsCapacity%
-			pricePerDay: %pricePerDay%
-		])
-		setup:
-			- setDebugEmail(%debugEmail%)
+	- Vilemka\Presenters\HomepagePresenter([
+		capacity: %maxPersonsCapacity%
+		pricePerDay: %pricePerDay%
+	])
 
 	- Vilemka\RouterFactory
 	router: @Vilemka\RouterFactory::createRouter
