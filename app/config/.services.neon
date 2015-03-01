@@ -23,6 +23,7 @@ services:
 	-
 		class: Vilemka\Presenters\HomepagePresenter([
 			capacity: %maxPersonsCapacity%
+			pricePerDay: %pricePerDay%
 		])
 		setup:
 			- setDebugEmail(%debugEmail%)
@@ -38,9 +39,7 @@ services:
 
 	- Vilemka\OccupationRepository
 	- Vilemka\OccupationCalendar
-	- Vilemka\Components\ReservationControl([
-		pricePerDay: %pricePerDay%
-	])
+	- Vilemka\Components\ReservationControl([])
 	- Vilemka\Components\ReservationForm(%maxPersonsCapacity%)
 	- Vilemka\Components\PhotoSlider
 	- Vilemka\Components\ContactForm
