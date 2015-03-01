@@ -2,6 +2,9 @@
 
 namespace Vilemka;
 
+use DateTime;
+use DatePeriod;
+
 /**
  * @todo cache
  */
@@ -69,23 +72,25 @@ class OccupationCalendar extends \Nette\Object
 	/**
 	 * @param int $month
 	 * @param int $year
-	 * @return \DatePeriod[]
+	 * @return DatePeriod[]
 	 */
 	protected function getBookedPeriods($month, $year)
 	{
-		return $this->occupationRepository->getBookedPeriods($month, $year);
+		$since = new DateTime;
+		$since->modify(sprintf('+%d days', -(int) $since->format('w') +5));
+		return $this->occupationRepository->getBookedPeriods($month, $year, $since);
 	}
 
 
 	/**
 	 * @param int $month
 	 * @param int $year
-	 * @param \DatePeriod[] $bookedPeriods
-	 * @return \DateTime[]
+	 * @param DatePeriod[] $bookedPeriods
+	 * @return DateTime[]
 	 */
 	protected function calculateAvailableDays($month, $year, $bookedPeriods)
 	{
-		$today = new \DateTime;
+		$today = new DateTime;
 		$currentYear = (int) $today->format('Y');
 		$currentMonth = (int) $today->format('n');
 
@@ -96,12 +101,13 @@ class OccupationCalendar extends \Nette\Object
 		} elseif ($currentYear === $year && $month === $currentMonth) {
 			$dayOfWeek = $today->format('w');
 			$daysToSaturday = 6 - $dayOfWeek;
-			$firstFocusDay = new \DateTime("+ $daysToSaturday days");
+			$firstFocusDay = new DateTime("+ $daysToSaturday days");
+			$this->calendar->setExtraDateClass($firstFocusDay, 'first-focus-day');
 			$monthDaysCount = $firstFocusDay->format('t');
 			$remainingDaysCount =  $monthDaysCount - $firstFocusDay->format('j');
 
 		} else {
-			$firstFocusDay = new \DateTime("$year-$month-01");
+			$firstFocusDay = new DateTime("$year-$month-01");
 			$monthDaysCount = $firstFocusDay->format('t');
 			$remainingDaysCount = $monthDaysCount -1;
 			$daysOutsideBefore = $firstFocusDay->format('w');
@@ -114,7 +120,7 @@ class OccupationCalendar extends \Nette\Object
 			}
 		}
 
-		$lastDay = new \DateTime("$year-$month-$monthDaysCount");
+		$lastDay = new DateTime("$year-$month-$monthDaysCount");
 		$daysOutsideAfter = $lastDay->format('w');
 		if ($daysOutsideAfter) {
 			$daysOutsideAfter = 7 - $daysOutsideAfter;
@@ -127,7 +133,7 @@ class OccupationCalendar extends \Nette\Object
 			}
 		}
 
-		$monthPeriod = new \DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount + $daysOutsideAfter);
+		$monthPeriod = new DatePeriod($firstFocusDay, new \DateInterval('P1D'), $remainingDaysCount + $daysOutsideAfter);
 
 		$freeDays = [];
 		foreach ($monthPeriod as $day) {
@@ -141,7 +147,7 @@ class OccupationCalendar extends \Nette\Object
 
 
 	/**
-	 * @param \DatePeriod[] $periods
+	 * @param DatePeriod[] $periods
 	 */
 	protected function markOccupiedDays(array $periods)
 	{
@@ -154,7 +160,7 @@ class OccupationCalendar extends \Nette\Object
 			}
 
 			$firstDay->add(new \DateInterval('P1D'));
-			$penetratedPeriod = new \DatePeriod($firstDay, new \DateInterval('P1D'), iterator_count($period) -1);
+			$penetratedPeriod = new DatePeriod($firstDay, new \DateInterval('P1D'), iterator_count($period) -1);
 			$this->calendar->setExtraPeriodClass($penetratedPeriod, 'occupied-morning');
 		}
 	}
@@ -164,15 +170,14 @@ class OccupationCalendar extends \Nette\Object
 	{
 		$lastWeekNumber = $lastDay = NULL;
 		foreach ($days as $day) {
+			$classes = [];
 			$weekNumber = $this->getSatSatWeekNumber($day);
 			if ($this->linkCreator) {
 				$pattern = '<a href="' . call_user_func($this->linkCreator, (int) $day->format('Y'), $weekNumber) . '">%d</a>';
 				$this->calendar->setExtraDatePattern($day, $pattern);
 			}
-			$classes = [
-				'week-' . $weekNumber,
-				'available',
-			];
+			$classes[] = 'week-' . $weekNumber;
+			$classes[] = 'available';
 			if ($weekNumber !== $lastWeekNumber) {
 				$classes[] = 'first-week-day';
 				if ($lastDay) {
@@ -196,7 +201,7 @@ class OccupationCalendar extends \Nette\Object
 	}
 
 
-	protected function getSatSatWeekNumber(\DateTime $date)
+	protected function getSatSatWeekNumber(DateTime $date)
 	{
 		$date = clone $date;
 		$date->add(new \DateInterval('P2D'));

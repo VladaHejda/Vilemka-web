@@ -18,10 +18,12 @@ class OccupationRepository extends \Nette\Object
 	}
 
 
-	public function getBookedPeriods($month, $year)
+	public function getBookedPeriods($month, $year, DateTime $since = null)
 	{
-		$occupiedDays = $this->database->fetchAll('SELECT day FROM occupancy WHERE day LIKE ?',
-			sprintf('%d-%s%%', $year, str_pad((string) $month, 2, '0', STR_PAD_LEFT)));
+		$occupiedDays = $this->database->fetchAll('SELECT day FROM occupancy WHERE day LIKE ? AND day > ?',
+			sprintf('%d-%s%%', $year, str_pad((string) $month, 2, '0', STR_PAD_LEFT)),
+			$since ? $since->format('Y-m-d') : 0
+		);
 
 		$periods = [];
 		$oneDayInterval = new \DateInterval('P1D');

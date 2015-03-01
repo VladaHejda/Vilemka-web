@@ -22,6 +22,9 @@
 
 			.available {
 			  	span, a { background: @availableColor; }
+				&.first-focus-day a {
+					background: @availableColor url('../graphics/old-available.jpg') repeat-y;
+				}
 			}
 
 		 	a:hover, .available .hover { background: @hoverColor; }
@@ -31,6 +34,12 @@
 			.first-week-day {
 				.hover { background: @hoverColor url('../graphics/selected-evening.jpg') repeat-y; }
 				.last-week-day.hover { background: @availableColor url('../graphics/selected-morning.jpg') repeat-y; }
+				&.first-focus-day .hover {
+					background: @hoverColor url('../graphics/old-selected.jpg') repeat-y;
+				}
+			}
+			.occupied-evening.first-focus-day span {
+				background: @occupiedColor url('../graphics/old-occupied.jpg') repeat-y;
 			}
 		}
 
