@@ -71,7 +71,7 @@ class HomepagePresenter extends BasePresenter
 			throw new \Nette\Application\BadRequestException($e->getMessage());
 		}
 		$this->occupationCalendar->setLinkCreator(function($dataString) {
-			return $this->link('this#obsazenost', ['markWeek' => $dataString]);
+			return $this->link('this#rezervace', ['markWeek' => $dataString]);
 		});
 	}
 

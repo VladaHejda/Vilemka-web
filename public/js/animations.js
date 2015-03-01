@@ -5,6 +5,16 @@ $(function() {
 	var occupancy = $('#occupancy');
 	var photo = $('#photo');
 
+	var scrollToAnchor = function(anchor) {
+		var scroll;
+		if (anchor == 'top') {
+			scroll = 0;
+		} else {
+			scroll = $('a[name=' + anchor + ']').offset().top;
+		}
+		$('html, body').animate({scrollTop: scroll}, 1000);
+	};
+
 
 	/*********** slow bottom block scrolling ***********/
 	var scrollSlowdown = 1.5;
@@ -34,14 +44,7 @@ $(function() {
 	/*********** scroll to anchor ***********/
 	$('a[href^=#]').on('click', function(event){
 		event.preventDefault();
-		var anchor = $(this).attr('href').substring(1);
-		var scroll;
-		if (anchor == 'top') {
-			scroll = 0;
-		} else {
-			scroll = $('a[name=' + anchor + ']').offset().top;
-		}
-		$('html, body').animate({scrollTop: scroll}, 1000);
+		scrollToAnchor($(this).attr('href').substring(1));
 	});
 
 
@@ -50,10 +53,6 @@ $(function() {
 		$(this).find('li').stop().fadeIn(250);
 	}).on('mouseout', function() {
 		$(this).find('li').stop().fadeOut(100);
-		//var block = $(this).find('li');
-		//setTimeout(function() {
-		//	block.hide();
-		//}, 500);
 	}).find('li').css('display', 'none');
 
 
@@ -104,6 +103,9 @@ $(function() {
 	var findMonthNumber = function(el) {
 		return parseInt(el.closest('.calendar').attr('class').match(/month-([0-9]+)/)[1]);
 	};
+	var findYearNumber = function(el) {
+		return parseInt(el.closest('.calendar').find('.month td span').text());
+	};
 	var toggleHover = function(a, add) {
 		var classes = a.parent().attr('class').split(' ');
 		var weekNumber = 0;
@@ -141,15 +143,27 @@ $(function() {
 	};
 
 	var daysSelector = '.calendar tbody a';
-	// todo commented out until it is not working correctly
-	/*
 	doc.on('mouseover', daysSelector, function() {
 		toggleHover($(this), true);
 	});
 	doc.on('mouseout', daysSelector, function() {
 		toggleHover($(this), false);
 	});
-	*/
+
+	doc.on('click', '#occupancy .hover', function(event) {
+		event.preventDefault();
+		var a = $(this);
+		var from = new Date(findYearNumber(a), findMonthNumber(a), parseInt(a.text()));
+		from.setDate(from.getDate() +1);
+		var add = -from.getDay() +6;
+		var subtract = from.getDay() +1;
+		var to = new Date(from.getTime());
+		from.setDate(from.getDate() - subtract);
+		to.setDate(to.getDate() + add);
+		$('#reservation-from').val(from.getDate() + '. ' + (from.getMonth() +1) + '. ' + from.getFullYear());
+		$('#reservation-to').val(to.getDate() + '. ' + (to.getMonth() +1) + '. ' + to.getFullYear());
+		scrollToAnchor('rezervace');
+	});
 
 
 	/*********** calendar move ***********/

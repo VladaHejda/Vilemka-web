@@ -46,6 +46,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 		;
 
 		$this->addText('from', "Od:")
+			->setHtmlId('reservation-from')
 			->setAttribute('placeholder', $dateFormatHelp)
 			->setRequired('Prosím, zadejte termín.')
 
@@ -77,6 +78,7 @@ class ReservationForm extends \Nette\Application\UI\Form
 		;
 
 		$this->addText('to', "Do:")
+			->setHtmlId('reservation-to')
 			->setAttribute('placeholder', $dateFormatHelp)
 			->setRequired('Prosím, zadejte termín.')
 
